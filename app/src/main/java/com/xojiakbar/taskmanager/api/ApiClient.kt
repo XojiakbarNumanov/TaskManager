@@ -1,16 +1,27 @@
 package com.xojiakbar.taskmanager.api
 
+import android.content.Context
+import com.google.gson.GsonBuilder
+import com.xojiakbar.taskmanager.BuildConfig
+import me.sianaki.flowretrofitadapter.FlowCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiClient {
-    val  baseUrl = "http://143.198.129.165:8000/api/"
+object ApiClient {
+    var retrofit: Retrofit? = null
 
-    fun getApiService() : ApiService
-    {
-        return Retrofit.Builder().baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
+    fun initClient(context: Context?): Retrofit? {
+        if (retrofit == null) {
+            val client = OkhttpProvider.getOkhttpClient(context!!)
+            val gson = GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create()
+            retrofit = Retrofit.Builder()
+                .baseUrl(BuildConfig.SERVER_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        return retrofit
     }
 }

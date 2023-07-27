@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_marginStart="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/nameOfUser"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_person"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameOfUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26sp"
+            android:text="Numanov Xojiakbar"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="#616161" />
+
+
+</RelativeLayout>

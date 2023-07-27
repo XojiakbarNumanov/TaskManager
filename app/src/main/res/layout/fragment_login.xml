@@ -3,12 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
-        <variable
-            name="controller"
-            type="com.xojiakbar.taskmanager.fragments.login_fragment.LoginController" />
-    </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -74,7 +69,6 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_login"
                             android:drawablePadding="20dp"
-                            android:enabled="@{}"
                             android:hint="Login"
                             android:inputType="text"
                             android:maxLength="100"
@@ -100,7 +94,6 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_key"
                             android:drawablePadding="20dp"
-                            android:enabled="@{!controller.loading}"
                             android:hint="Password"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
@@ -116,16 +109,12 @@
                         android:indeterminateTint="@color/black"
                         android:scaleX="0.8"
                         android:scaleY="0.8"
-                        android:visibility="@{}"
                         tools:ignore="UnusedAttribute" />
 
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_margin="8dp"
-                        android:enabled="@{}"
-                        android:onClick="@{}"
-                        android:text="@{}"
                         android:textColor="@color/white"
                         tools:text="sadfgdas" />
 

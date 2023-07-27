@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_nav"
+    app:startDestination="@id/chooseLanguageFragment">
+
+    <fragment
+        android:id="@+id/chooseLanguageFragment"
+        android:name="com.xojiakbar.taskmanager.ChooseLanguageFragment"
+        android:label="ChooseLanguageFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.login_fragment.LoginFragment"
+        android:label="LoginFragment" />
+</navigation>

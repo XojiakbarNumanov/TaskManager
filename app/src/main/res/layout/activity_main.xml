@@ -1,18 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:id="@+id/drawerLayout"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#EFEFEF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_person"
+                app:civ_border_color="@color/black"
+                android:layout_marginStart="@dimen/margin_12"
+                app:civ_border_width="1dp"
+                app:civ_circle_background_color="@color/white" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_toEndOf="@id/user_image"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_10">
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Numanov Xojiakbar"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_14"
+                    />
+                <TextView
+                    android:id="@+id/user_job"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Android dasturchi"
+                    android:textSize="@dimen/text_10"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" >
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:backgroundTint="@color/white"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/nav_menu"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+
