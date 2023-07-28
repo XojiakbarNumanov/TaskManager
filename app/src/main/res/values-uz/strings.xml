@@ -6,8 +6,16 @@
     <string name="failure_to_connect">Server bilan ulanishda xatolik yuz berdi</string>
     <string name="change_language">Til o\'zgartirish</string>
     <string name="assignment">Topshiriqlar</string>
+    <string name="uzb">O\'zbekcha</string>
     <string name="accepted">Qabul qilindi</string>
     <string name="done">Bajarildi</string>
     <string name="in_progress">Jarayonda</string>
     <string name="returned_for_inspection">Tekshiruvga qaytarilgan</string>
+    <string name="report">Topshiriqlar xisoboti</string>
+    <string name="report_description">Siz ushbu bo\'limda yakunlangan, jarayonda, vaqtincha to\'xtatilgan va qabul qilinmagan topshiriqlar haqida ma\'lumot olasiz</string>
+    <string name="List_of_employees">Hodimlar ro’yxati</string>
+    <string name="count">Soni</string>
+    <string name="score">Bal</string>
+    <string name="degree">Daraja</string>
+    <string name="current_password">Joriy parol</string>
 </resources>

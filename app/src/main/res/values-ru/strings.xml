@@ -6,8 +6,18 @@
  <string name="failure_to_connect">Ошибка при подключении к серверу</string>
     <string name="change_language">Изменить язык</string>
     <string name="assignment">Задания</string>
+    <string name="uzb">O\'zbekcha</string>
     <string name="accepted">Принял</string>
     <string name="done">Сделанный</string>
     <string name="in_progress">В ходе выполнения</string>
     <string name="returned_for_inspection">Вернул на проверку</string>
+    <string name="report">Отчет о назначении</string>
+    <string name="report_description">В этом разделе вы будете получать информацию о выполненных, находящихся в работе, приостановленных и непринятых задачах.</string>
+    <string name="List_of_employees">Список сотрудников</string>
+    <string name="count">количество</string>
+    <string name="score">Ссчет</string>
+    <string name="degree">Степень</string>
+    <string name="current_password">Действующий пароль</string>
+   <string name="language">Язык приложения</string>
+
 </resources>

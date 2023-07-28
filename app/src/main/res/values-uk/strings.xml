@@ -6,8 +6,18 @@
     <string name="failure_to_connect">Сервер билан уланишда хатолик юз берди</string>
     <string name="change_language">Тил ўзгартириш</string>
     <string name="assignment">Топшириқлар</string>
+    <string name="uzb">O\'zbekcha</string>
     <string name="accepted">Қабул қилинди</string>
     <string name="done">Бажарилди</string>
     <string name="in_progress">Жараёнда</string>
     <string name="returned_for_inspection">Текширувга қайтарилган</string>
+    <string name="report">" Топшириқлар хисоботи"</string>
+    <string name="report_description">Сиз ушбу бўлимда якунланган, жараёнда, вақтинча тўхтатилган ва қабул қилинмаган топшириқлар ҳақида маълумот оласиз</string>
+    <string name="List_of_employees">Ҳодимлар рўйхати</string>
+    <string name="count">Сони</string>
+    <string name="score">"Бал "</string>
+    <string name="degree">Даража</string>
+    <string name="current_password">Жорий парол</string>
+    <string name="language">Дастур тили</string>
+
 </resources>

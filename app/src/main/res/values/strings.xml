@@ -22,5 +22,15 @@
     <string name="done">Bajarildi</string>
     <string name="in_progress">Jarayonda</string>
     <string name="returned_for_inspection">Tekshiruvga qaytarilgan</string>
+    <string name="report">Topshiriqlar xisoboti</string>
+    <string name="report_description">Siz ushbu bo\'limda yakunlangan, jarayonda, vaqtincha to\'xtatilgan va qabul qilinmagan topshiriqlar haqida ma\'lumot olasiz</string>
+    <string name="List_of_employees">Hodimlar ro’yxati</string>
+    <string name="count">Soni</string>
+    <string name="score">Bal</string>
+    <string name="degree">Daraja</string>
+    <string name="current_password">Joriy parol</string>
+    <string name="new_password">Yangi parol</string>
+    <string name="confirm_password">Paroni tasdiqlash</string>
+    <string name="language">Dastur tili</string>
 
 </resources>
