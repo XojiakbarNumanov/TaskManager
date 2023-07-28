@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/chooseLanguageFragment"
-        android:name="com.xojiakbar.taskmanager.ChooseLanguageFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.choose_language_fragment.ChooseLanguageFragment"
         android:label="ChooseLanguageFragment" />
     <fragment
         android:id="@+id/loginFragment"

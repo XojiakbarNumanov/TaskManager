@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_pink">#FFDBEB</color>
+    <color name="dark_pink">#FF73A9</color>
+    <color name="light_violet">#DAD9FF</color>
+    <color name="dark_violet">#726DE3</color>
+    <color name="light_green">#DAFFE2</color>
+    <color name="dark_green">#75B483</color>
+    <color name="cream">#FFF5D7</color>
+    <color name="sunglow">#FFCC3A</color>
+    <color name="light_blue">#D6EAFF</color>
+    <color name="dark_blue">#499DFF</color>
+    <color name="red">#FF0000</color>
+
+
+
 </resources>

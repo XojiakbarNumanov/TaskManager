@@ -10,9 +10,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-//
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_login) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        navController.navigate(R.id.chooseLanguageFragment)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_login) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.chooseLanguageFragment)
     }
 }

@@ -5,4 +5,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="failure_to_connect">Server bilan ulanishda xatolik yuz berdi</string>
     <string name="change_language">Til o\'zgartirish</string>
+    <string name="assignment">Topshiriqlar</string>
+    <string name="accepted">Qabul qilindi</string>
+    <string name="done">Bajarildi</string>
+    <string name="in_progress">Jarayonda</string>
+    <string name="returned_for_inspection">Tekshiruvga qaytarilgan</string>
 </resources>

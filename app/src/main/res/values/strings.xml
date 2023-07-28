@@ -17,5 +17,10 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="change_language">Til o\'zgartirish</string>
+    <string name="assignment">Topshiriqlar</string>
+    <string name="accepted">Qabul qilindi</string>
+    <string name="done">Bajarildi</string>
+    <string name="in_progress">Jarayonda</string>
+    <string name="returned_for_inspection">Tekshiruvga qaytarilgan</string>
 
 </resources>

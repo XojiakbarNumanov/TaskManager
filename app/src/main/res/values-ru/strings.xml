@@ -5,4 +5,9 @@
  <string name="hello_blank_fragment">Hello blank fragment</string>
  <string name="failure_to_connect">Ошибка при подключении к серверу</string>
     <string name="change_language">Изменить язык</string>
+    <string name="assignment">Задания</string>
+    <string name="accepted">Принял</string>
+    <string name="done">Сделанный</string>
+    <string name="in_progress">В ходе выполнения</string>
+    <string name="returned_for_inspection">Вернул на проверку</string>
 </resources>
