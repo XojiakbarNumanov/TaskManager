@@ -25,7 +25,7 @@ abstract class BaseRepository(application: Application) {
 
     val api: ApiService
         get() {
-            if (retrofitClient == null) retrofitClient = ApiClient.initClient(context)
+            if (retrofitClient == null) retrofitClient = ApiClient.initClient()
             return retrofitClient!!.create(ApiService::class.java)
         }
 

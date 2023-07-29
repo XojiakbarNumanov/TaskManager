@@ -10,18 +10,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
     var retrofit: Retrofit? = null
 
-    fun initClient(context: Context?): Retrofit? {
+    fun initClient(): Retrofit? {
         if (retrofit == null) {
-            val client = OkhttpProvider.getOkhttpClient(context!!)
-            val gson = GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create()
             retrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.SERVER_URL)
-                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(FlowCallAdapterFactory.create())
                 .build()
         }
         return retrofit
     }
+    val apiService = initClient()?.create(ApiService::class.java)
 }

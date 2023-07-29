@@ -9,10 +9,14 @@ object Preferences{
     fun init(context: Context) {
         sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
+    fun getIsFirst() :Boolean {
+        return sharedPreferences!!.getBoolean("is_first", true)
+    }
+    fun setIsFirst(isFirst: Boolean) {
+        sharedPreferences!!.edit().putBoolean("is_first",isFirst).apply()
+    }
     fun getAppLanguage(): String {
-        if (sharedPreferences != null )
             return sharedPreferences!!.getString("app_language", "uz").toString()
-        else return "uz"
     }
     fun setAppLanguage(language: String) {
         sharedPreferences!!.edit().putString("app_language",language).apply()
@@ -49,5 +53,19 @@ object Preferences{
     }
     fun setUserPassword(password: String) {
         sharedPreferences!!.edit().putString("UserPassword",password).apply()
+    }
+
+    fun setUserFIO(fio: String) {
+        sharedPreferences!!.edit().putString("UserFio",fio).apply()
+    }
+    fun getUserFIO():String{
+            return sharedPreferences!!.getString("UserFio","").toString()
+    }
+
+    fun setUserPasswordHash(stringDigest: String?) {
+        sharedPreferences!!.edit().putString("UserPasswordHash",stringDigest).apply()
+    }
+    fun getUserPasswordHash():String{
+        return sharedPreferences!!.getString("UserPasswordHash","").toString()
     }
 }

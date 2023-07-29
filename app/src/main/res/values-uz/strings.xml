@@ -18,4 +18,6 @@
     <string name="score">Bal</string>
     <string name="degree">Daraja</string>
     <string name="current_password">Joriy parol</string>
+    <string name="menu_settings">Sozlamalar</string>
+
 </resources>

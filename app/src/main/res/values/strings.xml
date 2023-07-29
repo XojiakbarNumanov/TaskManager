@@ -32,5 +32,8 @@
     <string name="new_password">Yangi parol</string>
     <string name="confirm_password">Paroni tasdiqlash</string>
     <string name="language">Dastur tili</string>
+    <string name="menu_settings">Sozlamalar</string>
+    <string name="settings_language">Dastur tili</string>
+    <string name="current_lang">O\'zbekcha</string>
 
 </resources>

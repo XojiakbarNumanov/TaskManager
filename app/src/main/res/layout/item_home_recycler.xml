@@ -5,13 +5,12 @@
     android:layout_height="wrap_content"
     android:backgroundTint="@color/dark_blue"
     app:cardCornerRadius="@dimen/margin_8"
-    android:padding="@dimen/margin_8"
     android:layout_margin="@dimen/margin_8">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_4"
+        android:layout_marginStart="@dimen/margin_6"
         android:background="@color/light_blue">
 
         <androidx.cardview.widget.CardView
@@ -21,37 +20,31 @@
             app:cardCornerRadius="8dp"
             android:layout_marginTop="@dimen/margin_8"
             android:backgroundTint="@color/dark_blue"
-            android:padding="10dp"
             android:layout_marginStart="@dimen/margin_8"
             >
             <TextView
                 android:id="@+id/user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_8"
+                android:layout_marginVertical="@dimen/margin_2"
+                android:layout_marginHorizontal="@dimen/margin_16"
                 android:text="123456"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_16" />
         </androidx.cardview.widget.CardView>
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_project"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            android:layout_marginTop="@dimen/margin_8"
-            android:backgroundTint="@color/white"
-            android:layout_centerHorizontal="true"
-            android:padding="10dp"
-            >
             <TextView
                 android:id="@+id/project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_8"
                 android:text="ECOFOUND"
+                android:layout_marginTop="@dimen/margin_8"
+                android:fontFamily="@font/urbanistregular"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
                 android:textSize="@dimen/text_16" />
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_level"
@@ -63,28 +56,29 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/margin_16"
-            android:padding="10dp"
             >
             <TextView
                 android:id="@+id/level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_8"
+                android:layout_marginHorizontal="@dimen/margin_10"
+                android:layout_marginVertical="2dp"
+                android:fontFamily="@font/urbanistregular"
                 android:text="O'rta"
                 android:textSize="12sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"/>
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/card_project"
+            android:layout_below="@id/card_id"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_8"
-            android:fontFamily="@font/alegreya_sc"
+            android:fontFamily="@font/urbanistregular"
             android:text="CleantCityAbonentda oxirgi Play marketda releasega chiqarilgan versiyani Gitga push qilinmagan. Va oldingi versiyadan yangi versiya chiqarilganda Conflick yuzaga kelgan, Play consoledan oldingi versiyani qaytarib turish." />
 
         <RelativeLayout
@@ -99,6 +93,7 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="@dimen/margin_16"
+                android:foregroundGravity="center"
                 android:src="@drawable/ic_calendar" />
 
             <TextView
@@ -106,6 +101,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/calendar"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/margin_8"
                 android:text="12.12.2022.12:12"
                 android:textSize="14sp" />
 
@@ -113,8 +110,10 @@
                 android:id="@+id/clock"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:layout_toStartOf="@id/hour"
+                android:foregroundGravity="center"
+                android:padding="@dimen/margin_2"
                 android:src="@drawable/ic_clock" />
 
             <TextView
@@ -133,12 +132,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/relative"
             android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_16"
             android:orientation="horizontal">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_image"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginStart="@dimen/margin_12"
+                android:layout_marginStart="@dimen/margin_16"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_person"
                 app:civ_border_color="@color/black"
