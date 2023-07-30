@@ -1,44 +1,82 @@
 package com.xojiakbar.taskmanager.fragments.login_fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import com.xojiakbar.taskmanager.R
+import com.xojiakbar.taskmanager.Utils.Preferences
+import com.xojiakbar.taskmanager.api.result.ErrorResult
+import com.xojiakbar.taskmanager.data.beans.UserBean
 import com.xojiakbar.taskmanager.databinding.FragmentLoginBinding
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment() , LoginRouter {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private var  viewModel : LoginViewModel ? =null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val controller = LoginUIController(requireContext())
+        controller.router = this
+        binding.setController(controller)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel?.router = this
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
+
     }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
 
+    }
+
+    override fun checkLogin(username: String?, password: String?, remember: Boolean) {
+        viewModel?.login(username!!, password!!,remember)
+    }
+
+    override fun hideKeyboard() {
+        val view = requireActivity().currentFocus
+        if (view != null) {
+            val imm =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    override fun setLoading(b: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onSuccess(response: Any?) {
+        val navController = Navigation.findNavController(binding.root)
+            navController.navigate(R.id.createPinCodeFragment)
+        }
+
+
+    override fun onError(errorMsg: ErrorResult?) {
+        TODO("Not yet implemented")
     }
 
 

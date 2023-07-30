@@ -7,7 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import javax.security.auth.callback.Callback
 
 interface ApiService {
     @POST("/api/admin/auth/login")

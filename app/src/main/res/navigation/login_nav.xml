@@ -25,4 +25,12 @@
             app:destination="@id/chooseLanguageFragment"
             />
     </fragment>
+    <fragment
+        android:id="@+id/createPinCodeFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.create_pin_code.CreatePinCodeFragment"
+        android:label="CreatePinCodeFragment" />
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.password_fragment.PasswordFragment"
+        android:label="PasswordFragment" />
 </navigation>

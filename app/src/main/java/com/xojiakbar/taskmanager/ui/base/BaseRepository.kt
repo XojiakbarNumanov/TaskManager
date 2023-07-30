@@ -25,7 +25,7 @@ abstract class BaseRepository(application: Application) {
 
     val api: ApiService
         get() {
-            if (retrofitClient == null) retrofitClient = ApiClient.initClient()
+            if (retrofitClient == null) retrofitClient = ApiClient.initClient(context)
             return retrofitClient!!.create(ApiService::class.java)
         }
 
@@ -33,11 +33,12 @@ abstract class BaseRepository(application: Application) {
         msg = ""
         call.enqueue(object : Callback<T?> {
             override fun onResponse(call: Call<T?>, response: Response<T?>) {
-                if (response.isSuccessful && response.body() != null) loaderCallback.onSuccess(
+                if (response.isSuccessful && response.body() != null)
+                    loaderCallback.onSuccess(
                     response.body()!!
                 ) else {
                     val errorResult: ErrorResult = Utils.errorParser(response.errorBody()!!)!!
-                    if (errorResult.code !== -9999) {
+                    if (errorResult.code != -9999) {
                         loaderCallback.onErrorMsg(errorResult)
                     } else {
                         loaderCallback.onErrorMsg(ErrorResult(context.resources.getString(R.string.failure_to_connect)))

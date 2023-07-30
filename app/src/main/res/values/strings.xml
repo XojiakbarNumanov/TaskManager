@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Task manager</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="ok" translatable="false">Ok</string>
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="failure_to_connect">Server bilan ulanishda xatolik yuz berdi</string>
     <string name="russian">Русский</string>
@@ -35,5 +38,16 @@
     <string name="menu_settings">Sozlamalar</string>
     <string name="settings_language">Dastur tili</string>
     <string name="current_lang">O\'zbekcha</string>
+    <string name="input_login_please">Iltimos, loginingizni kiriting</string>
+    <string name="input_password_please">Iltimos, parolingizni kiriting</string>
+    <string name="cycrilic_error">Parol lotin harflar yoki sonlardan tashkil topgan bo\'lishi kerak</string>
+    <string name="sign_in_btn">Kirish</string>
+    <string name="create_passcode">PIN-kod</string>
+    <string name="create_pass_desc">Shaxsiy ma`lumotlaringizni PIN-kod bilan ximoyalash uchun quyidagi maydonlarni to`ldiring</string>
+    <string name="pin_code">PIN-kod</string>
+    <string name="pin_code_is_required">PIN-kod kiritilishi shart</string>
+    <string name="pin_error">PIN-kod xato kiritildi</string>
+
+
 
 </resources>

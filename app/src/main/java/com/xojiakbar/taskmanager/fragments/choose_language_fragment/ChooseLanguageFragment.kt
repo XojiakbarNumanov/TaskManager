@@ -38,10 +38,7 @@ class ChooseLanguageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = Navigation.findNavController(view)
-        if (!Preferences.getIsFirst())
-        {
-            navController.navigate(R.id.to_loginFragment)
-        }
+
         binding.btnUz.setOnClickListener {
             Preferences.setAppLanguage("uz")
             navController.navigate(R.id.to_loginFragment)

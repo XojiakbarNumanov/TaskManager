@@ -4,5 +4,6 @@ import com.xojiakbar.taskmanager.api.result.ErrorResult
 
 interface ApiCallback<T> {
     fun onSuccess(response: T)
-    fun onErrorMsg(errorMsg: ErrorResult?)
+    fun onError(throwable: Throwable)
+    fun onErrorMsg(errorMsg: ErrorResult)
 }

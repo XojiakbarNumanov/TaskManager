@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.util.Consumer
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.Utils.Utils
+import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.ApiClient
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import retrofit2.Call
@@ -20,17 +21,15 @@ abstract class BaseRepository<ApiService>(private val _context: Context) {
     private var _retrofitClient: Retrofit? = null
 
     protected abstract val apiService: Class<ApiService>?
-    val api = ApiClient.apiService
 
     fun <T> getApi(service: Class<T>?): T {
-        if (_retrofitClient == null) _retrofitClient = ApiClient.initClient()
+        if (_retrofitClient == null) _retrofitClient = ApiClient.initClient(_context)
         return _retrofitClient!!.create(service)
     }
 
     fun <T> request(
         call: Call<T>,
-        success: Consumer<T>,
-        error: Consumer<ErrorResult>
+        callback: ApiCallback<T>
     ) {
         call.enqueue(object : Callback<T?> {
             override fun onResponse(
@@ -38,7 +37,7 @@ abstract class BaseRepository<ApiService>(private val _context: Context) {
                 response: Response<T?>
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    success.accept(response.body())
+                    callback.onSuccess(response.body()!!)
                 } else {
                     var errorResult = ErrorResult(-1, -1, "", "")
                     try {
@@ -48,10 +47,10 @@ abstract class BaseRepository<ApiService>(private val _context: Context) {
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
-                    if (errorResult.code !== -9999) {
-                        error.accept(errorResult)
+                    if (errorResult.code != -9999) {
+                        callback.onErrorMsg(errorResult)
                     } else {
-                        error.accept(
+                        callback.onErrorMsg(
                             ErrorResult(
                                 Utils.getLocalStringByResId(
                                     _context,
@@ -64,7 +63,7 @@ abstract class BaseRepository<ApiService>(private val _context: Context) {
             }
 
             override fun onFailure(call: Call<T?>, t: Throwable) {
-                error.accept(
+                callback.onErrorMsg(
                     ErrorResult(
                         Utils.getLocalStringByResId(
                             _context,
