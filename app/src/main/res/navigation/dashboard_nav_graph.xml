@@ -42,5 +42,4 @@
             android:id="@+id/action_settingsFragment_to_statisticsFragment"
             app:destination="@id/statisticsFragment" />
     </fragment>
-
 </navigation>

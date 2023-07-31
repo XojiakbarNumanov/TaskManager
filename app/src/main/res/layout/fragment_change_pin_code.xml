@@ -7,7 +7,7 @@
 
         <variable
             name="controller"
-            type="com.xojiakbar.taskmanager.fragments.change_password_fragment.ChangePasswordUIController" />
+            type="com.xojiakbar.taskmanager.fragments.change_pin_code_fragment.ChangePinCodeUIController" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/urbanistregular"
-                android:text="@string/change_password"
+                android:text="@string/change_pin_code"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -57,6 +57,8 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/black"
@@ -69,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="15dp"
-                    android:hint="@string/current_password"
-                    android:inputType="textPassword"
-                    android:maxLength="30"
+                    android:hint="@string/current_pin_code"
+                    android:inputType="numberPassword"
+                    android:maxLength="4"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +85,8 @@
                 android:layout_marginTop="8dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/black"
@@ -95,9 +99,9 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="15dp"
-                    android:hint="@string/new_password"
-                    android:inputType="textPassword"
-                    android:maxLength="30"
+                    android:hint="@string/new_pin_code"
+                    android:inputType="numberPassword"
+                    android:maxLength="4"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,6 +113,8 @@
                 android:layout_marginTop="8dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="4"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/black"
@@ -120,9 +126,9 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="15dp"
-                    android:hint="@string/confirm_password"
-                    android:inputType="textPassword"
-                    android:maxLength="30"
+                    android:hint="@string/confirm_pin_code"
+                    android:inputType="numberPassword"
+                    android:maxLength="4"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

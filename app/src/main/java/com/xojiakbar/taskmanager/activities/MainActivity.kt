@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.xojiakbar.taskmanager.R
+import com.xojiakbar.taskmanager.Utils.LanguageHalper
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.databinding.ActivityMainBinding
 
@@ -15,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         Preferences.init(applicationContext)
-        binding?.userName?.text = Preferences.getUserFIO()
 
     }
 

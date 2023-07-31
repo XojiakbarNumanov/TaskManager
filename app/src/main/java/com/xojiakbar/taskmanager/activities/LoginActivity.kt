@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.fragment.NavHostFragment
 import com.xojiakbar.taskmanager.R
+import com.xojiakbar.taskmanager.Utils.LanguageHalper
 import com.xojiakbar.taskmanager.Utils.Preferences
 
 class LoginActivity : AppCompatActivity() {
@@ -12,6 +13,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         Preferences.init(applicationContext)
+        LanguageHalper.setLanguageResourse(this)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_login) as NavHostFragment
         val navController = navHostFragment.navController

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.dashboard_fragment.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.change_password_fragment.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/changeLanguageFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.change_languge_fragment.ChangeLanguageFragment"
+        android:label="ChangeLanguageFragment" />
+    <fragment
+        android:id="@+id/changePinCodeFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.change_pin_code_fragment.ChangePinCodeFragment"
+        android:label="ChangePinCodeFragment" />
+</navigation>

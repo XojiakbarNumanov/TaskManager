@@ -31,6 +31,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginRouter>(appl
                     Preferences.setUserPassword(password)
                     Preferences.setUserPasswordHash(Utils.getStringDigest(password))
                     loginRepository!!.putUserToDb(response)
+                    Preferences.setUserId(response.user.id)
                     router?.onSuccess(response)
                 }
 

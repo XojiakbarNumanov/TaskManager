@@ -49,7 +49,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/create_passcode"
+                        android:text="@string/pin_code"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="18sp"
@@ -112,7 +112,7 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_lock"
                             android:drawablePadding="15dp"
-                            android:hint="@string/pin_code"
+                            android:hint="@string/confirm_pin_code"
                             android:inputType="numberPassword"
                             android:maxLength="4"
                             android:onTextChanged="@{(text, start, before, count)->controller.onTextChanged(text, pinCodeLayout,confirmPinLayout)}"

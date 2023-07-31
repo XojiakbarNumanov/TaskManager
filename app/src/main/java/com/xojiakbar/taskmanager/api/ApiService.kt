@@ -17,9 +17,9 @@ interface ApiService {
         @Field("remember") remember: Boolean?,
     ): Call<UserBean>
 
-    @POST("/api/admin/auth/forgot-password")
-    fun forgotUserPassword(@Body map: Map<String?, String?>?): Call<ResponseBody?>?
-    @POST("/api/admin/auth/set-new-password")
-    fun changeUserPassword(@Body map: Map<String?, String?>?): Call<ResponseBody?>?
+    @POST("/api/admin/auth/reset-password")
+    fun changeUserPassword(@Body map: Map<String, String>): Call<ResponseBody>
 
+    @POST("/api/admin/auth/forgot-password")
+    fun forgotUserPassword(@Body map: Map<String, String>): Call<ResponseBody>
 }

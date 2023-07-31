@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kirish"
+                android:text="@string/enter_the_program"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
-                android:text="dfshfd"
+                android:text="@string/welcome"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_login"
                     android:drawablePadding="20dp"
-                    android:hint="Login"
+                    android:hint="@string/login"
                     android:inputType="text"
                     android:maxLength="100"
                     android:textSize="14sp" />
@@ -93,22 +93,13 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_key"
                     android:drawablePadding="20dp"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLength="30"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <ProgressBar
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center_horizontal"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/black"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
-                tools:ignore="UnusedAttribute" />
 
             <Button
                 android:id="@+id/btn_login"
@@ -117,7 +108,7 @@
                 android:onClick="@{()->controller.signInButtonClick(loginEdit, passwordEdit)}"
                 android:layout_margin="8dp"
                 android:textColor="@color/white"
-                tools:text="sadfgdas" />
+                tools:text="@string/ok" />
 
         </LinearLayout>
 

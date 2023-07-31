@@ -20,6 +20,7 @@
     <string name="current_password">Действующий пароль</string>
    <string name="language">Язык приложения</string>
     <string name="menu_settings">Настройки</string>
+    <string name="Home">Основной</string>
 
 
 </resources>

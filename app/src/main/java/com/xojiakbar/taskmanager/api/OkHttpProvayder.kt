@@ -4,7 +4,7 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
-import com.squareup.picasso.BuildConfig
+import com.xojiakbar.taskmanager.BuildConfig
 import com.xojiakbar.taskmanager.Utils.Preferences
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -30,8 +30,8 @@ object OkhttpProvider {
                 } else {
                     request.addHeader("Content-Type", "application/json")
                 }
-                request.addHeader("os", "ecofond_android")
-                    .addHeader("version", BuildConfig.VERSION_NAME)
+                request.addHeader("os", "android")
+                    .addHeader("version",BuildConfig.VERSION_NAME)
                     .addHeader("language", Preferences.getAppLanguage())
                     .addHeader("user_id", String.valueOf(Preferences.getUserId()))
                     .addHeader(
