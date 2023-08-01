@@ -1,9 +1,10 @@
-package com.xojiakbar.taskmanager.data.local.dao
+package com.xojiakbar.taskmanager.data.local.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
+import com.xojiakbar.taskmanager.data.local.dao.UsersDao
 import com.xojiakbar.taskmanager.data.local.entity.UserEntity
 
 @Database(

@@ -16,6 +16,32 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".fragments.choose_language_fragment.ChooseLanguageFragment">
+        <RelativeLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                app:tint="@color/black"
+                android:onClick="@{()->controller.onBack()}"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/margin_16"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/urbanistregular"
+                android:text="@string/change_language"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card"
@@ -39,6 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/language"
+                    android:fontFamily="@font/urbanistregular"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="24sp"
@@ -60,6 +87,7 @@
                     android:layout_marginTop="@dimen/margin_8"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center"
+                    android:fontFamily="@font/urbanistregular"
                     android:onClick="@{()->controller.onUzLotin()}"
                     android:paddingVertical="@dimen/padding_10"
                     android:text="@string/uzb"
@@ -75,6 +103,7 @@
                     android:layout_marginTop="@dimen/margin_8"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center"
+                    android:fontFamily="@font/urbanistregular"
                     android:onClick="@{()->controller.onUzKiril()}"
                     android:paddingVertical="@dimen/padding_10"
                     android:text="@string/uzb_cyrillic"
@@ -89,6 +118,7 @@
                     android:layout_marginTop="@dimen/margin_8"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center"
+                    android:fontFamily="@font/urbanistregular"
                     android:onClick="@{()->controller.onRu()}"
                     android:paddingVertical="@dimen/padding_10"
                     android:text="@string/russian"

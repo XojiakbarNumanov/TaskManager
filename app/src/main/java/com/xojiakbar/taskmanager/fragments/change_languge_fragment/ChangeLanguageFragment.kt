@@ -33,6 +33,6 @@ class ChangeLanguageFragment : Fragment() , ChangeLangugeRouter {
     }
 
     override fun back() {
-        Toast.makeText(requireContext(), Preferences.getAppLanguage(), Toast.LENGTH_SHORT).show()
+        requireActivity().onBackPressed()
     }
 }

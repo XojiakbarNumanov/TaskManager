@@ -6,6 +6,7 @@ import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.Utils.Utils
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.result.ErrorResult
+import com.xojiakbar.taskmanager.data.repositories.ChangePasswordRepository
 import okhttp3.ResponseBody
 
 class ChangePasswordViewModel(application: Application) : BaseViewModel<ChangePasswordRouter>(application) {
@@ -23,13 +24,12 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel<ChangePa
         map["old_password"] = Preferences.getUserPassword()
         map["password"] = newPassword
         if (router != null) {
-            router!!.setLoading(true)
+            router!!.setLoading()
             changePasswordRepostory?.changePasswor(map, object : ApiCallback<ResponseBody> {
                 override fun onSuccess(response: ResponseBody) {
                     if (router != null) {
                         Preferences.setUserPassword(newPassword)
                         Preferences.setUserPasswordHash(Utils.getStringDigest(newPassword))
-                        router!!.setLoading(false)
                         router!!.onSuccess(response)
                     }
                 }

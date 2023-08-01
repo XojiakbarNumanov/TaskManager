@@ -1,9 +1,9 @@
-package com.xojiakbar.taskmanager.fragments.change_password_fragment
+package com.xojiakbar.taskmanager.data.repositories
 
 import android.content.Context
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.ApiService
-import com.xojiakbar.taskmanager.data.local.dao.AppDatabase
+import com.xojiakbar.taskmanager.data.local.database.AppDatabase
 import com.xojiakbar.taskmanager.data.local.dao.UsersDao
 import okhttp3.ResponseBody
 import uz.furorprogress.domain.base.BaseRepository

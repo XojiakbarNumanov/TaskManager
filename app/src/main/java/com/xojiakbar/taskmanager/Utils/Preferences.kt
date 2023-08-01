@@ -22,26 +22,19 @@ object Preferences{
         sharedPreferences!!.edit().putString("app_language",language).apply()
     }
     fun getUserId(): Int {
-        if (sharedPreferences != null )
             return sharedPreferences!!.getInt("user_id", 0)
-        else
-            return -1
     }
     fun setUserId(id: Int) {
         sharedPreferences!!.edit().putInt("user_id",id).apply()
     }
     fun  getUserName():String{
-        if (sharedPreferences!=null)
         return sharedPreferences!!.getString("userName","").toString()
-        else return ""
     }
     fun setUserName(username: String) {
         sharedPreferences!!.edit().putString("userName",username).apply()
     }
     fun getLocalPassword():String{
-        if (sharedPreferences!=null)
             return sharedPreferences!!.getString("localPassword","").toString()
-        else return ""
     }
     fun setLocalPassword(password: String) {
         sharedPreferences!!.edit().putString("localPassword",password).apply()
@@ -59,7 +52,7 @@ object Preferences{
         sharedPreferences!!.edit().putString("UserFio",fio).apply()
     }
     fun getUserFIO():String{
-            return sharedPreferences!!.getString("UserFio","").toString()
+        return sharedPreferences!!.getString("UserFio","").toString()
     }
 
     fun setUserPasswordHash(stringDigest: String?) {
@@ -67,5 +60,16 @@ object Preferences{
     }
     fun getUserPasswordHash():String{
         return sharedPreferences!!.getString("UserPasswordHash","").toString()
+    }
+    fun clearPreferences()
+    {
+        sharedPreferences!!.edit().putBoolean("is_first",true).apply()
+        sharedPreferences!!.edit().putString("app_language","uz").apply()
+        sharedPreferences!!.edit().putInt("user_id",0).apply()
+        sharedPreferences!!.edit().putString("userName","").apply()
+        sharedPreferences!!.edit().putString("localPassword","").apply()
+        sharedPreferences!!.edit().putString("UserPassword","").apply()
+        sharedPreferences!!.edit().putString("UserFio","").apply()
+        sharedPreferences!!.edit().putString("UserPasswordHash","").apply()
     }
 }

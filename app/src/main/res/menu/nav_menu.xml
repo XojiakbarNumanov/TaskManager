@@ -8,7 +8,7 @@
     <item
         android:id="@+id/nav_language"
         android:title="@string/change_language"
-        android:icon="@drawable/ic_language"
+
         android:actionLayout="@layout/up_down_layout"
         />
     <group

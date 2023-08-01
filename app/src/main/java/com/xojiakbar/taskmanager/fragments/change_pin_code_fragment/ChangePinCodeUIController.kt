@@ -64,5 +64,8 @@ class ChangePinCodeUIController(context: Context) : BaseObservable() {
             300
         )
     }
+    fun onBack(){
+        router?.onBack()
+    }
 
 }

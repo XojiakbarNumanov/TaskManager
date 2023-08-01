@@ -25,6 +25,7 @@ class ChangePasswordUIController(context: Context) : BaseObservable(){
         ) {
             if (validator(view, repeatView!!)!!) {
                 router?.changePassword(view.editText!!.text.toString())
+
             }
         } else {
             currentView.error = "Password - Error"
@@ -74,6 +75,9 @@ class ChangePasswordUIController(context: Context) : BaseObservable(){
             if ((c < '0' || c > '9') && (c < 'A' || c > 'Z') && (c < 'a' || c > 'z')) return true
         }
         return false
+    }
+    fun onBack(){
+        router?.onBack()
     }
 
 }

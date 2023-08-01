@@ -33,6 +33,7 @@ class ChangePinCodeFragment : Fragment() ,ChangePinCodeRouter{
     }
 
     override fun onBack() {
+        requireActivity().onBackPressed()
     }
 
     override fun onChange(passcode: String?) {
@@ -44,6 +45,7 @@ class ChangePinCodeFragment : Fragment() ,ChangePinCodeRouter{
             .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
                 dialog.dismiss()
                 Preferences.setLocalPassword(passcode!!)
+                onBack()
             }
             .show()
     }

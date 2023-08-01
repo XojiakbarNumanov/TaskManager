@@ -1,4 +1,4 @@
-package com.xojiakbar.taskmanager.data.beans
+package com.xojiakbar.taskmanager.data.beans.user_bean
 
 data class User(
     val birth_date: Long,

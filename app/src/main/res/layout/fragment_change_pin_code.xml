@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_back"
                 app:tint="@color/black"
+                android:onClick="@{()->controller.onBack()}"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/margin_16"
                 />
@@ -61,7 +62,6 @@
                 app:counterMaxLength="4"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/black"
                 app:placeholderTextColor="@color/black">
 
 
@@ -89,7 +89,6 @@
                 app:counterMaxLength="4"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/black"
                 app:placeholderTextColor="@color/black">
 
 
@@ -117,7 +116,6 @@
                 app:counterMaxLength="4"
                 app:errorEnabled="true"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/black"
                 app:placeholderTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -135,7 +133,9 @@
             <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/black"
+                android:textSize="16sp"
                 android:layout_margin="@dimen/margin_24"
                 android:onClick="@{()->controller.onClickOk(currentPasswordLayout, mttNewPassword, mttConfirmNewPassword)}"
                 android:text="@string/ok"

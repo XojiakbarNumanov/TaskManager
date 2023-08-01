@@ -26,6 +26,9 @@ class ChangeLanguageUIController(activity: Activity) : BaseObservable() {
     fun onUzKiril() {
         setLanguage("uk")
     }
+    fun onBack(){
+        router?.back()
+    }
 
     private fun setLanguage(lang: String) {
         Preferences.setAppLanguage(lang)

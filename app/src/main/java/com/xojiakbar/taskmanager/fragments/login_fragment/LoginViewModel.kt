@@ -1,25 +1,24 @@
 package com.xojiakbar.taskmanager.fragments.login_fragment
 
 import android.app.Application
-import android.widget.Toast
 import com.xojiakbar.taskmanager.Utils.BaseViewModel
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.Utils.Utils
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.result.ErrorResult
-import com.xojiakbar.taskmanager.data.beans.UserBean
+import com.xojiakbar.taskmanager.data.beans.user_bean.UserBean
+import com.xojiakbar.taskmanager.data.repositories.LoginRepository
 
 
 class LoginViewModel(application: Application) : BaseViewModel<LoginRouter>(application){
     private var loginRepository: LoginRepository? = null
-
-
 
     init {
         loginRepository = LoginRepository(application)
     }
 
     fun login(username: String, password: String, remember: Boolean) {
+        router!!.setLoading()
         loginRepository?.login(
             username,
             password,
@@ -40,6 +39,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginRouter>(appl
                 }
 
                 override fun onErrorMsg(errorMsg: ErrorResult) {
+                    router?.onError(errorMsg)
                 }
 
             }

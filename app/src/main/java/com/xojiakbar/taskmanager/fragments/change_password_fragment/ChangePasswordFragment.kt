@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xojiakbar.taskmanager.R
+import com.xojiakbar.taskmanager.Utils.LoadingDialog
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.databinding.FragmentChangePasswordBinding
@@ -19,6 +20,8 @@ class ChangePasswordFragment : Fragment(), ChangePasswordRouter {
     private var _binding : FragmentChangePasswordBinding? = null
     private val binding get() = _binding
     private var viewModel : ChangePasswordViewModel? = null
+    private lateinit var customLoadingDialog : LoadingDialog
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,6 +30,7 @@ class ChangePasswordFragment : Fragment(), ChangePasswordRouter {
         Preferences.init(requireContext())
         val controller = ChangePasswordUIController(requireContext())
         controller.router = this
+         customLoadingDialog = LoadingDialog.newInstance()
         binding?.controller = controller
         return binding?.root
     }
@@ -47,7 +51,7 @@ class ChangePasswordFragment : Fragment(), ChangePasswordRouter {
 
     }
     override fun onBack() {
-        TODO("Not yet implemented")
+        requireActivity().onBackPressed()
     }
 
     override fun changePassword(newPassword: String) {
@@ -63,16 +67,19 @@ class ChangePasswordFragment : Fragment(), ChangePasswordRouter {
             .show()
     }
 
-    override fun setLoading(b: Boolean) {
-        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+    override fun setLoading() {
+         customLoadingDialog.show(requireFragmentManager(), "custom_loading_dialog")
     }
 
     override fun onSuccess(response: Any?) {
-        Toast.makeText(requireContext(), "test", Toast.LENGTH_SHORT).show()
+        customLoadingDialog.dismiss()
+        onBack()
+
     }
 
     override fun onError(errorMsg: ErrorResult?) {
-        Toast.makeText(requireContext(), errorMsg?.message, Toast.LENGTH_SHORT).show()
+        customLoadingDialog.dismiss()
+        Toast.makeText(requireContext(),errorMsg?.message, Toast.LENGTH_SHORT).show()
     }
 
 }

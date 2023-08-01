@@ -7,9 +7,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="failure_to_connect">Server bilan ulanishda xatolik yuz berdi</string>
-    <string name="russian">Русский</string>
-    <string name="uzb_cyrillic">Ўзбекча</string>
-    <string name="uzb">O\'zbekcha</string>
+    <string name="russian" translatable="false">Русский язык</string>
+    <string name="uzb_cyrillic" translatable="false">Ўзбек тили</string>
+    <string name="uzb" translatable="false">O\'zbek tili</string>
     <string name="change_language">Til o\'zgartirish</string>
     <string name="assignment">Topshiriqlar</string>
     <string name="accepted">Qabul qilindi</string>
@@ -48,7 +48,6 @@
     <string name="cancel">Bekor qilish</string>
     <string name="Home">Asosiy</string>
     <string name="enter_the_program">Dasturga kirish</string>
-    <string name="welcome">Tizimga xush kelibsiz</string>
     <string name="login">Login</string>
     <string name="password">Parol</string>
     <string name="confirm_pin_code">PIN-codeni tasdiqlash</string>
@@ -58,6 +57,9 @@
     <string name="log_out">Dasturdan chiqish</string>
     <string name="tasks">Tasklar</string>
     <string name="statistics">Statistika</string>
+    <string name="welcome">Shaxsiy kabinetingizga kirish uchun formani to’ldiring</string>
+    <string name="forgot_password"><u>Parolingizni unutdingizmi?</u></string>
+    <string name="loading">Jarayonda</string>
 
 
 </resources>

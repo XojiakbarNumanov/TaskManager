@@ -6,7 +6,7 @@ import com.xojiakbar.taskmanager.api.result.ErrorResult;
 
 public interface BaseRouter<T> extends BaseEmptyRouter{
 
-    void setLoading(boolean b);
+    void setLoading();
 
     void onSuccess(T response);
 

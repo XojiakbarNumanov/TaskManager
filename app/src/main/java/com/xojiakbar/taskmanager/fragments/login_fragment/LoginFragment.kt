@@ -1,5 +1,6 @@
 package com.xojiakbar.taskmanager.fragments.login_fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +10,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.xojiakbar.taskmanager.R
-import com.xojiakbar.taskmanager.Utils.Preferences
+import com.xojiakbar.taskmanager.Utils.LoadingDialog
 import com.xojiakbar.taskmanager.api.result.ErrorResult
-import com.xojiakbar.taskmanager.data.beans.UserBean
 import com.xojiakbar.taskmanager.databinding.FragmentLoginBinding
 
 
@@ -22,7 +23,8 @@ class LoginFragment : Fragment() , LoginRouter {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private var  viewModel : LoginViewModel ? =null
-
+    lateinit var  navController :NavController
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +32,7 @@ class LoginFragment : Fragment() , LoginRouter {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val controller = LoginUIController(requireContext())
+        loadingDialog = LoadingDialog.newInstance()
         controller.router = this
         binding.setController(controller)
         return binding.root
@@ -43,7 +46,8 @@ class LoginFragment : Fragment() , LoginRouter {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-
+        navController = Navigation.findNavController(binding.root)
+        navController.popBackStack(R.id.loginFragment,false)
 
     }
     override fun onDestroy() {
@@ -65,18 +69,20 @@ class LoginFragment : Fragment() , LoginRouter {
         }
     }
 
-    override fun setLoading(b: Boolean) {
-        TODO("Not yet implemented")
+    override fun setLoading() {
+        loadingDialog.show(requireFragmentManager(),"Loading")
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onSuccess(response: Any?) {
-        val navController = Navigation.findNavController(binding.root)
+            loadingDialog.dismiss()
             navController.navigate(R.id.createPinCodeFragment)
         }
 
 
     override fun onError(errorMsg: ErrorResult?) {
-        TODO("Not yet implemented")
+        loadingDialog.dismiss()
+        Toast.makeText(requireContext(),errorMsg?.message , Toast.LENGTH_SHORT).show()
     }
 
 

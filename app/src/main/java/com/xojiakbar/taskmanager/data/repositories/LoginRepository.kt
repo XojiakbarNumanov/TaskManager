@@ -1,11 +1,10 @@
-package com.xojiakbar.taskmanager.fragments.login_fragment
+package com.xojiakbar.taskmanager.data.repositories
 
 import android.content.Context
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.ApiService
-import com.xojiakbar.taskmanager.data.beans.User
-import com.xojiakbar.taskmanager.data.beans.UserBean
-import com.xojiakbar.taskmanager.data.local.dao.AppDatabase
+import com.xojiakbar.taskmanager.data.beans.user_bean.UserBean
+import com.xojiakbar.taskmanager.data.local.database.AppDatabase
 import com.xojiakbar.taskmanager.data.local.dao.UsersDao
 import com.xojiakbar.taskmanager.data.local.entity.UserEntity
 
