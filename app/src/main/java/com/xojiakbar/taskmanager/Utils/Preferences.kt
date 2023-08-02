@@ -61,6 +61,13 @@ object Preferences{
     fun getUserPasswordHash():String{
         return sharedPreferences!!.getString("UserPasswordHash","").toString()
     }
+    fun setUserRolesName(rolesname : String){
+        sharedPreferences!!.edit().putString("user_roles",rolesname).apply()
+    }
+    fun getUserRolesName() : String{
+        return sharedPreferences?.getString("user_roles","").toString()
+    }
+
     fun clearPreferences()
     {
         sharedPreferences!!.edit().putBoolean("is_first",true).apply()
@@ -71,5 +78,6 @@ object Preferences{
         sharedPreferences!!.edit().putString("UserPassword","").apply()
         sharedPreferences!!.edit().putString("UserFio","").apply()
         sharedPreferences!!.edit().putString("UserPasswordHash","").apply()
+        sharedPreferences!!.edit().putString("user_roles","").apply()
     }
 }

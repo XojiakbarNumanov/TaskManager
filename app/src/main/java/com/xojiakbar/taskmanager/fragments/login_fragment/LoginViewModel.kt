@@ -29,6 +29,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginRouter>(appl
                     Preferences.setUserFIO(response.user.fio)
                     Preferences.setUserPassword(password)
                     Preferences.setUserPasswordHash(Utils.getStringDigest(password))
+                    Preferences.setUserRolesName(response.user.user_roles_name)
                     loginRepository!!.putUserToDb(response)
                     Preferences.setUserId(response.user.id)
                     router?.onSuccess(response)

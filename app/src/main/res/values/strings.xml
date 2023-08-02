@@ -36,7 +36,7 @@
     <string name="create_pass_desc">Shaxsiy ma`lumotlaringizni PIN-kod bilan ximoyalash uchun quyidagi maydonlarni to`ldiring</string>
     <string name="pin_code">PIN-code</string>
     <string name="pin_code_is_required">PIN-code kiritilishi shart</string>
-    <string name="pin_error">PIN-kod xato kiritildi</string>
+    <string name="pin_error">PIN-code xato kiritildi</string>
     <string name="change_pin_code">PIN-codeni o`zgartirish</string>
     <string name="new_password_cannot_be_empty">Yangi parol kiritilishi lozim</string>
     <string name="enter_confirm_password">Iltimos, tasdiqlash parolini kiriting</string>

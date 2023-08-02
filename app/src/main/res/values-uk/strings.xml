@@ -17,9 +17,42 @@
     <string name="score">"Бал "</string>
     <string name="degree">Даража</string>
     <string name="current_password">Жорий парол</string>
+    <string name="new_password">Янги парол</string>
+    <string name="confirm_password">Парони тасдиқлаш</string>
     <string name="language">Дастур тили</string>
     <string name="menu_settings">Созламалар</string>
+    <string name="settings_language">Дастур тили</string>
+    <string name="input_login_please">Илтимос, логинингизни киритинг</string>
+    <string name="input_password_please">Илтимос, паролингизни киритинг</string>
+    <string name="cycrilic_error">Парол лотин ҳарфлар ёки сонлардан ташкил топган бўлиши керак</string>
+    <string name="sign_in_btn">Кириш</string>
+    <string name="create_pass_desc">Шахсий маълумотларингизни ПИН-код билан химоялаш учун қуйидаги майдонларни тўлдиринг</string>
+    <string name="pin_code">ПИН-cоде</string>
+    <string name="pin_code_is_required">ПИН-cоде киритилиши шарт</string>
+    <string name="pin_error">ПИН-код хато киритилди</string>
+    <string name="change_pin_code">ПИН-cодени ўзгартириш</string>
+    <string name="new_password_cannot_be_empty">Янги парол киритилиши лозим</string>
+    <string name="enter_confirm_password">Илтимос, тасдиқлаш паролини киритинг</string>
+    <string name="enter_confirm_pin_code">Илтимос, тасдиқлаш ПИН-cоде киритинг</string>
+    <string name="passwords_do_not_match">Пароллар мос келмади</string>
+    <string name="pin_code_do_not_match">ПИН-cоде мос келмади</string>
+    <string name="change_password">Паролни ўзгартириш</string>
+    <string name="are_you_sure_change">Ҳақиқатан ҳам ўзгартиришни хоҳлайсизми?</string>
+    <string name="cancel">Бекор қилиш</string>
     <string name="Home">Асосий</string>
+    <string name="enter_the_program">Дастурга кириш</string>
+    <string name="login">Логин</string>
+    <string name="password">Парол</string>
+    <string name="confirm_pin_code">ПИН-cодени тасдиқлаш</string>
+    <string name="current_pin_code">Жорий ПИН-cоде</string>
+    <string name="new_pin_code">Янги ПИН-cоде</string>
+    <string name="new_pin_code_cannot_be_empty">Янги ПИН-cоде киритлиши лозим</string>
+    <string name="log_out">Дастурдан чиқиш</string>
+    <string name="tasks">Тасклар</string>
+    <string name="statistics">Статистика</string>
+    <string name="welcome">Шахсий кабинетингизга кириш учун формани тўлдиринг</string>
+    <string name="forgot_password"><u>Паролингизни унутдингизми?</u></string>
+    <string name="loading">Жараёнда</string>
 
 
 </resources>

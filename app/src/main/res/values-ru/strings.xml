@@ -17,9 +17,42 @@
     <string name="score">Ссчет</string>
     <string name="degree">Степень</string>
     <string name="current_password">Действующий пароль</string>
-   <string name="language">Язык приложения</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="confirm_password">Подтверждение выкупа</string>
+    <string name="language">Язык приложения</string>
     <string name="menu_settings">Настройки</string>
+    <string name="settings_language">Язык приложения</string>
+    <string name="input_login_please">Пожалуйста, введите ваш логин</string>
+    <string name="input_password_please">Пожалуйста введите ваш пароль</string>
+    <string name="cycrilic_error">Пароль должен состоять из латинских букв или цифр</string>
+    <string name="sign_in_btn">Входить</string>
+    <string name="create_pass_desc">Заполните поля ниже, чтобы защитить свои личные данные с помощью PIN-кода</string>
+    <string name="pin_code">Пин-код</string>
+    <string name="pin_code_is_required">PIN-код должен быть введен</string>
+    <string name="pin_error">PIN-код был введен неправильно</string>
+    <string name="change_pin_code">Изменить PIN-код</string>
+    <string name="new_password_cannot_be_empty">Необходимо ввести новый пароль</string>
+    <string name="enter_confirm_password">Пожалуйста, введите проверочный пароль</string>
+    <string name="enter_confirm_pin_code">Пожалуйста, введите PIN-код подтверждения</string>
+    <string name="passwords_do_not_match">Пароли не совпадают</string>
+    <string name="pin_code_do_not_match">ПИН-код не совпал</string>
+    <string name="change_password">Изменить пароль</string>
+    <string name="are_you_sure_change">Вы действительно хотите измениться?</string>
+    <string name="cancel">Отмена</string>
     <string name="Home">Основной</string>
+    <string name="enter_the_program">Доступ к программе</string>
+    <string name="login">Авторизоваться</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_pin_code">Подтвердите PIN-код</string>
+    <string name="current_pin_code">Текущий PIN-код</string>
+    <string name="new_pin_code">Новый PIN-код</string>
+    <string name="new_pin_code_cannot_be_empty">Необходимо ввести новый PIN-код</string>
+    <string name="log_out">Выйти из программы</string>
+    <string name="tasks">Задания</string>
+    <string name="statistics">Статистика</string>
+    <string name="welcome">Заполните форму для входа в личный кабинет</string>
+    <string name="forgot_password"><u>Забыли пароль?</u></string>
+    <string name="loading">В ходе выполнения</string>
 
 
 </resources>
