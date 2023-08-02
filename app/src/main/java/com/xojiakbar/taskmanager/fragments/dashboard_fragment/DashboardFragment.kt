@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
 import androidx.navigation.fragment.NavHostFragment
@@ -14,6 +15,7 @@ import com.xojiakbar.taskmanager.Utils.LoadingDialog
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.databinding.FragmentDashboardBinding
+import com.xojiakbar.taskmanager.fragments.login_fragment.LoginUIController
 import com.xojiakbar.taskmanager.fragments.login_fragment.LoginViewModel
 
 class DashboardFragment : Fragment() ,DashboardRouter{
@@ -26,35 +28,43 @@ class DashboardFragment : Fragment() ,DashboardRouter{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         _binding = FragmentDashboardBinding.inflate(inflater,container,false)
+        val controller = DashboardUIController(requireContext())
+        controller?.router = this
+        binding?.controller = controller
         loadingDialog = LoadingDialog.newInstance()
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment_dashboard) as NavHostFragment
         val navController = navHostFragment.navController
         setupWithNavController(binding?.bottomNavigationView!!,navController)
+        viewModel!!.router = this
 
-        viewModel?.getTasksCnt(Preferences.getUserId())
     }
     override fun onResume() {
         super.onResume()
-        viewModel?.router = this
+        viewModel!!.router = this
     }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
+    override fun refresh() {
+        viewModel?.getTasksCnt(Preferences.getUserId())
+    }
+
     override fun setLoading() {
-        loadingDialog.show(requireFragmentManager(),"Loading")
+        loadingDialog.show(requireActivity().supportFragmentManager,"Loading")
     }
 
     override fun onSuccess(response: Any?) {
-        loadingDialog.dismiss()
+            loadingDialog.dismiss()
+
     }
 
     override fun onError(errorMsg: ErrorResult?) {

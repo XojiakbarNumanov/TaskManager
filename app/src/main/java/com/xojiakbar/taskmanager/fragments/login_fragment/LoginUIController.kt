@@ -8,11 +8,9 @@ import com.xojiakbar.taskmanager.R
 
 class LoginUIController (context: Context) : BaseObservable() {
     var router : LoginRouter? = null
-    private var visibility = 0
     var context: Context
     private var buttonTextId = 0
     init {
-            this.visibility = View.INVISIBLE
             this.context = context
             buttonTextId = R.string.sign_in_btn
     }

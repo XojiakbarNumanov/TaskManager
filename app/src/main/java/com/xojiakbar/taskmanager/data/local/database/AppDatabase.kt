@@ -4,18 +4,24 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
+import com.xojiakbar.taskmanager.data.local.dao.TasksDao
+import com.xojiakbar.taskmanager.data.local.dao.TaskscntDao
 import com.xojiakbar.taskmanager.data.local.dao.UsersDao
+import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
+import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 import com.xojiakbar.taskmanager.data.local.entity.UserEntity
 
 @Database(
-    entities = [UserEntity::class],
+    entities = [UserEntity::class,TasksCountEntity::class,TasksEntity::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UsersDao
+    abstract fun tasksCntDao(): TaskscntDao
+    abstract fun taskDao() : TasksDao
     companion object {
         var instance: AppDatabase? = null
 

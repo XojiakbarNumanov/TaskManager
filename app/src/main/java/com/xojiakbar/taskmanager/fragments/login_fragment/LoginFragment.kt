@@ -32,9 +32,10 @@ class LoginFragment : Fragment() , LoginRouter {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val controller = LoginUIController(requireContext())
-        loadingDialog = LoadingDialog.newInstance()
         controller.router = this
         binding.setController(controller)
+
+        loadingDialog = LoadingDialog.newInstance()
         return binding.root
     }
 
@@ -45,7 +46,7 @@ class LoginFragment : Fragment() , LoginRouter {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         navController = Navigation.findNavController(binding.root)
         navController.popBackStack(R.id.loginFragment,false)
 
