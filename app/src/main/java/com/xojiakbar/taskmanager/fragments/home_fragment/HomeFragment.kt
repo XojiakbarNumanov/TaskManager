@@ -92,7 +92,7 @@ class HomeFragment : Fragment(),HomeRouter {
             it.curr_executer_name,
             it.task_priorities_id,
             it.process_time,
-            it.status_description
+            ""
             )
             Toast.makeText(requireContext(), task.id.toString(), Toast.LENGTH_SHORT).show()
             viewModel?.updateTaskStatus(task)

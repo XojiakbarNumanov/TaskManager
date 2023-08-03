@@ -12,6 +12,7 @@ class DashboardUIController(context: Context) : BaseObservable() {
     fun getUserName(): String? {
         return Preferences.getUserFIO()
     }
+
     fun refresh(){
         router?.refresh()
     }
