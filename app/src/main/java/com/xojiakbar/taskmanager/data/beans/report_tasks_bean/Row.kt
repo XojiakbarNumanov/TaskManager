@@ -1,0 +1,31 @@
+package com.xojiakbar.taskmanager.data.beans.report_tasks_bean
+
+data class Row(
+    val id: Int,
+    val accepted_tasks_cnt: Int,
+    val accepted_tasks_hard_index: Int,
+    val done_tasks_cnt: Int,
+    val done_tasks_hard_index: Int,
+    val done_tasks_time_leave: Int,
+    val duration: Int,
+    val email: String,
+    val exec_progress: Int,
+    val hard_index: Int,
+    val img_resource_id: Int,
+    val in_progress_tasks_cnt: Int,
+    val in_progress_tasks_hard_index: Int,
+    val in_progress_tasks_interval: Int,
+    val name: String,
+    val not_accepted_tasks_cnt: Int,
+    val not_accepted_tasks_hard_index: Int,
+    val not_accepted_tasks_interval: Int,
+    val ordering: Int,
+    val pause_tasks_cnt: Int,
+    val pause_tasks_hard_index: Int,
+    val phone: String,
+    val progress_interval: Int,
+    val rating: Int,
+    val returned_tasks_cnt: Int,
+    val returned_tasks_hard_index: Int,
+    val rownum: Int
+)

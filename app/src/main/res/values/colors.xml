@@ -4,15 +4,23 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_pink">#FFDBEB</color>
     <color name="dark_pink">#FF73A9</color>
+    <color name="_light_violet">#EEEEFD</color>
     <color name="light_violet">#DAD9FF</color>
     <color name="dark_violet">#726DE3</color>
+    <color name="_light_green">#EBFFE0</color>
     <color name="light_green">#DAFFE2</color>
     <color name="dark_green">#75B483</color>
     <color name="cream">#FFF5D7</color>
+    <color name="light_sunglow">#FFF8E4</color>
     <color name="sunglow">#FFCC3A</color>
     <color name="light_blue">#D6EAFF</color>
+    <color name="_light_blue">#E9F4FF</color>
     <color name="dark_blue">#499DFF</color>
     <color name="red">#FF0000</color>
+    <color name="orange">#E1871A</color>
+    <color name="green">#4AC806</color>
+
+
 
 
 

@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 
 @Dao
@@ -14,7 +13,8 @@ interface TasksDao {
     @Query("SELECT * FROM tasks  ")
     fun getTasks(): LiveData<MutableList<TasksEntity>>
 
-
+    @Query("SELECT * FROM tasks WHERE tasks.id = :id")
+    fun getById(id : Int) : LiveData<TasksEntity>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(tasks: TasksEntity) : Long
 
@@ -22,5 +22,7 @@ interface TasksDao {
     fun update(tasks: TasksEntity)
 
     @Query("DELETE FROM tasks  where tasks.new_version_code = :new_version_code")
-    fun deleteAll(new_version_code:Int)
+    fun delete(new_version_code:Int)
+    @Query("DELETE FROM tasks")
+    fun deleteAll()
 }

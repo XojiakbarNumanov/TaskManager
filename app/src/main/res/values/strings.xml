@@ -60,6 +60,9 @@
     <string name="welcome">Shaxsiy kabinetingizga kirish uchun formani to’ldiring</string>
     <string name="forgot_password"><u>Parolingizni unutdingizmi?</u></string>
     <string name="loading">Jarayonda</string>
+    <string name="completed">Yakunlangan</string>
+    <string name="suspended">To\'xtatilgan</string>
+    <string name="returned">Qaytarilgan</string>
 
 
 </resources>

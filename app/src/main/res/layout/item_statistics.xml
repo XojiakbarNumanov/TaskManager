@@ -1,75 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_4"
-    android:paddingHorizontal="4dp"
-    android:stretchColumns="1,2,3,4">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_image"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/image_person"
-        app:civ_border_color="@color/black"
-        app:civ_border_width="1dp"
-        app:civ_circle_background_color="@color/white" />
-
-    <TextView
-        android:id="@+id/tr_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_toEndOf="@id/user_image"
-        android:gravity="center"
-        android:text="Xojiakbar Numanov"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tr_count"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_toStartOf="@id/tr_score"
-        android:gravity="center"
-        android:text="45"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tr_score"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_toStartOf="@id/tr_level"
-        android:gravity="center"
-        android:text="85"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tr_level"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:gravity="center"
-        android:text="12"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-    <View
+<layout>
+    <data>
+        <variable
+            name="controller"
+            type="com.xojiakbar.taskmanager.fragments.statics_fragment.item.StatisticsItemUIController" />
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"
-        android:layout_below="@id/user_image"
-        android:layout_marginTop="@dimen/margin_8"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_4"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-</RelativeLayout>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/image_person"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="1dp"
+                    app:civ_circle_background_color="@color/white" />
+
+                <TextView
+                    android:id="@+id/tr_name"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:maxLength="18"
+                    tools:text="Xojiakbar Numanov"
+                    android:text="@{controller.name}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tr_score"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="45"
+                    android:text="@{controller.score}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tr_count"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="85"
+                    android:text="@{controller.donetaskCnt}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tr_level"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="12"
+                    android:text="@{controller.doneTaskLevel}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="@dimen/margin_8"
+            />
+    </LinearLayout>
+</layout>

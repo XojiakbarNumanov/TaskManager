@@ -68,7 +68,7 @@ class DashboardFragment : Fragment() ,DashboardRouter{
     }
 
     override fun onError(errorMsg: ErrorResult?) {
-        loadingDialog.dismiss()
+        //loadingDialog.dismiss()
     }
 
 }

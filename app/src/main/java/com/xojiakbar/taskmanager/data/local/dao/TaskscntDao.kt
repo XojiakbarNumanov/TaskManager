@@ -14,7 +14,6 @@ interface TaskscntDao {
         @Query("SELECT * FROM tasksCount limit 1 ")
         fun getTasks():LiveData<TasksCountEntity>
 
-
         @Insert(onConflict = OnConflictStrategy.IGNORE)
         fun insert(tasks: TasksCountEntity) : Long
 

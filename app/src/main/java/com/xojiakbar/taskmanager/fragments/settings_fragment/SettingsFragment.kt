@@ -10,17 +10,28 @@ import androidx.navigation.fragment.NavHostFragment
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.activities.LoginActivity
+import com.xojiakbar.taskmanager.data.local.dao.TasksDao
+import com.xojiakbar.taskmanager.data.local.dao.TaskscntDao
+import com.xojiakbar.taskmanager.data.local.dao.UsersDao
+import com.xojiakbar.taskmanager.data.local.database.AppDatabase
 import com.xojiakbar.taskmanager.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
     private var _binding : FragmentSettingsBinding? = null
     private val binding get() = _binding
+    var tasksCntDao : TaskscntDao? =null
+    var tasksDao : TasksDao? =null
+    var usersDao : UsersDao? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingsBinding.inflate(inflater,container,false)
+        val appDatabase: AppDatabase = AppDatabase.getInstance(requireContext())
+        tasksCntDao = appDatabase.tasksCntDao()
+        tasksDao = appDatabase.taskDao()
+        usersDao = appDatabase.userDao()
         return binding?.root
     }
 
@@ -40,6 +51,9 @@ class SettingsFragment : Fragment() {
         binding?.layoutLogOut?.setOnClickListener {
             Preferences.clearPreferences()
             val intent = Intent(requireContext(),LoginActivity::class.java)
+            usersDao?.deleteAll()
+            tasksCntDao?.deleteAll()
+            tasksDao?.deleteAll()
             startActivity(intent)
             requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.card_slide_out_left)
             requireActivity().finish()

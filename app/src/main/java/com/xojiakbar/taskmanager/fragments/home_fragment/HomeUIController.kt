@@ -9,8 +9,6 @@ class HomeUIController(context: Context) :BaseObservable() {
     var router : HomeRouter? = null
     var entity : TasksCountEntity? =null
 
-
-
     @Bindable
     fun getNewTasks() : String{
         return if (entity != null) entity?.new_tasks.toString() else "---"

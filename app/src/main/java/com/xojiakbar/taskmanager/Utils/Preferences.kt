@@ -67,6 +67,12 @@ object Preferences{
     fun getUserRolesName() : String{
         return sharedPreferences?.getString("user_roles","").toString()
     }
+    fun setIsManager(isManager : Int){
+        sharedPreferences!!.edit().putInt("is_manager",isManager).apply()
+    }
+    fun getIsManager() : Int{
+        return sharedPreferences?.getInt("is_manager",-1)!!
+    }
 
     fun clearPreferences()
     {
@@ -79,5 +85,6 @@ object Preferences{
         sharedPreferences!!.edit().putString("UserFio","").apply()
         sharedPreferences!!.edit().putString("UserPasswordHash","").apply()
         sharedPreferences!!.edit().putString("user_roles","").apply()
+        sharedPreferences!!.edit().putInt("is_manager",-1).apply()
     }
 }

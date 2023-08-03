@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="android.view.View" />
         <variable
             name="controller"
             type="com.xojiakbar.taskmanager.fragments.home_fragment.item.ItemUIController" />
     </data>
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_blue"
+        tools:backgroundTint="@color/dark_blue"
+        android:backgroundTint="@{controller.backColor}"
         app:cardCornerRadius="@dimen/margin_8"
         android:layout_margin="@dimen/margin_8">
 
@@ -17,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_6"
-            android:background="@color/light_blue">
+            tools:background="@color/light_blue"
+            android:background="@{controller.layoutColor}">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_id"
@@ -35,8 +39,9 @@
                     android:layout_marginVertical="@dimen/margin_2"
                     android:layout_marginHorizontal="@dimen/margin_16"
                     android:text="@{controller.id}"
+                    tools:text = "455454"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_16" />
+                    android:textSize="14sp" />
             </androidx.cardview.widget.CardView>
 
 
@@ -45,11 +50,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_8"
-                android:text="ECOFOUND"
-                android:layout_marginTop="@dimen/margin_8"
+                android:text="@{controller.projectName}"
+                android:layout_marginTop="@dimen/margin_10"
+                tools:text = "Ecofound"
                 android:fontFamily="@font/urbanistregular"
                 android:textColor="@color/black"
-                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@id/card_id"
                 android:textSize="@dimen/text_16" />
 
             <androidx.cardview.widget.CardView
@@ -57,8 +63,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="8dp"
-                android:layout_marginTop="@dimen/margin_8"
-                android:backgroundTint="@color/red"
+                android:layout_marginTop="@dimen/margin_12"
+                tools:backgroundTint="@color/red"
+                android:backgroundTint="@{controller.levelColor}"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/margin_16"
@@ -69,11 +76,45 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_10"
                     android:layout_marginVertical="2dp"
+                    tools:text = "455454"
                     android:fontFamily="@font/urbanistregular"
-                    android:text="O'rta"
-                    android:textSize="12sp"
+                    android:text="@{controller.level}"
+                    android:textSize="10sp"
                     android:textColor="@color/white"/>
             </androidx.cardview.widget.CardView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_pause"
+                android:visibility="@{controller.isPlay ? View.VISIBLE : View.GONE}"
+                android:onClick="@{()->controller.btnClick()}"
+                android:layout_below="@id/card_level"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_14"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_play"
+                android:visibility="@{controller.isPause ? View.VISIBLE : View.GONE}"
+                android:onClick="@{()->controller.btnClick()}"
+                android:layout_below="@id/card_level"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_14"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_download"
+                android:visibility="@{controller.isNotDownload ? View.VISIBLE : View.GONE}"
+                android:onClick="@{()->controller.btnClickDownload()}"
+                android:layout_below="@id/card_level"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_14"
+                />
 
             <TextView
                 android:id="@+id/description"
@@ -81,11 +122,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/card_id"
                 android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="@dimen/margin_8"
                 android:layout_marginBottom="@dimen/margin_8"
+                tools:text = "4554zxcvfgfsdfzxfvzdxfgvzxcvzxfdsxzfvzd54"
                 android:fontFamily="@font/urbanistregular"
-                android:text="CleantCityAbonentda oxirgi Play marketda releasega chiqarilgan versiyani Gitga push qilinmagan. Va oldingi versiyadan yangi versiya chiqarilganda Conflick yuzaga kelgan, Play consoledan oldingi versiyani qaytarib turish." />
+                android:text="@{controller.name}"
+                />
 
             <RelativeLayout
                 android:id="@+id/relative"
@@ -109,7 +152,7 @@
                     android:layout_toEndOf="@id/calendar"
                     android:gravity="center"
                     android:layout_marginStart="@dimen/margin_8"
-                    android:text="12.12.2022.12:12"
+                    android:text="@{controller.createdDate}"
                     android:textSize="14sp" />
 
                 <ImageView
@@ -128,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/margin_24"
-                    android:text="4 soat"
+                    android:text="@{controller.processTime}"
                     android:textSize="14sp" />
 
             </RelativeLayout>
@@ -156,7 +199,7 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Numanov Xojiakbar"
+                    android:text="@{controller.userName}"
                     android:layout_marginStart="@dimen/margin_4"
                     />
 

@@ -11,13 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.adapter.RecyclerAdapter
+import com.xojiakbar.taskmanager.api.result.ErrorResult
+import com.xojiakbar.taskmanager.data.beans.task_bean.Row
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 import com.xojiakbar.taskmanager.databinding.FragmentHomeBinding
 import com.xojiakbar.taskmanager.databinding.ItemHomeRecyclerBinding
 import com.xojiakbar.taskmanager.fragments.home_fragment.item.ItemUIController
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),HomeRouter {
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding
     private var viewModel : HomeViewModel? =null
@@ -42,7 +44,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = RecyclerAdapter(R.layout.item_home_recycler, getAdapterListener())
         viewModel?.getTasks()!!.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it.size.toString(), Toast.LENGTH_SHORT).show()
             binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
             adapter!!.setList(it.toMutableList())
             binding?.recyclerView?.adapter = adapter
@@ -60,6 +61,7 @@ class HomeFragment : Fragment() {
 
             override fun setController(dataBinding: ViewDataBinding?) {
                 val controller = ItemUIController(requireContext())
+                controller.router = this@HomeFragment
                 (dataBinding as ItemHomeRecyclerBinding).controller = controller
 
 
@@ -74,6 +76,39 @@ class HomeFragment : Fragment() {
                 dataBinding.executePendingBindings()
             }
         }
+    }
+
+    override fun changeStatus(id: Int?) {
+        viewModel?.getByID(id!!)!!.observe(viewLifecycleOwner){
+
+            val task = Row(
+            it.id,
+            it.task_statuses_id,
+            it.task_code,
+            it.projects_name,
+            it.task_priorities_name,
+            it.name,
+            it.created_date,
+            it.curr_executer_name,
+            it.task_priorities_id,
+            it.process_time,
+            it.status_description
+            )
+            Toast.makeText(requireContext(), task.id.toString(), Toast.LENGTH_SHORT).show()
+            viewModel?.updateTaskStatus(task)
+        }
+    }
+
+    override fun setLoading() {
+    }
+
+    override fun onSuccess(response: Any?) {
+        Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onError(errorMsg: ErrorResult?) {
+        Toast.makeText(requireContext(), errorMsg?.message, Toast.LENGTH_SHORT).show()
+
     }
 
 }

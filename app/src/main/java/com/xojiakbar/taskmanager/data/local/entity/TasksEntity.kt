@@ -15,5 +15,6 @@ class TasksEntity(
     var curr_executer_name: String?,
     var process_time: Long?,
     var task_priorities_id : Int?,
+    var status_description:String?,
     var new_version_code: Int?
 )
