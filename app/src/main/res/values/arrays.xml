@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="uploadImages">
+        <item>Gallery</item>
+        <item>Camera</item>
+    </string-array>
+
+    <string-array name="itemIds">
+        <item>gallery_image</item>
+        <item>camera_image</item>
+    </string-array>
+    <string-array name="spinnerArray">
+        <item>@string/all</item>
+        <item>@string/new_task</item>
+        <item>@string/performer_appointed</item>
+        <item>@string/accepted_tasks</item>
+        <item>@string/loading</item>
+        <item>@string/pause</item>
+        <item>@string/done_tasks</item>
+        <item>@string/returned</item>
+        <item>@string/done</item>
+        <item>@string/rated</item>
+        <item>@string/failed_tasks</item>
+    </string-array>
+</resources>

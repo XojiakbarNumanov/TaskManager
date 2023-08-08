@@ -4,25 +4,66 @@ import android.content.Context
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
+import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 
 class HomeUIController(context: Context) :BaseObservable() {
     var router : HomeRouter? = null
-    var entity : TasksCountEntity? =null
+    var listentity : List<TasksEntity>? =null
 
     @Bindable
     fun getNewTasks() : String{
-        return if (entity != null) entity?.new_tasks.toString() else "---"
+        if (listentity!= null) {
+        var k = 0
+        for (i in listentity!!){
+            if (i.task_statuses_id == 1)
+                k++
+        }
+        return  k.toString()
+    }
+    else return "---"
     }
     fun getAcceptedTasks() : String{
-        return if (entity != null) entity?.accepted_tasks.toString() else "---"
+        if (listentity!= null) {
+        var k = 0
+        for (i in listentity!!){
+            if (i.task_statuses_id == 3)
+                k++
+        }
+        return  k.toString()
+    }
+    else return "---"
     }
     fun getDoneTasks() : String{
-        return if (entity != null) entity?.done_tasks.toString() else "---"
+        if (listentity!= null) {
+        var k = 0
+        for (i in listentity!!){
+            if (i.task_statuses_id == 8)
+                k++
+        }
+        return  k.toString()
+    }
+    else return "---"
     }
     fun getProssesTasks() : String{
-        return if (entity != null) entity?.prosses_tasks_cnt.toString() else "---"
+        if (listentity!=null) {
+            var k = 0
+            for (i in listentity!!) {
+                if (i.task_statuses_id == 4 || i.task_statuses_id == 5)
+                    k++
+            }
+            return k.toString()
+        }
+        else return "---"
     }
     fun getReturnedTasks() : String{
-        return if (entity != null) entity?.returned_tasks.toString() else "---"
+        if (listentity!= null) {
+            var k = 0
+            for (i in listentity!!) {
+                if (i.task_statuses_id == 7)
+                    k++
+            }
+            return k.toString()
+        }
+        else return "---"
     }
 }

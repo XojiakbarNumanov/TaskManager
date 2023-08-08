@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity("tasks")
 class TasksEntity(
-    @PrimaryKey var id: Int?,
+    @PrimaryKey
+    var id: Int?,
     var task_statuses_id: Int?,
     var task_code: String?,
     var projects_name: String?,
@@ -16,5 +17,7 @@ class TasksEntity(
     var process_time: Long?,
     var task_priorities_id : Int?,
     var status_description:String?,
-    var new_version_code: Int?
-)
+    var new_version_code: Int?,
+    var task_statuses_name :String?,
+
+    )

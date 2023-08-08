@@ -23,18 +23,27 @@ class HomeViewModel(application: Application) : BaseViewModel<HomeRouter>(applic
     fun getTasksCnt(): LiveData<TasksCountEntity>{
         return repository?.getTaskCnt()!!
     }
+    fun updateTask(statusId: Int,id: Int){
+        repository?.updateTasksDB(statusId,id)
+    }
     fun getTasks() :LiveData<MutableList<TasksEntity>>
     {
         return repository?.getTasksDB()!!
+    }
+    fun getTasksById(statusId:Int) :LiveData<MutableList<TasksEntity>>
+    {
+        return repository?.getTasksByIdDB(statusId)!!
     }
     fun getByID(id :Int) : LiveData<TasksEntity>{
         return repository!!.getByIdDB(id)
     }
     fun updateTaskStatus(row: Row){
-        router?.setLoading()
+        router?.setLoading("Update Status")
         repository?.putTaskStatus(row,object : ApiCallback<ResponseBody>{
             override fun onSuccess(response: ResponseBody) {
                 router?.onSuccess(response)
+                updateTask(row.task_statuses_id!!,row.id!!)
+
             }
 
             override fun onError(throwable: Throwable) {

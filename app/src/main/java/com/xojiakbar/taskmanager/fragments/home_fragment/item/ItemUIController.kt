@@ -19,7 +19,8 @@ class ItemUIController(val context: Context) :BaseObservable(){
 
     fun setEntity99(entity: TasksEntity?) {
         this.entity = entity
-        notifyPropertyChanged(BR._all)
+        notifyChange()
+       // notifyPropertyChanged(BR._all)
     }
 
     @Bindable
@@ -43,6 +44,11 @@ class ItemUIController(val context: Context) :BaseObservable(){
         return if (entity!=null && entity?.curr_executer_name!=null) entity?.curr_executer_name.toString() else "---"
     }
     @Bindable
+    fun getStatus() :String{
+        return if (entity!=null && entity?.task_statuses_name!=null) entity?.task_statuses_name.toString() else "---"
+    }
+
+    @Bindable
     fun getIsPlay(): Boolean{
         return entity?.task_statuses_id == 4
     }
@@ -50,9 +56,9 @@ class ItemUIController(val context: Context) :BaseObservable(){
         return entity?.task_statuses_id == 5 || entity?.task_statuses_id == 3
     }
     fun getIsNotDownload(): Boolean{
-        return entity?.task_statuses_id == 2
+        return entity?.task_statuses_id == 2 || entity?.task_statuses_id == 7
     }
-    @SuppressLint("SuspiciousIndentation")
+    @SuppressLint("SuspiciousIndentation", "SimpleDateFormat")
     @Bindable
     fun getCreatedDate() :String{
         if (entity!=null && entity?.created_date!=null){
@@ -63,6 +69,7 @@ class ItemUIController(val context: Context) :BaseObservable(){
         }
         else return "---"
     }
+    @SuppressLint("SimpleDateFormat")
     @Bindable
     fun getProcessTime() :String{
         if (entity!=null && entity?.process_time!=null){
@@ -120,11 +127,12 @@ class ItemUIController(val context: Context) :BaseObservable(){
     }
 
     fun btnClick(){
-        router?.changeStatus(entity?.id)
+        router?.changeStatus(entity!!)
     }
-    fun btnClickDownload(){
+    fun btnUpload(){
+        router?.showDialog(entity!!)
+    }
 
-    }
 
 
 }

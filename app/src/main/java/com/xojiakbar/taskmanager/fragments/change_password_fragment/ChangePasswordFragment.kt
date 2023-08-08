@@ -67,8 +67,8 @@ class ChangePasswordFragment : Fragment(), ChangePasswordRouter {
             .show()
     }
 
-    override fun setLoading() {
-         customLoadingDialog.show(requireFragmentManager(), "custom_loading_dialog")
+    override fun setLoading(tag :String) {
+         customLoadingDialog.show(requireFragmentManager(), tag)
     }
 
     override fun onSuccess(response: Any?) {

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingHorizontal="@dimen/margin_16"
+            app:passwordToggleTint="@color/black"
+            app:placeholderTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="20dp"
+                android:hint="@string/description"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:layout_below="@id/description"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            />
+        <TextView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/red"
+            android:text="Close"
+            android:layout_below="@id/recycler_view"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginStart="16dp"
+            />
+        <TextView
+            android:id="@+id/addFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/dark_blue"
+            android:text="Add"
+            android:layout_below="@id/recycler_view"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_centerHorizontal="true"
+            />
+        <TextView
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/dark_blue"
+            android:text="Save"
+            android:layout_below="@id/recycler_view"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

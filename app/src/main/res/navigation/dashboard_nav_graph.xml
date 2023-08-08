@@ -42,9 +42,4 @@
             android:id="@+id/action_settingsFragment_to_statisticsFragment"
             app:destination="@id/statisticsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/tasksFragment"
-        android:name="com.xojiakbar.taskmanager.fragments.TasksFragment"
-        android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" />
 </navigation>

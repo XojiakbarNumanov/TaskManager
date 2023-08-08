@@ -5,4 +5,5 @@ import com.xojiakbar.taskmanager.Utils.BaseRouter
 interface LoginRouter : BaseRouter<Any> {
     fun checkLogin(username: String?, password: String?,remember:Boolean)
     fun hideKeyboard()
+    fun forgotPassword()
 }

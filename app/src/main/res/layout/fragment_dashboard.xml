@@ -54,7 +54,7 @@
                     android:id="@+id/user_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Android dasturchi"
+                    android:text="@{controller.jobs}"
                     android:textSize="@dimen/text_10" />
             </LinearLayout>
 
@@ -128,15 +128,15 @@
                     app:labelVisibilityMode="labeled"
                     app:menu="@menu/main_menu" />
             </com.google.android.material.bottomappbar.BottomAppBar>
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/add"
-                android:layout_gravity="center"
-                app:layout_anchor="@id/bottom_app_bar"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_add"
-                />
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/add"-->
+<!--                android:layout_gravity="center"-->
+<!--                app:layout_anchor="@id/bottom_app_bar"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:src="@drawable/ic_add"-->
+<!--                />-->
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

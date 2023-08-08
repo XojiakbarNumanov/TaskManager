@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="controller"
             type="com.xojiakbar.taskmanager.fragments.home_fragment.item.ItemUIController" />
     </data>
+
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:backgroundTint="@color/dark_blue"
+        android:layout_margin="@dimen/margin_8"
         android:backgroundTint="@{controller.backColor}"
         app:cardCornerRadius="@dimen/margin_8"
-        android:layout_margin="@dimen/margin_8">
+        tools:backgroundTint="@color/dark_blue">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_6"
-            tools:background="@color/light_blue"
-            android:background="@{controller.layoutColor}">
+            android:background="@{controller.layoutColor}"
+            tools:background="@color/light_blue">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
+                android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginTop="@dimen/margin_8"
                 android:backgroundTint="@color/dark_blue"
-                android:layout_marginStart="@dimen/margin_8"
-                >
+                app:cardCornerRadius="8dp">
+
                 <TextView
                     android:id="@+id/user_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/margin_2"
                     android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_2"
                     android:text="@{controller.id}"
-                    tools:text = "455454"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="455454" />
             </androidx.cardview.widget.CardView>
 
 
@@ -50,71 +54,85 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_8"
-                android:text="@{controller.projectName}"
                 android:layout_marginTop="@dimen/margin_10"
-                tools:text = "Ecofound"
-                android:fontFamily="@font/urbanistregular"
-                android:textColor="@color/black"
                 android:layout_toEndOf="@id/card_id"
-                android:textSize="@dimen/text_16" />
+                android:fontFamily="@font/urbanistregular"
+                android:text="@{controller.projectName}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                tools:text="Ecofound" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
-                android:layout_marginTop="@dimen/margin_12"
-                tools:backgroundTint="@color/red"
-                android:backgroundTint="@{controller.levelColor}"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginEnd="@dimen/margin_16"
-                >
+                android:backgroundTint="@{controller.levelColor}"
+                app:cardCornerRadius="8dp"
+                tools:backgroundTint="@color/red">
+
                 <TextView
                     android:id="@+id/level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_10"
                     android:layout_marginVertical="2dp"
-                    tools:text = "455454"
                     android:fontFamily="@font/urbanistregular"
                     android:text="@{controller.level}"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
-                    android:textColor="@color/white"/>
+                    tools:text="455454" />
             </androidx.cardview.widget.CardView>
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/pause"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_below="@id/card_level"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_14"
+                android:onClick="@{()->controller.btnClick()}"
                 android:src="@drawable/ic_pause"
-                android:visibility="@{controller.isPlay ? View.VISIBLE : View.GONE}"
-                android:onClick="@{()->controller.btnClick()}"
+                android:visibility="@{controller.isPlay ? View.VISIBLE : View.GONE}" />
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_below="@id/card_level"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginEnd="@dimen/margin_14"
-                />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:onClick="@{()->controller.btnClick()}"
                 android:src="@drawable/ic_play"
-                android:visibility="@{controller.isPause ? View.VISIBLE : View.GONE}"
-                android:onClick="@{()->controller.btnClick()}"
-                android:layout_below="@id/card_level"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_14"
-                />
+                android:visibility="@{controller.isPause ? View.VISIBLE : View.GONE}" />
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_download"
-                android:visibility="@{controller.isNotDownload ? View.VISIBLE : View.GONE}"
-                android:onClick="@{()->controller.btnClickDownload()}"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_below="@id/card_level"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginEnd="@dimen/margin_14"
+                android:onClick="@{()->controller.btnClick()}"
+                android:src="@drawable/ic_download"
+                android:visibility="@{controller.isNotDownload ? View.VISIBLE : View.GONE}" />
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_upload"
+                android:layout_below="@id/card_id"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_toStartOf="@id/pause"
+                android:visibility="@{controller.isPlay ? View.VISIBLE : View.GONE}"
+                android:onClick="@{()->controller.btnUpload()}"
                 />
+
 
             <TextView
                 android:id="@+id/description"
@@ -125,18 +143,17 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="@dimen/margin_8"
                 android:layout_marginBottom="@dimen/margin_8"
-                tools:text = "4554zxcvfgfsdfzxfvzdxfgvzxcvzxfdsxzfvzd54"
                 android:fontFamily="@font/urbanistregular"
                 android:text="@{controller.name}"
-                />
+                tools:text="4554zxcvfgfsdfzxfvzdxfgvzxcvzxfdsxzfvzd54" />
 
             <RelativeLayout
                 android:id="@+id/relative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:layout_below="@id/description"
-                >
+                android:gravity="center_vertical">
+
                 <ImageView
                     android:id="@+id/calendar"
                     android:layout_width="18dp"
@@ -149,9 +166,9 @@
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
                     android:layout_toEndOf="@id/calendar"
                     android:gravity="center"
-                    android:layout_marginStart="@dimen/margin_8"
                     android:text="@{controller.createdDate}"
                     android:textSize="14sp" />
 
@@ -180,10 +197,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relative"
-                android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginBottom="@dimen/margin_16"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_image"
                     android:layout_width="24dp"
@@ -193,17 +211,38 @@
                     android:src="@drawable/image_person"
                     app:civ_border_color="@color/black"
                     app:civ_border_width="1dp"
-                    app:civ_circle_background_color="@color/white"
-                    />
+                    app:civ_circle_background_color="@color/white" />
+
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{controller.userName}"
                     android:layout_marginStart="@dimen/margin_4"
-                    />
+                    android:text="@{controller.userName}" />
 
             </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_id"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_4"
+                android:backgroundTint="@{controller.backColor}"
+                app:cardCornerRadius="8dp"
+                tools:backgroundTint="@color/dark_blue">
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:text="@{controller.status}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="455454" />
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
 

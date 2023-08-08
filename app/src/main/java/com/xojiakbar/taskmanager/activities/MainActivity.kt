@@ -1,5 +1,6 @@
 package com.xojiakbar.taskmanager.activities
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
         val navController = navHostFragment.navController
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            @SuppressLint("SuspiciousIndentation")
             override fun handleOnBackPressed() {
                 if (navController.currentDestination?.id != R.id.dashboardFragment)
                     navController.popBackStack(R.id.dashboardFragment,false)

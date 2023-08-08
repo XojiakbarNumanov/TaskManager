@@ -12,6 +12,10 @@ class DashboardUIController(context: Context) : BaseObservable() {
     fun getUserName(): String? {
         return Preferences.getUserFIO()
     }
+    @Bindable
+    fun getJobs(): String? {
+        return Preferences.getUserRolesName()
+    }
 
     fun refresh(){
         router?.refresh()

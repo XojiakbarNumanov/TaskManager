@@ -39,10 +39,7 @@ class LoginUIController (context: Context) : BaseObservable() {
             password.error = context.getString(R.string.input_password_please)
             return false
         }
-        if (checkCycrilic(password.text.toString())) {
-            password.error = context.getString(R.string.cycrilic_error)
-            return false
-        }
+
         return true
     }
     private fun checkCycrilic(str: String): Boolean {
@@ -50,5 +47,8 @@ class LoginUIController (context: Context) : BaseObservable() {
             if ((c < '0' || c > '9') && (c < 'A' || c > 'Z') && (c < 'a' || c > 'z')) return true
         }
         return false
+    }
+    fun forgotPassword(){
+        router?.forgotPassword()
     }
 }

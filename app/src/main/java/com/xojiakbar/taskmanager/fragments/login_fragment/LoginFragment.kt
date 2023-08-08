@@ -70,19 +70,29 @@ class LoginFragment : Fragment() , LoginRouter {
         }
     }
 
-    override fun setLoading() {
-        loadingDialog.show(requireFragmentManager(),"Loading")
+    override fun forgotPassword() {
+        navController.navigate(R.id.forgotPassFragment)
+    }
+
+    override fun setLoading(tag :String) {
+        loadingDialog.show(requireFragmentManager(),tag)
     }
 
     @SuppressLint("SuspiciousIndentation")
     override fun onSuccess(response: Any?) {
+        try {
             loadingDialog.dismiss()
+        }
+        catch (_: Exception){}
             navController.navigate(R.id.createPinCodeFragment)
         }
 
 
     override fun onError(errorMsg: ErrorResult?) {
-        loadingDialog.dismiss()
+        try {
+            loadingDialog.dismiss()
+        }
+        catch (_: Exception){}
         Toast.makeText(requireContext(),errorMsg?.message , Toast.LENGTH_SHORT).show()
     }
 

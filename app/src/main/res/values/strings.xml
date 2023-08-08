@@ -3,8 +3,6 @@
     <string name="app_name">Task manager</string>
 
     <string name="ok" translatable="false">Ok</string>
-
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="failure_to_connect">Server bilan ulanishda xatolik yuz berdi</string>
     <string name="russian" translatable="false">Русский язык</string>
@@ -63,6 +61,24 @@
     <string name="completed">Yakunlangan</string>
     <string name="suspended">To\'xtatilgan</string>
     <string name="returned">Qaytarilgan</string>
+    <string name="password_recovery">Parolni qayta tiklash</string>
+    <string name="fill_out_form">Parolni qayta tiklash uchun formani to\'ldiring</string>
+    <string name="all">Barchasi</string>
+    <string name="new_task">Yangi</string>
+    <string name="pause">Vaqtincha to\'xtatilgan</string>
+    <string name="done_tasks">Tekshiruvda</string>
+    <string name="accepted_tasks">Qabul qilingan</string>
+    <string name="appointed">Biriktirilgan</string>
+    <string name="change_status_pause">Pausaga o\'tkazish</string>
+    <string name="change_status_process">Jarayonga o\'tkazish</string>
+    <string name="change_status_accept">Qabul qilish</string>
+    <string name="wont_log_out">Dasturdan chiqishni hohlaysizmi</string>
+    <string name="description">Tavsif</string>
+    <string name="choose">Tanlang</string>
+    <string name="performer_appointed">Ijrochi tayinlandgan</string>
+    <string name="rated">Baholangan</string>
+    <string name="failed_tasks">Bajarilmagan</string>
+
 
 
 </resources>

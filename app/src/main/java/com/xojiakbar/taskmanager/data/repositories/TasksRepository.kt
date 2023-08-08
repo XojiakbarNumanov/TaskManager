@@ -16,8 +16,12 @@ import com.xojiakbar.taskmanager.data.local.database.AppDatabase
 import com.xojiakbar.taskmanager.data.local.entity.ReportTasksEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import uz.furorprogress.domain.base.BaseRepository
+import java.io.File
 
 class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     override val apiService: Class<ApiService>?
@@ -31,43 +35,23 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
         tasksDao = appDatabase.taskDao()
         reportDao = appDatabase.reportDao()
     }
-    fun getTasksCnt(userID : Int ,callback: ApiCallback<List<StatusTask>>) {
-        request(getApi(ApiService::class.java).getTasksCnt(userID), callback)
-    }
+
     fun putTaskStatus(row: Row,callback: ApiCallback<ResponseBody>)
     {
         request(getApi(ApiService::class.java).updateTaskStatus(row),callback)
     }
-    fun insertTasksCount(tasks: List<StatusTask>): Long {
-        tasksCntDao?.deleteAll()
-        var newtasks= 0
-        var acceptedTasks= 0
-        var doneTasks= 0
-        var returnedTasks=0
-        var prossesTasks= 0
-        for (task  in tasks)
-        {
-            if (task.id == 1){newtasks += task.cnt}
-            if (task.id == 3){acceptedTasks += task.cnt}
-            if (task.id == 4 || task.id == 5){prossesTasks+=task.cnt}
-            if (task.id == 8){ doneTasks += task.cnt}
-            if (task.id == 7){returnedTasks += task.cnt}
-        }
 
-        val tasksCnt = TasksCountEntity(
-            newtasks,
-            prossesTasks,
-            doneTasks,
-            returnedTasks,
-            acceptedTasks
-        )
-        return tasksCntDao?.insert(tasksCnt)!!
-    }
     fun getTaskCnt() : LiveData<TasksCountEntity>? {
         return tasksCntDao?.getTasks()
     }
     fun getTasksDB():LiveData<MutableList<TasksEntity>>?{
         return tasksDao?.getTasks()
+    }
+    fun getTasksByIdDB(statusId :Int):LiveData<MutableList<TasksEntity>>?{
+        return tasksDao?.getTasksById(statusId)
+    }
+    fun updateTasksDB(statusId: Int,id : Int){
+        tasksDao?.updateStatus(statusId , id )
     }
     fun getByIdDB(id : Int): LiveData<TasksEntity>{
         return tasksDao?.getById(id)!!
@@ -99,7 +83,8 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
                 task.process_time,
                 task.task_priorities_id,
                 task.status_description,
-                newVersioncode
+                newVersioncode,
+                task.task_statuses_name
             )
             tasksDao?.insert(tasksEntity)
         }
@@ -147,5 +132,18 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     }
     fun getReportTasksFromDB(): LiveData<MutableList<ReportTasksEntity>>?{
         return reportDao?.getReport()
+    }
+    fun uploadFileResource(file: File, callback: ApiCallback<Int>) {
+        val requestFile: RequestBody = RequestBody.create(
+            "file".toMediaTypeOrNull(),
+            file
+
+        )
+        val inFile: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "file",
+            file.name, requestFile
+        )
+        val resourceTypesId: MultipartBody.Part = MultipartBody.Part.createFormData("resource_types_id", "7")
+        request(getApi(ApiService::class.java).sendFile(inFile,resourceTypesId),callback)
     }
 }

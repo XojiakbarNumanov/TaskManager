@@ -73,10 +73,23 @@ object Preferences{
     fun getIsManager() : Int{
         return sharedPreferences?.getInt("is_manager",-1)!!
     }
+    fun setImageResource(imageRes : Int){
+        sharedPreferences!!.edit().putInt("imageRes",imageRes).apply()
+    }
+    fun getImageResource() : Int{
+        return sharedPreferences?.getInt("imageRes",-1)!!
+    }
+    fun getIsFirstTime() :Boolean {
+        return sharedPreferences!!.getBoolean("is_first_time", true)
+    }
+    fun setIsFirstTime(isFirst: Boolean) {
+        sharedPreferences!!.edit().putBoolean("is_first_time",isFirst).apply()
+    }
 
     fun clearPreferences()
     {
         sharedPreferences!!.edit().putBoolean("is_first",true).apply()
+        sharedPreferences!!.edit().putBoolean("is_first_time",true).apply()
         sharedPreferences!!.edit().putString("app_language","uz").apply()
         sharedPreferences!!.edit().putInt("user_id",0).apply()
         sharedPreferences!!.edit().putString("userName","").apply()
@@ -86,5 +99,7 @@ object Preferences{
         sharedPreferences!!.edit().putString("UserPasswordHash","").apply()
         sharedPreferences!!.edit().putString("user_roles","").apply()
         sharedPreferences!!.edit().putInt("is_manager",-1).apply()
+        sharedPreferences!!.edit().putInt("imageRes",-1).apply()
+
     }
 }

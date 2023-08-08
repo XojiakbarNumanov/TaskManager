@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.activities.LoginActivity
@@ -49,16 +50,28 @@ class SettingsFragment : Fragment() {
             navController.navigate(R.id.changePinCodeFragment)
         }
         binding?.layoutLogOut?.setOnClickListener {
-            Preferences.clearPreferences()
-            val intent = Intent(requireContext(),LoginActivity::class.java)
-            usersDao?.deleteAll()
-            tasksCntDao?.deleteAll()
-            tasksDao?.deleteAll()
-            startActivity(intent)
-            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.card_slide_out_left)
-            requireActivity().finish()
-
+            val titleText = getString(R.string.wont_log_out)
+                MaterialAlertDialogBuilder(requireContext())
+                .setTitle(titleText)
+                .setCancelable(false)
+                .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.dismiss() }
+                .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+                    dialog.dismiss()
+                    logOut()
+                }
+                .show()
         }
+    }
+    fun logOut(){
+        Preferences.clearPreferences()
+        val intent = Intent(requireContext(),LoginActivity::class.java)
+        usersDao?.deleteAll()
+        tasksCntDao?.deleteAll()
+        tasksDao?.deleteAll()
+        startActivity(intent)
+        requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.card_slide_out_left)
+        requireActivity().finish()
+
     }
 
     override fun onDestroy() {

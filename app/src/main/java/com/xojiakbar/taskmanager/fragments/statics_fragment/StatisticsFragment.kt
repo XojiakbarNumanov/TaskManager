@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.squareup.picasso.Picasso
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.adapter.RecyclerAdapter
@@ -70,7 +72,17 @@ class StatisticsFragment : Fragment() {
                 position: Int?
             ) {
                 (dataBinding as ItemStatisticsBinding).controller!!.setForEntity(item)
-                Picasso.get().load("https://furorprogress.uz/api/resources/"+item?.img_resource_id+"/view").into(dataBinding.userImage)
+                var img = ""
+                if (item?.img_resource_id!=null && item.img_resource_id != 0)
+                    Picasso.get()
+                        .load("https://furorprogress.uz/api/resources/" + item.img_resource_id.toString() + "/view")
+                        .fit()
+                        .centerCrop()
+                        .into(dataBinding.userImage)
+                else
+                    dataBinding.userImage.setImageResource( R.drawable.ic_person)
+
+
                 dataBinding.executePendingBindings()
             }
         }

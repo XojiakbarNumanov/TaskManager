@@ -121,6 +121,7 @@
             android:textColor="@color/dark_blue"
             android:textStyle="italic"
             android:gravity="center"
+            android:onClick="@{()->controller.forgotPassword()}"
             android:layout_marginTop="@dimen/margin_8"
             app:layout_constraintTop_toBottomOf="@id/btn_login" />
 

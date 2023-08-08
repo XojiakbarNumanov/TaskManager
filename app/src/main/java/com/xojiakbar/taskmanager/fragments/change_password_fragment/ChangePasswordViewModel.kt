@@ -24,7 +24,7 @@ class ChangePasswordViewModel(application: Application) : BaseViewModel<ChangePa
         map["old_password"] = Preferences.getUserPassword()
         map["password"] = newPassword
         if (router != null) {
-            router!!.setLoading()
+            router!!.setLoading("Change Password")
             changePasswordRepostory?.changePasswor(map, object : ApiCallback<ResponseBody> {
                 override fun onSuccess(response: ResponseBody) {
                     if (router != null) {

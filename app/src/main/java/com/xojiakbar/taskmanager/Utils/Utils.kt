@@ -2,9 +2,17 @@ package com.xojiakbar.taskmanager.Utils
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import androidx.exifinterface.media.ExifInterface
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import okhttp3.ResponseBody
 import org.json.JSONObject
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.Locale
@@ -77,6 +85,88 @@ open fun toHexString(block: ByteArray): String? {
         val low = b.toInt() and 0xf
         buf.append(hexChars[high])
         buf.append(hexChars[low])
+    }
+    fun saveBitmapToFile(file: File): File? {
+        return try {
+
+            // BitmapFactory options to downsize the image
+            val o = BitmapFactory.Options()
+            o.inJustDecodeBounds = true
+            o.inSampleSize = 6
+            // factor of downsizing the image
+            var inputStream = FileInputStream(file)
+            //Bitmap selectedBitmap = null;
+            BitmapFactory.decodeStream(inputStream, null, o)
+            inputStream.close()
+
+            // The new size we want to scale to
+            val REQUIRED_SIZE = 75
+
+            // Find the correct scale value. It should be the power of 2.
+            var scale = 1
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                o.outHeight / scale / 2 >= REQUIRED_SIZE
+            ) {
+                scale *= 2
+            }
+            val o2 = BitmapFactory.Options()
+            o2.inSampleSize = scale
+            inputStream = FileInputStream(file)
+            var selectedBitmap = BitmapFactory.decodeStream(inputStream, null, o2)
+            inputStream.close()
+            selectedBitmap = checkRotation(
+                selectedBitmap!!,
+                file
+            )
+            // here i override the original image file
+            if (file.exists() || file.createNewFile()) {
+                val outputStream = FileOutputStream(file)
+                selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            }
+            file
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    @Throws(IOException::class)
+    fun checkRotation(bitmap: Bitmap, file: File): Bitmap {
+        val ei = ExifInterface(file.absolutePath)
+        val orientation = ei.getAttributeInt(
+            ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_UNDEFINED
+        )
+        val rotatedBitmap: Bitmap
+        rotatedBitmap =
+            when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(
+                    bitmap,
+                    90f
+                )
+
+                ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(
+                    bitmap,
+                    180f
+                )
+
+                ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(
+                    bitmap,
+                    270f
+                )
+
+                ExifInterface.ORIENTATION_NORMAL -> bitmap
+                else -> bitmap
+            }
+        return rotatedBitmap
+    }
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height,
+            matrix, true
+        )
     }
 
 }

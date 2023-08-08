@@ -18,7 +18,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginRouter>(appl
     }
 
     fun login(username: String, password: String, remember: Boolean) {
-        router!!.setLoading()
+        router!!.setLoading("login")
         loginRepository?.login(
             username,
             password,
@@ -31,6 +31,7 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginRouter>(appl
                     Preferences.setUserPasswordHash(Utils.getStringDigest(password))
                     Preferences.setUserRolesName(response.user.user_roles_name)
                     Preferences.setIsManager(response.user.is_manager)
+                    Preferences.setImageResource(response.user.img_resource_id)
                     loginRepository!!.putUserToDb(response)
                     Preferences.setUserId(response.user.id)
                     router?.onSuccess(response)

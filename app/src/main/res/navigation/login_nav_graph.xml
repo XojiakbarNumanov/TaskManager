@@ -33,4 +33,8 @@
         android:id="@+id/passwordFragment"
         android:name="com.xojiakbar.taskmanager.fragments.password_fragment.PasswordFragment"
         android:label="PasswordFragment" />
+    <fragment
+        android:id="@+id/forgotPassFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.forgot_password.ForgotPassFragment"
+        android:label="ForgotPassFragment" />
 </navigation>

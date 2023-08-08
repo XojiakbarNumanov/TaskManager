@@ -7,6 +7,7 @@ import com.xojiakbar.taskmanager.data.beans.user_bean.UserBean
 import com.xojiakbar.taskmanager.data.local.database.AppDatabase
 import com.xojiakbar.taskmanager.data.local.dao.UsersDao
 import com.xojiakbar.taskmanager.data.local.entity.UserEntity
+import okhttp3.ResponseBody
 
 import uz.furorprogress.domain.base.BaseRepository
 
@@ -21,6 +22,9 @@ class LoginRepository(context: Context) : BaseRepository<ApiService>(context) {
     }
     fun login(login:String,password:String,remember:Boolean,callback: ApiCallback<UserBean>) {
         request(getApi(ApiService::class.java)!!.login(login,password,remember),callback)
+    }
+    fun forgotPass(map : Map<String, String> ,callback: ApiCallback<ResponseBody>) {
+        request(getApi(ApiService::class.java).forgotUserPassword(map), callback)
     }
     fun putUserToDb(userBean: UserBean): Long {
         val user = UserEntity(
@@ -44,5 +48,6 @@ class LoginRepository(context: Context) : BaseRepository<ApiService>(context) {
         )
         return usersDao!!.insert(user)
     }
+
 
 }
