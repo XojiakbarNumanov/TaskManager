@@ -22,6 +22,7 @@
     <string name="language">Язык приложения</string>
     <string name="menu_settings">Настройки</string>
     <string name="settings_language">Язык приложения</string>
+    <string name="current_lang">Русский язык</string>
     <string name="input_login_please">Пожалуйста, введите ваш логин</string>
     <string name="input_password_please">Пожалуйста введите ваш пароль</string>
     <string name="cycrilic_error">Пароль должен состоять из латинских букв или цифр</string>
@@ -53,6 +54,26 @@
     <string name="welcome">Заполните форму для входа в личный кабинет</string>
     <string name="forgot_password"><u>Забыли пароль?</u></string>
     <string name="loading">В ходе выполнения</string>
+    <string name="completed">Завершенный</string>
+   <string name="suspended">Приостановленный</string>
+   <string name="returned">Вернулся</string>
+   <string name="password_recovery">Восстановление пароля</string>
+   <string name="fill_out_form">Заполните форму для сброса пароля</string>
+   <string name="all">Все</string>
+   <string name="new_task">Новый</string>
+   <string name="pause">приостановленный</string>
+   <string name="done_tasks">При осмотре</string>
+   <string name="accepted_tasks">Принял</string>
+   <string name="appointed">Прикрепил</string>
+   <string name="change_status_pause">Изменить на паузу</string>
+   <string name="change_status_process">Изменить на процесс</string>
+   <string name="change_status_accept">Принятие</string>
+   <string name="wont_log_out">Вы хотите выйти из программы?</string>
+   <string name="description">Описание</string>
+   <string name="choose">Выбирать</string>
+   <string name="performer_appointed">Исполнитель назначен</string>
+   <string name="rated">"Оцененная "</string>
+   <string name="failed_tasks">Не выполнено</string>
 
 
 </resources>

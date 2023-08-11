@@ -45,10 +45,13 @@ class DashboardFragment : Fragment() ,DashboardRouter{
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment_dashboard) as NavHostFragment
         val navController = navHostFragment.navController
         setupWithNavController(binding?.bottomNavigationView!!,navController)
-
         viewModel!!.router = this
         Picasso.get().load("https://furorprogress.uz/api/resources/"+Preferences.getImageResource()+"/view").into(binding?.userImage)
-
+        if (Preferences.getIsFirstTime())
+        {
+            refresh()
+            Preferences.setIsFirstTime(false)
+        }
     }
     override fun onResume() {
         super.onResume()

@@ -22,6 +22,7 @@
     <string name="language">Дастур тили</string>
     <string name="menu_settings">Созламалар</string>
     <string name="settings_language">Дастур тили</string>
+    <string name="current_lang">Ўзбек тили</string>
     <string name="input_login_please">Илтимос, логинингизни киритинг</string>
     <string name="input_password_please">Илтимос, паролингизни киритинг</string>
     <string name="cycrilic_error">Парол лотин ҳарфлар ёки сонлардан ташкил топган бўлиши керак</string>
@@ -53,6 +54,26 @@
     <string name="welcome">Шахсий кабинетингизга кириш учун формани тўлдиринг</string>
     <string name="forgot_password"><u>Паролингизни унутдингизми?</u></string>
     <string name="loading">Жараёнда</string>
+    <string name="completed">Якунланган</string>
+    <string name="suspended">Тўхтатилган</string>
+    <string name="returned">Қайтарилган</string>
+    <string name="password_recovery">Паролни қайта тиклаш</string>
+    <string name="fill_out_form">Паролни тиклаш учун шаклини тўлдиринг</string>
+    <string name="all">Барчаси</string>
+    <string name="new_task">Янги</string>
+    <string name="pause">Вақтинча тўхтатилган</string>
+    <string name="done_tasks">Текширувда</string>
+    <string name="accepted_tasks">Қабул қилинган</string>
+    <string name="appointed">Бириктирилган</string>
+    <string name="change_status_pause">Паусага ўтказиш</string>
+    <string name="change_status_process">Жараёнга ўтказиш</string>
+    <string name="change_status_accept">Қабул қилиш</string>
+    <string name="wont_log_out">Дастурдан чиқишни ҳоҳлайсизми?</string>
+    <string name="description">Тавсиф</string>
+    <string name="choose">Танланг</string>
+    <string name="performer_appointed">Ижрочи тайинланган</string>
+    <string name="rated">Баҳоланган</string>
+    <string name="failed_tasks">Бажарилмаган</string>
 
 
 </resources>

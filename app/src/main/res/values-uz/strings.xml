@@ -22,6 +22,7 @@
     <string name="language">Dastur tili</string>
     <string name="menu_settings">Sozlamalar</string>
     <string name="settings_language">Dastur tili</string>
+    <string name="current_lang">O\'zbek tili</string>
     <string name="input_login_please">Iltimos, loginingizni kiriting</string>
     <string name="input_password_please">Iltimos, parolingizni kiriting</string>
     <string name="cycrilic_error">Parol lotin harflar yoki sonlardan tashkil topgan bo\'lishi kerak</string>
@@ -53,5 +54,25 @@
     <string name="welcome">Shaxsiy kabinetingizga kirish uchun formani to’ldiring</string>
     <string name="forgot_password"><u>Parolingizni unutdingizmi?</u></string>
     <string name="loading">Jarayonda</string>
+    <string name="completed">Yakunlangan</string>
+    <string name="suspended">To\'xtatilgan</string>
+    <string name="returned">Qaytarilgan</string>
+    <string name="password_recovery">Parolni qayta tiklash</string>
+    <string name="fill_out_form">Parolni tiklash uchun shaklini to\'ldiring</string>
+    <string name="all">Barchasi</string>
+    <string name="new_task">Yangi</string>
+    <string name="pause">Vaqtincha to\'xtatilgan</string>
+    <string name="done_tasks">Tekshiruvda</string>
+    <string name="accepted_tasks">Qabul qilingan</string>
+    <string name="appointed">Biriktirilgan</string>
+    <string name="change_status_pause">Pausaga o\'tkazish</string>
+    <string name="change_status_process">Jarayonga o\'tkazish</string>
+    <string name="change_status_accept">Qabul qilish</string>
+    <string name="wont_log_out">Dasturdan chiqishni hohlaysizmi?</string>
+    <string name="description">Tavsif</string>
+    <string name="choose">Tanlang</string>
+    <string name="performer_appointed">Ijrochi tayinlangan</string>
+    <string name="rated">Baholangan</string>
+    <string name="failed_tasks">Bajarilmagan</string>
 
 </resources>

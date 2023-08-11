@@ -30,8 +30,6 @@
         android:layout_marginHorizontal="@dimen/margin_24"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-
-
     <LinearLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"

@@ -87,10 +87,10 @@ class RecyclerAdapter<T>(private val layoutId: Int, private val listener: Adapte
         }
 
         private fun animateView(v: View) {
-            if (v.animation == null) {
-                val animation = AnimationUtils.loadAnimation(v.context, R.anim.scale_xy)
-                v.animation = animation
-            }
+//            if (v.animation == null) {
+//                val animation = AnimationUtils.loadAnimation(v.context, R.anim.scale_xy)
+//                v.animation = animation
+//            }
         }
     }
 

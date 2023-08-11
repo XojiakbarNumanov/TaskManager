@@ -100,6 +100,9 @@ class HomeFragment : Fragment(), HomeRouter {
     }
 
     fun filter(statusId: Int) {
+        viewModel?.getTasks()?.observe(viewLifecycleOwner){
+            list = it
+        }
         listfiltered.clear()
 
         for (i in list) {

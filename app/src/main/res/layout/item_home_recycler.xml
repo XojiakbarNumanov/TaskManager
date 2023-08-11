@@ -31,6 +31,7 @@
                 android:id="@+id/card_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/project_name"
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginTop="@dimen/margin_8"
                 android:backgroundTint="@color/dark_blue"
@@ -55,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_8"
                 android:layout_marginTop="@dimen/margin_10"
-                android:layout_toEndOf="@id/card_id"
+                android:layout_centerHorizontal="true"
                 android:fontFamily="@font/urbanistregular"
                 android:text="@{controller.projectName}"
                 android:textColor="@color/black"
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
+                android:layout_below="@id/project_name"
                 android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:backgroundTint="@{controller.levelColor}"
@@ -125,7 +127,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_upload"
-                android:layout_below="@id/card_id"
+                android:layout_below="@id/card_level"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_toStartOf="@id/pause"
@@ -241,7 +243,7 @@
                     android:text="@{controller.status}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    tools:text="455454" />
+                    tools:text="jarayonda " />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
 

@@ -5,13 +5,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -37,8 +36,11 @@ import com.xojiakbar.taskmanager.databinding.DialogSendInspectionBinding
 import com.xojiakbar.taskmanager.databinding.ItemImgBinding
 import com.xojiakbar.taskmanager.fragments.home_fragment.dialog.item.ItemUIController
 import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+import kotlin.jvm.Throws
 
 
 class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRouter {
@@ -46,6 +48,7 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
     private val CHOOSE_CAMERA = 1
     private val CAMERA_RESULT_CODE = 1
     var vFilename: String = ""
+    private lateinit var currentPhotoPath :String
     var imageFile: ArrayList<File> = ArrayList()
     private var adapter: RecyclerAdapter<File>? = null
     lateinit var row: Row
@@ -164,40 +167,42 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
             }.show()
     }
 
-    @SuppressLint("SimpleDateFormat")
     private fun chooseCamera() {
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-
-        //camera intent
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-        // set filename
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        vFilename = "FOTO_" + timeStamp + ".jpg"
-
-        // set direcory folder
-        val file = File("", vFilename);
-        val image_uri = FileProvider.getUriForFile(requireContext(), "com.xojiakbar.taskmanager.provider", file);
-
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-        startActivityForResult(cameraIntent, CAMERA_RESULT_CODE)
+        val file = try {
+            createImageFile()
+        }catch (e:Exception)
+        {
+            null
+        }
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.resolveActivity(requireContext().packageManager)
+        val uriForFile= file?.let {
+            FileProvider.getUriForFile(requireContext(),"com.xojiakbar.taskmanager.provider",
+                it
+            )
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,uriForFile)
+        startActivityForResult(intent ,CAMERA_RESULT_CODE)
     }
 
-    @SuppressLint("SdCardPath")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-
-            //File object of camera image
-            val file = File("", vFilename);
-
-            //Uri of camera image
-            val uri = FileProvider.getUriForFile(requireContext(), "com.xojiakbar.taskmanager.provider", file);
-            Toast.makeText(requireContext(), uri.toString(), Toast.LENGTH_SHORT).show()
+        super.onActivityResult(requestCode, resultCode, data)
+        if (::currentPhotoPath.isInitialized)
+        {
+            imageFile.add(File(currentPhotoPath))
+            adapter?.setList(imageFile)
+            adapter?.notifyDataSetChanged()
         }
     }
+    @Throws(IOException::class)
+    private fun createImageFile() : File{
+        val timeStamp : String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val storageDir : File = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
+        return File.createTempFile("${System.currentTimeMillis()}",".jpg",storageDir).apply {
+            currentPhotoPath = absolutePath
+        }
+    }
+
 
     fun chooseGallery() {
         requestPermission()
@@ -207,23 +212,7 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
         galleryActivityResultLauncher.launch(pickPhoto)
 
     }
-//    private fun cameraResultLauncher(): ActivityResultCallback<ActivityResult> {
-//        return ActivityResultCallback<ActivityResult> { result: ActivityResult ->
-//            if (result.resultCode == Activity.RESULT_OK) {
-//                try {
-//                    val data = result.data
-//                    if (data != null) {
-//                        Toast.makeText(requireContext(), data.toString()+"succes", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                } catch (e: Exception) {
-//                    Toast.makeText(requireContext(), e.message.toString(), Toast.LENGTH_SHORT).show()
-//                    e.printStackTrace()
-//                }
-//            }
-//        }
-//
-//    }
+
 
     private fun galleryPhotosActivityResult(): ActivityResultCallback<ActivityResult> {
         return ActivityResultCallback<ActivityResult> { result: ActivityResult ->
@@ -285,6 +274,7 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
                 (dataBinding as ItemImgBinding).controller = controller
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun bindItem(
                 dataBinding: ViewDataBinding?,
                 item: File,
@@ -294,6 +284,11 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
                 Picasso.get().load(
                     item.absoluteFile
                 ).into(dataBinding.images)
+                dataBinding.remove.setOnClickListener {
+                    imageFile.remove(imageFile[position!!])
+                    adapter?.setList(imageFile)
+                    adapter?.notifyDataSetChanged()
+                }
                 dataBinding.executePendingBindings()
             }
         }
