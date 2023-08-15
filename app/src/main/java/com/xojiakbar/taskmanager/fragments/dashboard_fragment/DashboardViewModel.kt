@@ -1,20 +1,14 @@
 package com.xojiakbar.taskmanager.fragments.dashboard_fragment
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.widget.Toast
 import com.xojiakbar.taskmanager.Utils.BaseViewModel
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
-import com.xojiakbar.taskmanager.data.beans.task_bean.Row
+import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
-import com.xojiakbar.taskmanager.data.beans.user_bean.dashboar_task_bean.StatusTask
 import com.xojiakbar.taskmanager.data.repositories.TasksRepository
-import okhttp3.ResponseBody
-import java.text.SimpleDateFormat
-import java.util.Date
 
 class DashboardViewModel(application: Application) : BaseViewModel<DashboardRouter>(application) {
     private var repository:TasksRepository ? = null
@@ -26,7 +20,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
     fun getNewTasks(userId: Int){
         repository?.getNewTasks(userId,object :ApiCallback<TasksBean>{
             override fun onSuccess(response: TasksBean) {
-                val tasks : List<Row> = response.tasks.rows
+                val tasks : List<Task> = response.tasks.rows
                 repository!!.insetTasks(tasks,1)
             }
 
@@ -42,7 +36,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
     fun getEPTasks(userId: Int){
         repository?.getEPTasks(userId,object :ApiCallback<TasksBean>{
             override fun onSuccess(response: TasksBean) {
-                val tasks : List<Row> = response.tasks.rows
+                val tasks : List<Task> = response.tasks.rows
                 repository!!.insetTasks(tasks,2)
             }
 
@@ -58,7 +52,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
     fun getProcessTasks(userId: Int){
         repository?.getProcessTasks(userId,object :ApiCallback<TasksBean>{
             override fun onSuccess(response: TasksBean) {
-                val tasks : List<Row> = response.tasks.rows
+                val tasks : List<Task> = response.tasks.rows
                 repository!!.insetTasks(tasks,3)
             }
 
@@ -74,7 +68,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
     fun getReviewTasks(userId: Int){
         repository?.getReviewTasks(userId,object :ApiCallback<TasksBean>{
             override fun onSuccess(response: TasksBean) {
-                val tasks : List<Row> = response.tasks.rows
+                val tasks : List<Task> = response.tasks.rows
                 repository!!.insetTasks(tasks,4)
             }
 

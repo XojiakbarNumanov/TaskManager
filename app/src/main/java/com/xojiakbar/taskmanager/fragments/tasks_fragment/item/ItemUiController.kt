@@ -1,32 +1,28 @@
-package com.xojiakbar.taskmanager.fragments.home_fragment.item
+package com.xojiakbar.taskmanager.fragments.tasks_fragment.item
 
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import com.xojiakbar.taskmanager.BR
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
-
-import com.xojiakbar.taskmanager.fragments.home_fragment.HomeRouter
+import com.xojiakbar.taskmanager.fragments.tasks_fragment.TasksRouter
 import java.text.SimpleDateFormat
 import java.util.Date
+import com.xojiakbar.taskmanager.BR
 
-class ItemUIController(val context: Context) :BaseObservable(){
-    var router : HomeRouter? =null
+class ItemUiController (val context: Context) : BaseObservable(){
+    var router : TasksRouter? =null
     var entity: TasksEntity? = null
+    var dropDown = false
 
 
-    fun setEntity99(entity: TasksEntity?) {
+    fun setEntityInfo(entity: TasksEntity?) {
         this.entity = entity
-        notifyChange()
-       // notifyPropertyChanged(BR._all)
+         notifyPropertyChanged(BR._all)
     }
 
-    @Bindable
-    fun getId() :String{
-        return if (entity!=null && entity?.task_code!=null) entity?.task_code.toString() else "---"
-    }
+
     @Bindable
     fun getProjectName() :String{
         return if (entity!=null && entity?.projects_name!=null) entity?.projects_name.toString() else "---"
@@ -41,7 +37,7 @@ class ItemUIController(val context: Context) :BaseObservable(){
     }
     @Bindable
     fun getUserName() :String{
-        return if (entity!=null && entity?.curr_executer_name!=null) entity?.curr_executer_name.toString() else "---"
+        return if (entity!=null && entity?.curr_executor_name!=null) entity?.curr_executor_name.toString() else "---"
     }
     @Bindable
     fun getStatus() :String{
@@ -62,9 +58,9 @@ class ItemUIController(val context: Context) :BaseObservable(){
     @Bindable
     fun getCreatedDate() :String{
         if (entity!=null && entity?.created_date!=null){
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = Date(entity?.created_date!!)
-        val formattedDate = dateFormat.format(date)
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val date = Date(entity?.created_date!!)
+            val formattedDate = dateFormat.format(date)
             return formattedDate
         }
         else return "---"
@@ -80,36 +76,23 @@ class ItemUIController(val context: Context) :BaseObservable(){
         }
         else return "---"
     }
-    @Bindable
-    fun getBackColor() :Int {
-        return when{
-            entity?.new_version_code == 1 ->
-              context.resources.getColor(R.color.dark_blue)
 
-            entity?.new_version_code == 2 ->
-                context.resources.getColor(R.color.dark_violet)
-
-            entity?.new_version_code == 3 ->
-                context.resources.getColor(R.color.sunglow)
-
-            else  ->
-                context.resources.getColor(R.color.green)
-        }
-    }
     @Bindable
     fun getLayoutColor() :Int {
         return when{
-            entity?.new_version_code == 1 ->
+            entity?.task_statuses_id == 6 ->
+                context.resources.getColor(R.color._light_green)
+
+            entity?.task_statuses_id == 4 ->
                 context.resources.getColor(R.color._light_blue)
 
-            entity?.new_version_code == 2 ->
-                context.resources.getColor(R.color._light_violet)
-
-            entity?.new_version_code == 3 ->
+            entity?.task_statuses_id == 3 ->
                 context.resources.getColor(R.color.light_sunglow)
 
+            entity?.task_statuses_id == 5 ->
+                context.resources.getColor(R.color._light_violet)
             else  ->
-                context.resources.getColor(R.color._light_green)
+                context.resources.getColor(R.color._light_red)
         }
     }
     @Bindable
@@ -119,11 +102,44 @@ class ItemUIController(val context: Context) :BaseObservable(){
                 context.resources.getColor(R.color.red)
 
             entity?.task_priorities_id == 2 ->
-                context.resources.getColor(R.color.orange)
+                context.resources.getColor(R.color.sunglow)
 
             else  ->
-                context.resources.getColor(R.color.dark_blue)
+                context.resources.getColor(R.color.green)
         }
+    }
+    @Bindable
+    fun getTimeLeave():String{
+        return if(entity?.time_leave != null) entity?.time_leave.toString()
+        else "---"
+    }
+    @Bindable
+    fun getHardIndex():String{
+        return if(entity?.hard_index != null) entity?.hard_index.toString()
+        else "---"
+    }
+    @Bindable
+    fun getGrade():String{
+        return if(entity?.time_leave != null && entity?.hard_index != null) {
+            (entity?.time_leave!!.toDouble() + (entity?.time_leave!!.toDouble()*entity?.hard_index!!.toDouble()/10) ).toString()
+        }
+        else "---"
+    }
+    @Bindable
+    fun getStartTime():String{
+        return entity?.planned_start_date.toString()
+    }
+    @Bindable
+    fun getEndTime():String{
+        return entity?.expired_date.toString()
+    }
+    @Bindable
+    fun getIsDropDown():Boolean{
+        return dropDown
+    }
+    fun clickDropDown(){
+        dropDown = !dropDown
+        notifyPropertyChanged(BR._all)
     }
 
     fun btnClick(){
@@ -132,7 +148,5 @@ class ItemUIController(val context: Context) :BaseObservable(){
     fun btnUpload(){
         router?.showDialog(entity!!)
     }
-
-
 
 }

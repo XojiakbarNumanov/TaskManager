@@ -7,8 +7,8 @@
 
     <style name="Theme.TaskManager" parent="Base.Theme.TaskManager" />
 
-    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">8sp</item>
+    <style name="CustomTabTextAppearance" >
+        <item name="android:textSize">10sp</item>
     </style>
 
 </resources>

@@ -31,7 +31,7 @@ import com.squareup.picasso.Picasso
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.adapter.RecyclerAdapter
 import com.xojiakbar.taskmanager.api.result.ErrorResult
-import com.xojiakbar.taskmanager.data.beans.task_bean.Row
+import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.databinding.DialogSendInspectionBinding
 import com.xojiakbar.taskmanager.databinding.ItemImgBinding
 import com.xojiakbar.taskmanager.fragments.home_fragment.dialog.item.ItemUIController
@@ -43,7 +43,7 @@ import java.util.Locale
 import kotlin.jvm.Throws
 
 
-class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRouter {
+class SendInspectionDialog(task: Task) : DialogFragment(), SendInspectionDialogRouter {
     private val CHOOSE_GALLERY = 0
     private val CHOOSE_CAMERA = 1
     private val CAMERA_RESULT_CODE = 1
@@ -51,7 +51,7 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
     private lateinit var currentPhotoPath :String
     var imageFile: ArrayList<File> = ArrayList()
     private var adapter: RecyclerAdapter<File>? = null
-    lateinit var row: Row
+    lateinit var task: Task
     private var viewModel: SendInspectionDialogViewModel? = null
     private var cameraActivityResultLauncher=
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -74,8 +74,8 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
 
 
     init {
-        row.task_statuses_id = 6
-        this.row = row
+        task.task_statuses_id = 6
+        this.task = task
     }
 
     override fun onCreateView(
@@ -96,7 +96,7 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
             dismiss()
         }
         binding?.save?.setOnClickListener {
-            viewModel?.uploadResources(imageFile, row, 0)
+            viewModel?.uploadResources(imageFile, task, 0)
             dismiss()
         }
         return binding?.root
@@ -155,6 +155,7 @@ class SendInspectionDialog(row: Row) : DialogFragment(), SendInspectionDialogRou
     }
 
     fun showChooseDialog() {
+        requestPermission()
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.choose))
             .setItems(arrayOf("Galary", "Camera")) { dialog, which ->

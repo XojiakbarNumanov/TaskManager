@@ -6,9 +6,8 @@ import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.ApiService
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
-import com.xojiakbar.taskmanager.data.beans.task_bean.Row
+import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
-import com.xojiakbar.taskmanager.data.beans.user_bean.dashboar_task_bean.StatusTask
 import com.xojiakbar.taskmanager.data.local.dao.ReportTasksDao
 import com.xojiakbar.taskmanager.data.local.dao.TasksDao
 import com.xojiakbar.taskmanager.data.local.dao.TaskscntDao
@@ -26,9 +25,10 @@ import java.io.File
 class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     override val apiService: Class<ApiService>?
         get() = apiService
-    var tasksCntDao : TaskscntDao? =null
-    var tasksDao : TasksDao? =null
-    var reportDao : ReportTasksDao? =null
+    var tasksCntDao: TaskscntDao? = null
+    var tasksDao: TasksDao? = null
+    var reportDao: ReportTasksDao? = null
+
     init {
         val appDatabase: AppDatabase = AppDatabase.getInstance(context)
         tasksCntDao = appDatabase.tasksCntDao()
@@ -36,69 +36,97 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
         reportDao = appDatabase.reportDao()
     }
 
-    fun putTaskStatus(row: Row,callback: ApiCallback<ResponseBody>)
-    {
-        request(getApi(ApiService::class.java).updateTaskStatus(row),callback)
+    fun putTaskStatus(row: Task, callback: ApiCallback<ResponseBody>) {
+        request(getApi(ApiService::class.java).updateTaskStatus(row), callback)
     }
 
-    fun getTaskCnt() : LiveData<TasksCountEntity>? {
+    fun getTaskCnt(): LiveData<TasksCountEntity>? {
         return tasksCntDao?.getTasks()
     }
-    fun getTasksDB():LiveData<MutableList<TasksEntity>>?{
+
+    fun getTasksDB(): LiveData<MutableList<TasksEntity>>? {
         return tasksDao?.getTasks()
     }
-    fun getTasksByIdDB(statusId :Int):LiveData<MutableList<TasksEntity>>?{
+
+    fun getTasksByIdDB(statusId: Int): LiveData<MutableList<TasksEntity>>? {
         return tasksDao?.getTasksById(statusId)
     }
-    fun updateTasksDB(statusId: Int,id : Int){
-        tasksDao?.updateStatus(statusId , id )
+
+    fun updateTasksDB(statusId: Int, id: Int) {
+        tasksDao?.updateStatus(statusId, id)
     }
-    fun getByIdDB(id : Int): LiveData<TasksEntity>{
+
+    fun getByIdDB(id: Int): LiveData<TasksEntity> {
         return tasksDao?.getById(id)!!
     }
-    fun getNewTasks(userID : Int ,callback: ApiCallback<TasksBean>) {
-        request(getApi(ApiService::class.java).getNewTasks(userID,1,2), callback)
+
+    fun getNewTasks(userID: Int, callback: ApiCallback<TasksBean>) {
+        request(getApi(ApiService::class.java).getNewTasks(userID, 1, 2), callback)
     }
-    fun getEPTasks(userID : Int ,callback: ApiCallback<TasksBean>) {
-        request(getApi(ApiService::class.java).getEPTasks(userID,2,2,Preferences.getIsManager()), callback)
+
+    fun getEPTasks(userID: Int, callback: ApiCallback<TasksBean>) {
+        request(
+            getApi(ApiService::class.java).getEPTasks(userID, 2, 2, Preferences.getIsManager()),
+            callback
+        )
     }
-    fun getProcessTasks(userID : Int ,callback: ApiCallback<TasksBean>) {
-        request(getApi(ApiService::class.java).getProcessTasks(userID,3,2,Preferences.getIsManager()), callback)
+
+    fun getProcessTasks(userID: Int, callback: ApiCallback<TasksBean>) {
+        request(
+            getApi(ApiService::class.java).getProcessTasks(
+                userID,
+                3,
+                2,
+                Preferences.getIsManager()
+            ), callback
+        )
     }
-    fun getReviewTasks(userID : Int ,callback: ApiCallback<TasksBean>) {
-        request(getApi(ApiService::class.java).getEPTasks(userID,4,2,Preferences.getIsManager()), callback)
+
+    fun getReviewTasks(userID: Int, callback: ApiCallback<TasksBean>) {
+        request(
+            getApi(ApiService::class.java).getEPTasks(userID, 4, 2, Preferences.getIsManager()),
+            callback
+        )
     }
-    fun insetTasks(tasks : List<Row>,newVersioncode:Int){
+
+    fun insetTasks(tasks: List<Task>, newVersioncode: Int) {
         tasksDao?.delete(newVersioncode)
-        for (task in tasks){
-            val tasksEntity  = TasksEntity(
-                task.id,
-                task.task_statuses_id,
-                task.task_code,
-                task.projects_name,
-                task.task_priorities_name,
-                task.name,
-                task.created_date,
-                task.curr_executor_name,
-                task.process_time,
-                task.task_priorities_id,
-                task.status_description,
-                newVersioncode,
-                task.task_statuses_name
-            )
+        for (task in tasks) {
+            val tasksEntity = TasksEntity()
+            tasksEntity.id = task.id
+            tasksEntity.task_statuses_id = task.task_statuses_id
+            tasksEntity.task_code = task.task_code
+            tasksEntity.projects_name = task.projects_name
+            tasksEntity.task_priorities_name = task.task_priorities_name
+            tasksEntity.name = task.name
+            tasksEntity.created_date = task.created_date
+            tasksEntity.curr_executor_name = task.curr_executor_name
+            tasksEntity.process_time = task.process_time
+            tasksEntity.task_priorities_id = task.task_priorities_id
+            tasksEntity.status_description = task.status_description
+            tasksEntity.task_statuses_name = task.task_statuses_name
+            tasksEntity.planned_start_date = task.planned_start_date
+            tasksEntity.expired_date = task.expired_date
+            tasksEntity.task_types_name = task.task_types_name
+            tasksEntity.task_types_id = task.task_types_id
+            tasksEntity.created_users_name = task.created_users_name
+            tasksEntity.hard_index = task.hard_index
+            tasksEntity.time_leave = task.time_leave
+            tasksEntity.new_version_code = newVersioncode
             tasksDao?.insert(tasksEntity)
         }
 
     }
-    fun getReportTasks(fromDate : String,toDate: String ,callback: ApiCallback<ReportTasksBean>) {
-        request(getApi(ApiService::class.java).getReportTasks(fromDate,toDate), callback)
-    }
-    fun insertReportTasks(reports: List<com.xojiakbar.taskmanager.data.beans.report_tasks_bean.Row>)
-    {
-        reportDao?.deleteAll()
-        for (report in reports){
 
-            val  reportTasks = ReportTasksEntity(
+    fun getReportTasks(fromDate: String, toDate: String, callback: ApiCallback<ReportTasksBean>) {
+        request(getApi(ApiService::class.java).getReportTasks(fromDate, toDate), callback)
+    }
+
+    fun insertReportTasks(reports: List<com.xojiakbar.taskmanager.data.beans.report_tasks_bean.Row>) {
+        reportDao?.deleteAll()
+        for (report in reports) {
+
+            val reportTasks = ReportTasksEntity(
                 report.id,
                 report.accepted_tasks_cnt,
                 report.accepted_tasks_hard_index,
@@ -130,9 +158,11 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
             reportDao?.insert(reportTasks)
         }
     }
-    fun getReportTasksFromDB(): LiveData<MutableList<ReportTasksEntity>>?{
+
+    fun getReportTasksFromDB(): LiveData<MutableList<ReportTasksEntity>>? {
         return reportDao?.getReport()
     }
+
     fun uploadFileResource(file: File, callback: ApiCallback<Int>) {
         val requestFile: RequestBody = RequestBody.create(
             "file".toMediaTypeOrNull(),
@@ -143,7 +173,8 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
             "file",
             file.name, requestFile
         )
-        val resourceTypesId: MultipartBody.Part = MultipartBody.Part.createFormData("resource_types_id", "7")
-        request(getApi(ApiService::class.java).sendFile(inFile,resourceTypesId),callback)
+        val resourceTypesId: MultipartBody.Part =
+            MultipartBody.Part.createFormData("resource_types_id", "7")
+        request(getApi(ApiService::class.java).sendFile(inFile, resourceTypesId), callback)
     }
 }

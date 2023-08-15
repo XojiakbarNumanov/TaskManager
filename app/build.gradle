@@ -24,8 +24,8 @@ android {
 
         debug {
             // ------------------------------------  for USB Debugging (locale)
-            buildConfigField "String", SERVER_URL, "\"https://www.furorprogress.uz/\""
-//            buildConfigField "String", SERVER_URL, "\"http://192.168.48.37:8086/\""
+//            buildConfigField "String", SERVER_URL, "\"https://www.furorprogress.uz/\""
+            buildConfigField "String", SERVER_URL, "\"http://192.168.48.37:8086/\""
             manifestPlaceholders = [crashlyticsCollectionEnabled: "false"]
         }
         release {
@@ -91,6 +91,8 @@ dependencies {
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    //chart
+    implementation 'com.github.thanh-ha-van:PieChartView:1.0.3'
 
 
 

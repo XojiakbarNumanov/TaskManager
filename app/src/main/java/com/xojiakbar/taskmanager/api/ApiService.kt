@@ -1,7 +1,7 @@
 package com.xojiakbar.taskmanager.api
 
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
-import com.xojiakbar.taskmanager.data.beans.task_bean.Row
+import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
 import com.xojiakbar.taskmanager.data.beans.user_bean.UserBean
 import com.xojiakbar.taskmanager.data.beans.user_bean.dashboar_task_bean.StatusTask
@@ -46,7 +46,7 @@ interface ApiService {
     @GET("/api/fp/report-tasks")
     fun getReportTasks(@Query("date_from") fromDate :String,@Query("date_to") toDate : String) : Call<ReportTasksBean>
     @PUT("/api/fp/tasks/update-status")
-    fun updateTaskStatus(@Body row: Row) : Call<ResponseBody>
+    fun updateTaskStatus(@Body row: Task) : Call<ResponseBody>
 
     @Multipart
     @POST("/api/resources/upload")

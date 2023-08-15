@@ -8,17 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.squareup.picasso.Picasso
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.adapter.RecyclerAdapter
 import com.xojiakbar.taskmanager.data.local.entity.ReportTasksEntity
-import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 import com.xojiakbar.taskmanager.databinding.FragmentStatisticsBinding
-import com.xojiakbar.taskmanager.databinding.ItemHomeRecyclerBinding
 import com.xojiakbar.taskmanager.databinding.ItemStatisticsBinding
-import com.xojiakbar.taskmanager.fragments.home_fragment.item.ItemUIController
 import com.xojiakbar.taskmanager.fragments.statics_fragment.item.StatisticsItemUIController
 
 

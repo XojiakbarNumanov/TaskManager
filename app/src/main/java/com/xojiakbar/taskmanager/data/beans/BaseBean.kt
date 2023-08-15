@@ -1,6 +1,6 @@
 package com.xojiakbar.taskmanager.data.beans
 
-class BaseBean() {
+open class BaseBean() {
     var id: Int? = null
     var name_uz: String? = null
     var name_ru: String? = null
