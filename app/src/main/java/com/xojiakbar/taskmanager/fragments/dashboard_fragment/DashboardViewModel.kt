@@ -1,14 +1,19 @@
 package com.xojiakbar.taskmanager.fragments.dashboard_fragment
 
 import android.app.Application
+import android.widget.Toast
 import com.xojiakbar.taskmanager.Utils.BaseViewModel
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.result.ErrorResult
+import com.xojiakbar.taskmanager.data.beans.ChartBean.LineChartBean
+import com.xojiakbar.taskmanager.data.beans.ChartBean.ProjectGroupBean
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
 import com.xojiakbar.taskmanager.data.repositories.TasksRepository
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class DashboardViewModel(application: Application) : BaseViewModel<DashboardRouter>(application) {
     private var repository:TasksRepository ? = null
@@ -81,6 +86,37 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
 
         })
     }
+    fun getInfoLForchart(date :String){
+        repository?.getInfoForLineChart(date,1,object :ApiCallback<LineChartBean>{
+            override fun onSuccess(response: LineChartBean) {
+                response.rows?.let { repository?.insetInfoLChatr(it) }
+            }
+
+            override fun onError(throwable: Throwable) {
+            }
+
+            override fun onErrorMsg(errorMsg: ErrorResult) {
+                Toast.makeText(application, errorMsg.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+    fun getProjectGr(date :String){
+        repository?.getInfoProjects(date,object :ApiCallback<ProjectGroupBean>{
+            override fun onSuccess(response: ProjectGroupBean) {
+                repository?.insetPGDB(response.rows!!)
+            }
+
+            override fun onError(throwable: Throwable) {
+            }
+
+            override fun onErrorMsg(errorMsg: ErrorResult) {
+                Toast.makeText(application, errorMsg.toString(), Toast.LENGTH_SHORT).show()
+            }
+
+
+        })
+    }
     fun getReportTasks(fromDate:String, toDate :String)
     {
         router!!.setLoading("Report of tasks")
@@ -93,6 +129,8 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
                 getEPTasks(userId)
                 getProcessTasks(userId)
                 getReviewTasks(userId)
+                getInfoLForchart(toDate)
+                getProjectGr(toDate)
             }
 
             override fun onError(throwable: Throwable) {

@@ -1,5 +1,7 @@
 package com.xojiakbar.taskmanager.api
 
+import com.xojiakbar.taskmanager.data.beans.ChartBean.LineChartBean
+import com.xojiakbar.taskmanager.data.beans.ChartBean.ProjectGroupBean
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
@@ -47,6 +49,11 @@ interface ApiService {
     fun getReportTasks(@Query("date_from") fromDate :String,@Query("date_to") toDate : String) : Call<ReportTasksBean>
     @PUT("/api/fp/tasks/update-status")
     fun updateTaskStatus(@Body row: Task) : Call<ResponseBody>
+
+    @GET("api/fp/dashboard-project-group/chart")
+    fun getInfoForChart(@Query("date") data : String ,@Query("is_by_date") isByDate :Int) : Call<LineChartBean>
+    @GET("/api/fp/dashboard-project-group")
+    fun getProjectGroup(@Query("date") data : String) :Call<ProjectGroupBean>
 
     @Multipart
     @POST("/api/resources/upload")

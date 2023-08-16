@@ -22,8 +22,8 @@
     <color name="_light_violet">#0D726DE3</color>
     <color name="light_sunglow">#0DFFCC3A</color>
     <color name="_light_red">#0DFF0000</color>
-
-
-
+    <color name="color_primary">#4F48AA</color>
+    <color name="color_primary_dark">#1815C0</color>
+    <color name="color_primary_light">#A09EF3</color>
 
 </resources>

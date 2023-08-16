@@ -13,7 +13,8 @@ import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 interface ReportTasksDao {
     @Query("SELECT * FROM report_tasks order by report_tasks.exec_progress Desc")
     fun getReport(): LiveData<MutableList<ReportTasksEntity>>
-
+    @Query("SELECT * FROM report_tasks WHERE id = :id")
+    fun getById(id:Int): LiveData<ReportTasksEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(tasks: ReportTasksEntity) : Long

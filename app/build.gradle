@@ -93,6 +93,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     //chart
     implementation 'com.github.thanh-ha-van:PieChartView:1.0.3'
+    implementation "com.github.PhilJay:MPAndroidChart:v3.1.0"
+
 
 
 

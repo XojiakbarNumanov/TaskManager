@@ -5,13 +5,21 @@ import androidx.lifecycle.LiveData
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.ApiService
+import com.xojiakbar.taskmanager.data.beans.ChartBean.LineChartBean
+import com.xojiakbar.taskmanager.data.beans.ChartBean.ProjectGroupBean
+import com.xojiakbar.taskmanager.data.beans.ChartBean.ProjectGroupRows
+import com.xojiakbar.taskmanager.data.beans.ChartBean.Rows
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
+import com.xojiakbar.taskmanager.data.local.dao.LChartDao
+import com.xojiakbar.taskmanager.data.local.dao.ProjectsDao
 import com.xojiakbar.taskmanager.data.local.dao.ReportTasksDao
 import com.xojiakbar.taskmanager.data.local.dao.TasksDao
 import com.xojiakbar.taskmanager.data.local.dao.TaskscntDao
 import com.xojiakbar.taskmanager.data.local.database.AppDatabase
+import com.xojiakbar.taskmanager.data.local.entity.LineChartEntity
+import com.xojiakbar.taskmanager.data.local.entity.ProjectGroupEntity
 import com.xojiakbar.taskmanager.data.local.entity.ReportTasksEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
@@ -28,12 +36,16 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     var tasksCntDao: TaskscntDao? = null
     var tasksDao: TasksDao? = null
     var reportDao: ReportTasksDao? = null
+    var lineChartDao : LChartDao? = null
+    var projectsDao : ProjectsDao? = null
 
     init {
         val appDatabase: AppDatabase = AppDatabase.getInstance(context)
         tasksCntDao = appDatabase.tasksCntDao()
         tasksDao = appDatabase.taskDao()
         reportDao = appDatabase.reportDao()
+        lineChartDao = appDatabase.lineDoa()
+        projectsDao = appDatabase.projectsDao()
     }
 
     fun putTaskStatus(row: Task, callback: ApiCallback<ResponseBody>) {
@@ -162,6 +174,9 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     fun getReportTasksFromDB(): LiveData<MutableList<ReportTasksEntity>>? {
         return reportDao?.getReport()
     }
+    fun getRTById(userId: Int): LiveData<ReportTasksEntity>? {
+        return reportDao?.getById(userId)
+    }
 
     fun uploadFileResource(file: File, callback: ApiCallback<Int>) {
         val requestFile: RequestBody = RequestBody.create(
@@ -176,5 +191,45 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
         val resourceTypesId: MultipartBody.Part =
             MultipartBody.Part.createFormData("resource_types_id", "7")
         request(getApi(ApiService::class.java).sendFile(inFile, resourceTypesId), callback)
+    }
+    //for LineChart
+    fun getInfoForLineChart(data:String ,isByDate:Int,callback: ApiCallback<LineChartBean>){
+        request(getApi(ApiService::class.java).getInfoForChart(data,isByDate),callback)
+    }
+
+    fun getLineChartInfoByDay(): LiveData<MutableList<LineChartEntity>> {
+        return lineChartDao?.getByDay()!!
+    }
+    fun getLineChartInfoByMonth(): LiveData<MutableList<LineChartEntity>> {
+        return lineChartDao?.getByMonth()!!
+    }
+    fun insetInfoLChatr(rows: List<Rows>) {
+        lineChartDao?.deleteAll()
+        for (row in rows) {
+            val chartInfo = LineChartEntity()
+            chartInfo.day = row.day
+            chartInfo.month = row.month
+            chartInfo.tasks_cnt = row.tasks_cnt
+            lineChartDao?.insert(chartInfo)
+        }
+
+    }
+    //for BarChart
+    fun getInfoProjects(data:String ,callback: ApiCallback<ProjectGroupBean>){
+        request(getApi(ApiService::class.java).getProjectGroup(data),callback)
+    }
+    fun getPGDB(): LiveData<MutableList<ProjectGroupEntity>> {
+        return projectsDao?.getProjects()!!
+    }
+    fun insetPGDB(rows: List<ProjectGroupRows>) {
+        projectsDao?.deleteAll()
+        for (row in rows) {
+            val projectGr = ProjectGroupEntity()
+            projectGr.id = row.id
+            projectGr.name = row.name
+            projectGr.tasks_cnt = row.tasks_cnt
+            projectsDao?.insert(projectGr)
+        }
+
     }
 }

@@ -168,5 +168,51 @@ open fun toHexString(block: ByteArray): String? {
             matrix, true
         )
     }
+    fun getMonths(): ArrayList<String>? {
+        val app_language = Preferences.getAppLanguage()
+        val months = ArrayList<String>()
+        if (app_language == "ru") {
+            months.add("Январь")
+            months.add("Февраль")
+            months.add("Март")
+            months.add("Апрель")
+            months.add("Май")
+            months.add("Июнь")
+            months.add("Июль")
+            months.add("Август")
+            months.add("Сентябрь")
+            months.add("Октябрь")
+            months.add("Ноябрь")
+            months.add("Декабрь")
+        } else if (app_language == "uz") {
+            months.add("Yanvar")
+            months.add("Fevral")
+            months.add("Mart")
+            months.add("Aprel")
+            months.add("May")
+            months.add("Iyun")
+            months.add("Iyul")
+            months.add("Avgust")
+            months.add("Sentyabr")
+            months.add("Oktyabr")
+            months.add("Noyabr")
+            months.add("Dekabr")
+        } else {
+            months.add("Январ")
+            months.add("Феврал")
+            months.add("Март")
+            months.add("Апрел")
+            months.add("Май")
+            months.add("Июн")
+            months.add("Июл")
+            months.add("Август")
+            months.add("Сентябр")
+            months.add("Октябр")
+            months.add("Ноябрь")
+            months.add("Декабр")
+        }
+        return months
+    }
+
 
 }
