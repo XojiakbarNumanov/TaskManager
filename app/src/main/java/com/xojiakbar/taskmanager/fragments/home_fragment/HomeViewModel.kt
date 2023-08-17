@@ -22,8 +22,9 @@ class HomeViewModel(application: Application) : BaseViewModel<HomeRouter>(applic
     init {
         repository = TasksRepository(application)
     }
-    fun getInfoForLineChart(): LiveData<MutableList<LineChartEntity>>? {
-        return repository?.getLineChartInfoByDay()
+    fun getInfoForLineChart(isDayly : Boolean ): LiveData<MutableList<LineChartEntity>>? {
+        return if (isDayly) repository?.getLineChartInfoByDay()
+        else repository?.getLineChartInfoByMonth()
     }
     fun getInfoForPieChart(): LiveData<ReportTasksEntity>? {
         return repository?.getRTById(Preferences.getUserId())

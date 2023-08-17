@@ -203,8 +203,11 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     fun getLineChartInfoByMonth(): LiveData<MutableList<LineChartEntity>> {
         return lineChartDao?.getByMonth()!!
     }
-    fun insetInfoLChatr(rows: List<Rows>) {
-        lineChartDao?.deleteAll()
+    fun insetInfoLChatr(rows: List<Rows> , isDayly :Boolean) {
+        if (isDayly)
+            lineChartDao?.deleteDays()
+        else
+            lineChartDao?.deleteMonths()
         for (row in rows) {
             val chartInfo = LineChartEntity()
             chartInfo.day = row.day

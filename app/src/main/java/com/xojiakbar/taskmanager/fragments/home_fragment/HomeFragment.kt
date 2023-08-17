@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -23,11 +24,11 @@ import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.Utils
+import com.google.android.material.tabs.TabLayout
 import com.thanh.ha.piechart.PieItem
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.Utils.LoadingDialog
 import com.xojiakbar.taskmanager.api.result.ErrorResult
-import com.xojiakbar.taskmanager.data.local.entity.ReportTasksEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 import com.xojiakbar.taskmanager.databinding.FragmentHomeBinding
 import java.text.SimpleDateFormat
@@ -39,11 +40,12 @@ class HomeFragment : Fragment(), HomeRouter {
     private val binding get() = _binding!!
     private var viewModel: HomeViewModel? = null
     private lateinit var loadingDialog: LoadingDialog
+    private var isDayly = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         return binding.root
@@ -52,27 +54,42 @@ class HomeFragment : Fragment(), HomeRouter {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPieChart()
-        initLineChart()
         initBarChart()
+        initLineChart(isDayly)
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                isDayly = tab?.position == 0
+                initLineChart(isDayly)
+            }
 
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
 
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun initLineChart() {
-        viewModel?.getInfoForLineChart()?.observe(viewLifecycleOwner) {
+    private fun initLineChart(isDayly: Boolean) {
+        viewModel?.getInfoForLineChart(isDayly)?.observe(viewLifecycleOwner) {
             val dateFormat = SimpleDateFormat("dd.MM")
             val days = ArrayList<String>()
+            val months = ArrayList<String>()
             val dataSets = ArrayList<ILineDataSet>()
             val entryList = ArrayList<Entry>()
             for (i in 0 until it.size) {
                 val taskcount = it[i].tasks_cnt
                 entryList.add(Entry(i.toFloat(), taskcount!!.toFloat()))
 
-                val date = it[i].day?.let { it1 ->
+                it[i].day?.let { it1 ->
                     Date(it1)
                     val formattedDate = dateFormat.format(it1)
                     days.add(formattedDate)
+                }
+                it[i].month?.let { it1 ->
+                    days.add(it1)
                 }
 
             }
@@ -108,7 +125,7 @@ class HomeFragment : Fragment(), HomeRouter {
             set1.setDrawHorizontalHighlightIndicator(true)
             set1.fillFormatter =
                 IFillFormatter { dataSet: ILineDataSet?, dataProvider: LineDataProvider? ->
-                    binding.lineBarChart.getAxisLeft().getAxisMinimum()
+                    binding.lineBarChart.axisLeft.axisMinimum
                 }
 
             dataSets.add(set1)
@@ -118,41 +135,67 @@ class HomeFragment : Fragment(), HomeRouter {
             data.setValueTextSize(9f)
             data.setDrawValues(false)
 
+            // enable touch gestures
+            binding.lineBarChart.setTouchEnabled(true)
+
+            // enable scaling and dragging
+            binding.lineBarChart.isDragEnabled = true
+            binding.lineBarChart.setScaleEnabled(true)
+
+
+            val x: XAxis = binding.lineBarChart.xAxis
+            x.position = XAxis.XAxisPosition.BOTTOM
+            x.setDrawGridLines(false)
+            x.granularity = 1f
+
+
+            val y: YAxis = binding.lineBarChart.axisLeft
+            y.setLabelCount(6, false)
+            y.textColor = Color.BLACK
+            y.setDrawGridLines(true)
+            y.axisLineColor = Color.WHITE
+
+            binding.lineBarChart.legend.isEnabled = false
+            binding.lineBarChart.axisRight.setDrawLabels(false)
             binding.lineBarChart.data = data
             binding.lineBarChart.animateX(1500)
             binding.lineBarChart.description.isEnabled = false
             binding.lineBarChart.invalidate()
             binding.lineBarChart.animate()
-
-
         }
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun initPieChart() {
         viewModel?.getInfoForPieChart()?.observe(viewLifecycleOwner) {
-            if (it !=null)
-            {
+            if (it != null) {
 
-                var allTasks =
+                val allTasks =
                     (it.done_tasks_cnt!! + it.accepted_tasks_cnt!! + it.in_progress_tasks_cnt!! + it.not_accepted_tasks_cnt!! + it.pause_tasks_cnt!! + it.returned_tasks_cnt!!).toFloat()
-                var doneTasksPersent: Float =
-                    it.done_tasks_cnt!!.toFloat() * 100 / allTasks
-                var processTasksPersent: Float =
-                    (it.pause_tasks_cnt!! + it.in_progress_tasks_cnt!!).toFloat() * 100 / allTasks
-                var newTasksPersent: Float =
-                    (it.returned_tasks_cnt!! + it.not_accepted_tasks_cnt!! + it.accepted_tasks_cnt!!).toFloat() * 100 / allTasks
+                val doneTaskCnt = it.done_tasks_cnt!!
+                val processTaskCnt = it.pause_tasks_cnt!! + it.in_progress_tasks_cnt!!
+                val newTaskCnt =it.returned_tasks_cnt!! + it.not_accepted_tasks_cnt!! + it.accepted_tasks_cnt!!
+                val doneTasksPersent: Float =
+                    doneTaskCnt.toFloat() * 100 / allTasks
+                val processTasksPersent: Float =
+                    processTaskCnt.toFloat() * 100 / allTasks
+                val newTasksPersent: Float =
+                    newTaskCnt.toFloat() * 100 / allTasks
                 val list = listOf(
                     PieItem(
                         doneTasksPersent * 3.6f,
-                        resources.getColor(R.color.color_primary_dark)
-                    ),
-                    PieItem(processTasksPersent * 3.6f, resources.getColor(R.color.color_primary)),
+                        resources.getColor(R.color.color_primary_dark)),
+                    PieItem(
+                        processTasksPersent * 3.6f,
+                        resources.getColor(R.color.color_primary)),
                     PieItem(
                         newTasksPersent * 3.6f,
-                        resources.getColor(R.color.color_primary_light)
-                    ),
+                        resources.getColor(R.color.color_primary_light)),
                 )
+                binding.percentDone.text = "$doneTaskCnt"
+                binding.percentProcess.text = "$processTaskCnt"
+                binding.percentAc.text = "$newTaskCnt"
                 binding.pieChart.submitList(list)
                 binding.pieChart.animateProgress(0, 360)
             }
@@ -160,32 +203,61 @@ class HomeFragment : Fragment(), HomeRouter {
     }
 
     fun initBarChart() {
-        val values: MutableList<BarEntry> = ArrayList()
+        val barDataSetList: MutableList<BarDataSet> = ArrayList()
+        val colorList = arrayListOf(
+            Color.BLUE,
+            Color.RED,
+            Color.GREEN,
+            Color.CYAN,
+            Color.MAGENTA,
+            Color.BLUE,
+            Color.BLUE
+        )
 
-        viewModel?.getProjectGr()?.observe(viewLifecycleOwner){
-            for (i in 0 until it.size)
-            {
-                values.add(BarEntry((i+1).toFloat(),it[i].tasks_cnt!!.toFloat()))
+        viewModel?.getProjectGr()?.observe(viewLifecycleOwner) {
+            barDataSetList.clear()
+            for (i in 0 until it.size) {
+                barDataSetList.add(
+                    BarDataSet(
+                        arrayListOf(
+                            BarEntry(
+                                (i + 1).toFloat(),
+                                it[i].tasks_cnt!!.toFloat()
+                            )
+                        ), it[i].name.toString()
+                    )
+                )
+                barDataSetList[i].color = colorList[i]
             }
-            val barData: BarDataSet
-            if (binding.barChart.data != null &&
-                binding.barChart.data.dataSetCount > 0
-            ) {
-                barData = binding.barChart.data.getDataSetByIndex(0) as BarDataSet
-                barData.values = values
+            if (binding.barChart.data != null && binding.barChart.data.dataSetCount > 0) {
+                binding.barChart.data.clearValues()
                 binding.barChart.data.notifyDataChanged()
                 binding.barChart.notifyDataSetChanged()
-            } else {
-                barData = BarDataSet(values, "Data Set")
-                barData.setColors(resources.getColor(R.color.color_primary_light))
-                barData.setDrawValues(false)
-                val dataSets = java.util.ArrayList<IBarDataSet>()
-                dataSets.add(barData)
-                val data = BarData(dataSets)
-                binding.barChart.data = data
-                binding.barChart.setFitBars(true)
             }
-            binding.barChart.animateY(1500,Easing.EaseInOutQuad)
+
+
+            val dataSets: MutableList<IBarDataSet> = barDataSetList.toMutableList()
+            val data = BarData(dataSets)
+            data.barWidth = 0.30f
+            binding.barChart.data = data
+            binding.barChart.setFitBars(true)
+
+            val x: XAxis = binding.barChart.xAxis
+            x.position = XAxis.XAxisPosition.BOTTOM
+            x.setDrawGridLines(false)
+            x.granularity = 1f
+
+
+            val y: YAxis = binding.barChart.axisLeft
+            y.setLabelCount(6, false)
+            y.textColor = Color.BLACK
+            y.setDrawGridLines(true)
+            y.axisLineColor = Color.WHITE
+
+            binding.barChart.legend.isEnabled = true
+            binding.barChart.axisRight.setDrawLabels(false)
+            binding.barChart.description.isEnabled = false
+            binding.barChart.animateY(1500, Easing.EaseInOutQuad)
             binding.barChart.invalidate()
             binding.barChart.animate()
         }

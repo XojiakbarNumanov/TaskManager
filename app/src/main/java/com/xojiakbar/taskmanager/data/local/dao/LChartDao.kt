@@ -23,6 +23,8 @@ interface LChartDao {
     @Update
     fun update(tasks: LineChartEntity)
 
-    @Query("DELETE FROM line_chart")
-    fun deleteAll()
+    @Query("DELETE FROM line_chart WHERE month IS NOT NULL")
+    fun deleteMonths()
+    @Query("DELETE FROM line_chart WHERE day IS NOT NULL")
+    fun deleteDays()
 }

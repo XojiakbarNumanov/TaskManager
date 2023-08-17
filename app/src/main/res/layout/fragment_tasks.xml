@@ -5,56 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/color_primary"
     tools:context=".fragments.tasks_fragment.TasksFragment">
 
-    <HorizontalScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:backgroundTint="@color/color_primary"
+            app:tabBackground="@android:color/transparent"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorColor="@color/white"
+            app:tabMode="scrollable"
+            android:layout_marginHorizontal="@dimen/margin_4"
+            app:tabPaddingEnd="16dp"
+            app:tabPaddingStart="16dp"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/CustomTabTextAppearance"
+            app:tabTextColor="#AEABAB">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextAppearance="@style/CustomTabTextAppearance"
-                app:tabTextColor="@color/black">
+        </com.google.android.material.tabs.TabLayout>
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/all" />
+    </LinearLayout>
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/accepted_tasks" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pause" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/loading" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/returned" />
-            </com.google.android.material.tabs.TabLayout>
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/top_redius">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_marginTop="10dp"
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 
 </LinearLayout>

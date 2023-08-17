@@ -86,10 +86,25 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
 
         })
     }
-    fun getInfoLForchart(date :String){
+    fun getInfoDoneTasksDayly(date :String){
         repository?.getInfoForLineChart(date,1,object :ApiCallback<LineChartBean>{
             override fun onSuccess(response: LineChartBean) {
-                response.rows?.let { repository?.insetInfoLChatr(it) }
+                response.rows?.let { repository?.insetInfoLChatr(it,true) }
+            }
+
+            override fun onError(throwable: Throwable) {
+            }
+
+            override fun onErrorMsg(errorMsg: ErrorResult) {
+                Toast.makeText(application, errorMsg.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+    fun getInfoDoneTasksMonthly(date :String){
+        repository?.getInfoForLineChart(date,2,object :ApiCallback<LineChartBean>{
+            override fun onSuccess(response: LineChartBean) {
+                response.rows?.let { repository?.insetInfoLChatr(it,false) }
             }
 
             override fun onError(throwable: Throwable) {
@@ -129,7 +144,8 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
                 getEPTasks(userId)
                 getProcessTasks(userId)
                 getReviewTasks(userId)
-                getInfoLForchart(toDate)
+                getInfoDoneTasksDayly(toDate)
+                getInfoDoneTasksMonthly(toDate)
                 getProjectGr(toDate)
             }
 
