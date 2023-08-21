@@ -9,19 +9,22 @@ import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.data.local.entity.ReportTasksEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
+import com.xojiakbar.taskmanager.data.repositories.TasksDBRepository
 import com.xojiakbar.taskmanager.data.repositories.TasksRepository
 import okhttp3.ResponseBody
 
 class StatisticsViewModel (application: Application) : BaseViewModel<StatisticsRouter>(application){
         private var repository: TasksRepository? = null
+        private var repositoryDB: TasksDBRepository? = null
 
         init {
             repository = TasksRepository(application)
+            repositoryDB = TasksDBRepository(application)
         }
 
 
         fun getReportTasks() : LiveData<MutableList<ReportTasksEntity>>
         {
-            return repository?.getReportTasksFromDB()!!
+            return repositoryDB?.getReportTasksFromDB()!!
         }
 }

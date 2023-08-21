@@ -94,6 +94,8 @@ dependencies {
     //chart
     implementation 'com.github.thanh-ha-van:PieChartView:1.0.3'
     implementation "com.github.PhilJay:MPAndroidChart:v3.1.0"
+    //nuberPicker
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 
 
 

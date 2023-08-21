@@ -4,27 +4,31 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.xojiakbar.taskmanager.Utils.BaseViewModel
+import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
+import com.xojiakbar.taskmanager.data.repositories.TasksDBRepository
 import com.xojiakbar.taskmanager.data.repositories.TasksRepository
 import com.xojiakbar.taskmanager.fragments.home_fragment.HomeRouter
 import okhttp3.ResponseBody
 
 class TasksViewModel(application: Application) : BaseViewModel<TasksRouter>(application) {
     private var repository: TasksRepository? = null
+    private var repositoryDB: TasksDBRepository? = null
 
     init {
         repository = TasksRepository(application)
+        repositoryDB = TasksDBRepository(application)
     }
 
     fun getTasks(): LiveData<MutableList<TasksEntity>> {
-        return repository?.getTasksDB()!!
+        return repositoryDB?.getTasksDB(Preferences.getUserId())!!
     }
 
     fun gettasksById(statusId: Int): LiveData<MutableList<TasksEntity>> {
-        return repository?.getTasksByIdDB(statusId)!!
+        return repositoryDB?.getTasksByIdDB(statusId,Preferences.getUserId())!!
     }
 
     fun updateTaskStatus(row: Task) {
@@ -48,6 +52,6 @@ class TasksViewModel(application: Application) : BaseViewModel<TasksRouter>(appl
     }
 
     fun updateTask(statusId: Int, id: Int) {
-        repository?.updateTasksDB(statusId, id)
+        repositoryDB?.updateTasksDB(statusId, id)
     }
 }

@@ -14,6 +14,7 @@ class TasksEntity() {
     var name: String? = null
     var created_date: Long? = null
     var curr_executor_name: String? = null
+    var curr_executor_id : Int? = null
     var process_time: Long? = null
     var task_priorities_id: Int? = null
     var status_description: String? = null

@@ -85,6 +85,9 @@
     <string name="monthly">Oylar hisobida</string>
     <string name="report_tasks">Topshiriqlar hisoboti</string>
     <string name="report_projects">Loyihalar kesimida topshiriqlar</string>
+    <string name="hard">Yuqori</string>
+    <string name="medium">O\'rta</string>
+    <string name="easy">Past</string>
 
 
 </resources>

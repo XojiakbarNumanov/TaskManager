@@ -32,6 +32,8 @@ class LoginViewModel(application: Application) : BaseViewModel<LoginRouter>(appl
                     Preferences.setUserRolesName(response.user.user_roles_name)
                     Preferences.setIsManager(response.user.is_manager)
                     Preferences.setImageResource(response.user.img_resource_id)
+                    Preferences.setUserTypesId(response.user.user_types_id)
+                    Preferences.setBranchesId(response.user.branchs_id)
                     loginRepository!!.putUserToDb(response)
                     Preferences.setUserId(response.user.id)
                     router?.onSuccess(response)

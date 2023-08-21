@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
@@ -9,17 +8,12 @@
         android:id="@+id/tasksFragment"
         android:icon="@drawable/ic_task"
         android:title="@string/tasks"
-        android:enabled="true"
-        android:visible="true"
         />
     <item
         android:id="@+id/default_item"
         android:enabled="false"
         android:title="">
-
     </item>
-
-
     <item
         android:id="@+id/statisticsFragment"
         android:icon="@drawable/ic_statistics"

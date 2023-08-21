@@ -85,6 +85,18 @@ object Preferences{
     fun setIsFirstTime(isFirst: Boolean) {
         sharedPreferences!!.edit().putBoolean("is_first_time",isFirst).apply()
     }
+    fun getUserTypesId() : Int {
+        return sharedPreferences!!.getInt("user_types_id", -1)
+    }
+    fun setUserTypesId(userTypesId: Int) {
+        sharedPreferences!!.edit().putInt("user_types_id",userTypesId).apply()
+    }
+    fun getBranchesId() : Int {
+        return sharedPreferences!!.getInt("branches_id", -1)
+    }
+    fun setBranchesId(userTypesId: Int) {
+        sharedPreferences!!.edit().putInt("branches_id",userTypesId).apply()
+    }
 
     fun clearPreferences()
     {
@@ -100,6 +112,8 @@ object Preferences{
         sharedPreferences!!.edit().putString("user_roles","").apply()
         sharedPreferences!!.edit().putInt("is_manager",-1).apply()
         sharedPreferences!!.edit().putInt("imageRes",-1).apply()
+        sharedPreferences!!.edit().putInt("user_types_id",-1).apply()
+        sharedPreferences!!.edit().putInt("branches_id",-1).apply()
 
     }
 }

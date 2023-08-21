@@ -10,12 +10,12 @@ import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 
 @Dao
 interface TasksDao {
-    @Query("SELECT * FROM tasks  ")
-    fun getTasks(): LiveData<MutableList<TasksEntity>>
+    @Query("SELECT * FROM tasks WHERE curr_executor_id = :userId  ")
+    fun getTasks(userId:Int?): LiveData<MutableList<TasksEntity>>
 
-    @Query("SELECT * FROM tasks WHERE tasks.task_statuses_id = :status_id ")
-    fun getTasksById(status_id : Int): LiveData<MutableList<TasksEntity>>
-    @Query("SELECT * FROM tasks WHERE tasks.id = :id")
+    @Query("SELECT * FROM tasks WHERE tasks.task_statuses_id = :status_id AND curr_executor_id = :userId")
+    fun getTasksById(status_id : Int,userId: Int?): LiveData<MutableList<TasksEntity>>
+    @Query("SELECT * FROM tasks WHERE tasks.id = :id ")
     fun getById(id : Int) : LiveData<TasksEntity>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(tasks: TasksEntity) : Long

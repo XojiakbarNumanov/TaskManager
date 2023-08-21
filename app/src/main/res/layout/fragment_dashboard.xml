@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+        <import type="android.view.View" />
         <variable
             name="controller"
             type="com.xojiakbar.taskmanager.fragments.dashboard_fragment.DashboardUIController" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_primary">
@@ -17,6 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -63,24 +65,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:onClick="@{()->controller.refresh()}"
                 android:layout_marginEnd="@dimen/margin_8"
+                android:onClick="@{()->controller.refresh()}"
                 android:src="@drawable/ic_refresh"
                 app:tint="@color/black" />
 
 
-
         </RelativeLayout>
+
+
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@drawable/top_redius"
+            android:paddingBottom="?attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/top_redius"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            android:layout_marginBottom="?attr/actionBarSize"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/nav_host_fragment_dashboard"
                 android:name="androidx.navigation.fragment.NavHostFragment"
@@ -94,38 +98,41 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottom_app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/bottom_app_bar"
                 android:layout_gravity="bottom"
                 android:backgroundTint="@color/white"
                 app:fabCradleMargin="6dp"
                 app:fabCradleRoundedCornerRadius="8dp"
                 app:fabCradleVerticalOffset="8dp">
+
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottom_navigation_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
                     android:background="#00000000"
                     android:elevation="0dp"
-                    android:outlineSpotShadowColor="@android:color/transparent"
                     android:outlineAmbientShadowColor="@android:color/transparent"
-                    android:layout_marginEnd="16dp"
+                    android:outlineSpotShadowColor="@android:color/transparent"
                     app:itemIconTint="@color/bottom_navigation_item_colors"
                     app:itemTextColor="@color/bottom_navigation_item_colors"
                     app:labelVisibilityMode="labeled"
                     app:menu="@menu/main_menu" />
             </com.google.android.material.bottomappbar.BottomAppBar>
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/add"-->
-<!--                android:layout_gravity="center"-->
-<!--                app:layout_anchor="@id/bottom_app_bar"-->
-<!--                android:backgroundTint="@color/white"-->
-<!--                android:src="@drawable/ic_add"-->
-<!--                />-->
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_add"
+                android:visibility="@{controller.isManager ? View.VISIBLE : View.GONE}"
+                app:layout_anchor="@id/bottom_app_bar" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

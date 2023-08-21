@@ -8,6 +8,7 @@ import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.data.beans.BaseBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
+import com.xojiakbar.taskmanager.data.repositories.TasksDBRepository
 import com.xojiakbar.taskmanager.data.repositories.TasksRepository
 import okhttp3.ResponseBody
 import java.io.File
@@ -15,11 +16,13 @@ import java.io.File
 class SendInspectionDialogViewModel(application: Application) :
     BaseViewModel<SendInspectionDialogRouter>(application) {
     private var repository: TasksRepository? = null
+    private var repositoryDB: TasksDBRepository? = null
     private lateinit var imgResIds: List<Int>
     var listOfResId = ArrayList<BaseBean>()
 
     init {
         repository = TasksRepository(application)
+        repositoryDB = TasksDBRepository(application)
     }
 
     fun uploadResources(files: ArrayList<File>, row: Task, i: Int) {
@@ -48,7 +51,7 @@ class SendInspectionDialogViewModel(application: Application) :
         }
     }
     fun updateTask(statusId: Int,id: Int){
-        repository?.updateTasksDB(statusId,id)
+        repositoryDB?.updateTasksDB(statusId,id)
     }
     fun updateTaskStatus(row: Task) {
         router?.setLoading("Update Status")

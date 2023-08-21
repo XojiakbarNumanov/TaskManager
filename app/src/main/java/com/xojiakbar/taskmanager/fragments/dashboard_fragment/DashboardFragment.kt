@@ -21,10 +21,10 @@ import com.xojiakbar.taskmanager.fragments.login_fragment.LoginViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class DashboardFragment : Fragment() ,DashboardRouter{
-    private  var _binding : FragmentDashboardBinding? = null
-    private val  binding get() = _binding
-    private var  viewModel : DashboardViewModel? =null
+class DashboardFragment : Fragment(), DashboardRouter {
+    private var _binding: FragmentDashboardBinding? = null
+    private val binding get() = _binding!!
+    private var viewModel: DashboardViewModel? = null
     private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class DashboardFragment : Fragment() ,DashboardRouter{
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
-        _binding = FragmentDashboardBinding.inflate(inflater,container,false)
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val controller = DashboardUIController(requireContext())
         controller?.router = this
         binding?.controller = controller
@@ -42,21 +42,31 @@ class DashboardFragment : Fragment() ,DashboardRouter{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment_dashboard) as NavHostFragment
+        val navHostFragment =
+            childFragmentManager.findFragmentById(R.id.nav_host_fragment_dashboard) as NavHostFragment
         val navController = navHostFragment.navController
-        setupWithNavController(binding?.bottomNavigationView!!,navController)
+        setupWithNavController(binding.bottomNavigationView, navController)
         viewModel!!.router = this
-        Picasso.get().load("https://furorprogress.uz/api/resources/"+Preferences.getImageResource()+"/view").into(binding?.userImage)
-        if (Preferences.getIsFirstTime())
-        {
+        Picasso.get()
+            .load("http://furorprogress.uz:8090//api/resources/" + Preferences.getImageResource() + "/view")
+            .into(binding?.userImage)
+        if (Preferences.getIsFirstTime()) {
             refresh()
             Preferences.setIsFirstTime(false)
         }
+
+        val navHostFragment2 = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
+        val navController2 = navHostFragment2.navController
+        binding.add.setOnClickListener {
+                navController2.navigate(R.id.createTaskFragment)
+             }
     }
+
     override fun onResume() {
         super.onResume()
         viewModel!!.router = this
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -66,28 +76,28 @@ class DashboardFragment : Fragment() ,DashboardRouter{
         val currentDate = Date()
         val dateFormat = SimpleDateFormat("dd.MM.yyyy")
         val toDate = dateFormat.format(currentDate).toString()
-        val fromDate = "01."+ SimpleDateFormat("MM.yyyy").format(currentDate)
-        viewModel?.getReportTasks(fromDate,toDate)
+        val fromDate = "01." + SimpleDateFormat("MM.yyyy").format(currentDate)
+        viewModel?.getReportTasks(fromDate, toDate)
     }
 
-    override fun setLoading(tag :String) {
-        loadingDialog.show(requireActivity().supportFragmentManager,tag)
+    override fun setLoading(tag: String) {
+        loadingDialog.show(requireActivity().supportFragmentManager, tag)
 
     }
 
     override fun onSuccess(response: Any?) {
         try {
             loadingDialog.dismiss()
+        } catch (_: Exception) {
         }
-        catch (_: Exception){}
 
     }
 
     override fun onError(errorMsg: ErrorResult?) {
         try {
             loadingDialog.dismiss()
+        } catch (_: Exception) {
         }
-        catch (_: Exception){}
     }
 
 }

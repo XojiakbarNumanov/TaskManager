@@ -57,6 +57,7 @@ class Tasks : Fragment(), TasksRouter {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initrRvList() {
         if (statusId == -1) {
             viewModel.getTasks().observe(viewLifecycleOwner) {

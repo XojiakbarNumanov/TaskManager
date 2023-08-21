@@ -20,6 +20,10 @@ class DashboardUIController(context: Context) : BaseObservable() {
     fun refresh(){
         router?.refresh()
     }
+    @Bindable
+    fun getIsManager(): Boolean{
+        return Preferences.getUserTypesId() == 4
+    }
 
 
 }

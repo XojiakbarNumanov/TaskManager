@@ -1,5 +1,5 @@
 package com.xojiakbar.taskmanager.data.beans.ChartBean
 
-class ProjectGroupBean {
+class DashboardProjectGroupBean {
     var rows :List<ProjectGroupRows>? = null
 }

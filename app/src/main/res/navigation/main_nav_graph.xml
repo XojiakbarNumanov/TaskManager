@@ -22,4 +22,8 @@
         android:id="@+id/changePinCodeFragment"
         android:name="com.xojiakbar.taskmanager.fragments.change_pin_code_fragment.ChangePinCodeFragment"
         android:label="ChangePinCodeFragment" />
+    <fragment
+        android:id="@+id/createTaskFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.crate_tasks.CreateTaskFragment"
+        android:label="CreateTaskFragment" />
 </navigation>
