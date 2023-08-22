@@ -18,9 +18,9 @@ import com.xojiakbar.taskmanager.fragments.statics_fragment.item.StatisticsItemU
 
 
 class StatisticsFragment : Fragment() {
-    private var _binding : FragmentStatisticsBinding? =null
+    private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = _binding
-    private var viewModel : StatisticsViewModel? = null
+    private var viewModel: StatisticsViewModel? = null
     private var adapter: RecyclerAdapter<ReportTasksEntity?>? = null
 
 
@@ -28,8 +28,7 @@ class StatisticsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentStatisticsBinding.inflate(inflater,container,false)
-
+        _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -37,28 +36,24 @@ class StatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[StatisticsViewModel::class.java]
         adapter = RecyclerAdapter(R.layout.item_statistics, getAdapterListener())
-        viewModel?.getReportTasks()!!.observe(viewLifecycleOwner){
+        viewModel?.getReportTasks()!!.observe(viewLifecycleOwner) {
             binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-
             adapter!!.setList(it.toMutableList())
             binding?.recyclerView?.adapter = adapter
         }
-
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
     private fun getAdapterListener(): RecyclerAdapter.AdapterListener<ReportTasksEntity?> {
         return object : RecyclerAdapter.AdapterListener<ReportTasksEntity?> {
 
             override fun setController(dataBinding: ViewDataBinding?) {
                 val controller = StatisticsItemUIController(requireContext())
                 (dataBinding as ItemStatisticsBinding).controller = controller
-
-
             }
 
             override fun bindItem(
@@ -66,18 +61,16 @@ class StatisticsFragment : Fragment() {
                 item: ReportTasksEntity?,
                 position: Int?
             ) {
-                (dataBinding as ItemStatisticsBinding).controller!!.setForEntity(item)
+                (dataBinding as ItemStatisticsBinding).controller!!.setForEntity(item, position!!)
                 var img = ""
-                if (item?.img_resource_id!=null && item.img_resource_id != 0)
+                if (item?.img_resource_id != null && item.img_resource_id != 0)
                     Picasso.get()
                         .load("https://furorprogress.uz/api/resources/" + item.img_resource_id.toString() + "/view")
                         .fit()
                         .centerCrop()
                         .into(dataBinding.userImage)
                 else
-                    dataBinding.userImage.setImageResource( R.drawable.ic_person)
-
-
+                    dataBinding.userImage.setImageResource(R.drawable.ic_person)
                 dataBinding.executePendingBindings()
             }
         }

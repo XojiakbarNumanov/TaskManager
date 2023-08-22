@@ -3,6 +3,7 @@ package com.xojiakbar.taskmanager.fragments.crate_tasks
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.LiveData
+import com.xojiakbar.taskmanager.Utils.BaseRouter
 import com.xojiakbar.taskmanager.Utils.BaseViewModel
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.ApiCallback
@@ -22,7 +23,7 @@ import com.xojiakbar.taskmanager.fragments.home_fragment.HomeRouter
 import okhttp3.Response
 import okhttp3.ResponseBody
 
-class CreateTaskViewModel (application: Application) : BaseViewModel<HomeRouter>(application) {
+class CreateTaskViewModel (application: Application) : BaseViewModel<BaseRouter<Any>>(application) {
     private var repositoryDb: TasksDBRepository? = null
     private var repository: TasksRepository? = null
 
@@ -45,9 +46,10 @@ class CreateTaskViewModel (application: Application) : BaseViewModel<HomeRouter>
         return repositoryDb?.getTaskTypes()
     }
     fun createTask(task: Task) {
+        router?.setLoading("craete task")
         repository?.createTask(task,object : ApiCallback<ResponseBody> {
             override fun onSuccess(response: ResponseBody) {
-                Toast.makeText(application, "success", Toast.LENGTH_SHORT).show()
+                router?.onSuccess(response)
             }
 
             override fun onError(throwable: Throwable) {

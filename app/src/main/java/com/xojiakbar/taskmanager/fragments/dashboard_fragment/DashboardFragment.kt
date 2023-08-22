@@ -60,6 +60,11 @@ class DashboardFragment : Fragment(), DashboardRouter {
         binding.add.setOnClickListener {
                 navController2.navigate(R.id.createTaskFragment)
              }
+        if (Preferences.getUserTypesId()==6){
+            binding.bottomNavigationView.menu.findItem(R.id.default_item).isVisible = false
+        }
+
+
     }
 
     override fun onResume() {

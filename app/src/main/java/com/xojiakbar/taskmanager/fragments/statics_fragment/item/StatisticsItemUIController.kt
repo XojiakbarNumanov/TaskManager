@@ -11,10 +11,11 @@ import com.xojiakbar.taskmanager.fragments.statics_fragment.StatisticsRouter
 class StatisticsItemUIController (val context: Context) : BaseObservable(){
     var router : StatisticsRouter? =null
     var entity: ReportTasksEntity? = null
-
-    fun setForEntity(entity: ReportTasksEntity?) {
+    var position = -1
+    fun setForEntity(entity: ReportTasksEntity?,position:Int) {
         this.entity = entity
         notifyPropertyChanged(BR._all)
+        this.position = position
     }
     @Bindable
     fun getName() :String{

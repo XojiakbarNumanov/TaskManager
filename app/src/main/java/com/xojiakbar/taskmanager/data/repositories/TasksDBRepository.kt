@@ -36,13 +36,13 @@ class TasksDBRepository(context: Context) {
     var tasksCntDao: TaskscntDao? = null
     var tasksDao: TasksDao? = null
     var reportDao: ReportTasksDao? = null
-    var lineChartDao : LChartDao? = null
-    var projectGrDao : ProjectsDao? = null
-    var taskGrDao : TaskGrDao? = null
-    var executorsDao : ExecutorsDao? = null
-    var projectsDao : AllProjectsDao? = null
-    var projectgroupsDao : ProjectGrDao? = null
-    var taskTypesDao : TaskTypesDao? = null
+    var lineChartDao: LChartDao? = null
+    var projectGrDao: ProjectsDao? = null
+    var taskGrDao: TaskGrDao? = null
+    var executorsDao: ExecutorsDao? = null
+    var projectsDao: AllProjectsDao? = null
+    var projectgroupsDao: ProjectGrDao? = null
+    var taskTypesDao: TaskTypesDao? = null
 
     init {
         val appDatabase: AppDatabase = AppDatabase.getInstance(context)
@@ -57,6 +57,7 @@ class TasksDBRepository(context: Context) {
         projectgroupsDao = appDatabase.projectGrDao()
         taskTypesDao = appDatabase.taskTypesDoa()
     }
+
     fun getTaskCnt(): LiveData<TasksCountEntity>? {
         return tasksCntDao?.getTasks()
     }
@@ -65,8 +66,8 @@ class TasksDBRepository(context: Context) {
         return tasksDao?.getTasks(userId)
     }
 
-    fun getTasksByIdDB(statusId: Int,userId: Int?): LiveData<MutableList<TasksEntity>>? {
-        return tasksDao?.getTasksById(statusId,userId)
+    fun getTasksByIdDB(statusId: Int, userId: Int?): LiveData<MutableList<TasksEntity>>? {
+        return tasksDao?.getTasksById(statusId, userId)
     }
 
     fun updateTasksDB(statusId: Int, id: Int) {
@@ -76,9 +77,13 @@ class TasksDBRepository(context: Context) {
     fun getByIdDB(id: Int): LiveData<TasksEntity> {
         return tasksDao?.getById(id)!!
     }
+
     fun insetTasks(tasks: List<Task>) {
         tasksDao?.deleteAll()
         for (task in tasks) {
+            if (task.task_statuses_id != null && task.task_statuses_id!! >= 8){
+                continue
+            }
             val tasksEntity = TasksEntity()
             tasksEntity.id = task.id
             tasksEntity.task_statuses_id = task.task_statuses_id
@@ -103,6 +108,7 @@ class TasksDBRepository(context: Context) {
             tasksDao?.insert(tasksEntity)
         }
     }
+
     fun insertReportTasks(reports: List<com.xojiakbar.taskmanager.data.beans.report_tasks_bean.Row>) {
         reportDao?.deleteAll()
         for (report in reports) {
@@ -143,16 +149,20 @@ class TasksDBRepository(context: Context) {
     fun getReportTasksFromDB(): LiveData<MutableList<ReportTasksEntity>>? {
         return reportDao?.getReport()
     }
+
     fun getRTById(userId: Int): LiveData<ReportTasksEntity>? {
         return reportDao?.getById(userId)
     }
+
     fun getLineChartInfoByDay(): LiveData<MutableList<LineChartEntity>> {
         return lineChartDao?.getByDay()!!
     }
+
     fun getLineChartInfoByMonth(): LiveData<MutableList<LineChartEntity>> {
         return lineChartDao?.getByMonth()!!
     }
-    fun insetInfoLChatr(rows: List<Rows>, isDayly :Boolean) {
+
+    fun insetInfoLChatr(rows: List<Rows>, isDayly: Boolean) {
         if (isDayly)
             lineChartDao?.deleteDays()
         else
@@ -171,6 +181,7 @@ class TasksDBRepository(context: Context) {
     fun getPGDB(): LiveData<MutableList<DashboardProjectGroupEntity>> {
         return projectGrDao?.getProjects()!!
     }
+
     fun insetPGDB(rows: List<ProjectGroupRows>) {
         projectGrDao?.deleteAll()
         for (row in rows) {
@@ -181,7 +192,8 @@ class TasksDBRepository(context: Context) {
             projectGrDao?.insert(projectGr)
         }
     }
-    fun insertTaskGr(list : List<TaskGroup>){
+
+    fun insertTaskGr(list: List<TaskGroup>) {
         taskGrDao?.deleteAll()
         for (i in list) {
             val tasksGr = TaskGroupEntity()
@@ -193,9 +205,10 @@ class TasksDBRepository(context: Context) {
 
         }
     }
+
     fun insertExecutors(users: List<User>): Long {
         val executor = ExecutorsEntity()
-        for (user in users){
+        for (user in users) {
             executor.id = user.id
             executor.login = user.login
             executor.branchs_id = user.branchs_id
@@ -217,10 +230,11 @@ class TasksDBRepository(context: Context) {
         }
         return 0
     }
-    fun insertProjects(projects : List<Projects>) : Long{
+
+    fun insertProjects(projects: List<Projects>): Long {
         projectsDao?.deleteAll()
         val projectdb = ProjectsEntity()
-        for (project in projects){
+        for (project in projects) {
             projectdb.id = project.id
             projectdb.name = project.name
             projectdb.project_categories_id = project.project_categories_id
@@ -244,40 +258,44 @@ class TasksDBRepository(context: Context) {
         }
         return 0
     }
-    fun insertProjectGroups(projects : List<ProjectGroup>) : Long{
+
+    fun insertProjectGroups(projects: List<ProjectGroup>): Long {
         projectgroupsDao?.deleteAll()
         val projectdb = ProjectGroupsEntity()
-        for (project in projects){
+        for (project in projects) {
             projectdb.id = project.id
             projectdb.name = project.name
             projectgroupsDao?.insert(projectdb)
         }
         return 0
     }
-    fun insertTaskTypes(taskTypes : List<TaskType>) : Long{
+
+    fun insertTaskTypes(taskTypes: List<TaskType>): Long {
         taskTypesDao?.deleteAll()
         val tasks = TaskTypesEntity()
-        for (taskType in taskTypes){
+        for (taskType in taskTypes) {
             tasks.id = taskType.id
             tasks.name = taskType.name
             taskTypesDao?.insert(tasks)
         }
         return 0
     }
-    fun getProjectGroups():LiveData<MutableList<ProjectGroupsEntity>>{
+
+    fun getProjectGroups(): LiveData<MutableList<ProjectGroupsEntity>> {
         return projectgroupsDao?.getProjectGr()!!
     }
-    fun getProject(projectGroupID : Int):LiveData<MutableList<ProjectsEntity>>{
+
+    fun getProject(projectGroupID: Int): LiveData<MutableList<ProjectsEntity>> {
         return projectsDao?.getProjects(projectGroupID)!!
     }
-    fun getTaskGrName(projectID : Int):LiveData<MutableList<TaskGroupEntity>>{
+
+    fun getTaskGrName(projectID: Int): LiveData<MutableList<TaskGroupEntity>> {
         return taskGrDao?.getTaskGr(projectID)!!
     }
-    fun getTaskTypes():LiveData<MutableList<TaskTypesEntity>>{
+
+    fun getTaskTypes(): LiveData<MutableList<TaskTypesEntity>> {
         return taskTypesDao?.get()!!
     }
-
-
 
 
 }
