@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
+import com.xojiakbar.taskmanager.BuildConfig
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.Utils.LoadingDialog
 import com.xojiakbar.taskmanager.Utils.Preferences
@@ -40,8 +41,8 @@ class Tasks : Fragment(), TasksRouter {
         super.onCreate(savedInstanceState)
         arguments?.let {
             statusId = it.getInt(ARG_PARAM1)
-            viewModel = ViewModelProvider(this)[TasksViewModel::class.java]
         }
+        viewModel = ViewModelProvider(this)[TasksViewModel::class.java]
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -104,7 +105,7 @@ class Tasks : Fragment(), TasksRouter {
             ) {
                 (dataBinding as ItemTasksInfoBinding).controller!!.setEntityInfo(item)
                 Picasso.get().load(
-                    "https://furorprogress.uz/api/resources/" + Preferences.getImageResource()
+                    BuildConfig.SERVER_URL +"api/resources/" + Preferences.getImageResource()
                         .toString() + "/view"
                 ).into(dataBinding.userImage)
 

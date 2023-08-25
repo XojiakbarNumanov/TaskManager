@@ -78,8 +78,11 @@ class TasksDBRepository(context: Context) {
         return tasksDao?.getById(id)!!
     }
 
-    fun insetTasks(tasks: List<Task>) {
-        tasksDao?.deleteAll()
+    fun insetTasks(tasks: List<Task> ,isNew:Boolean) {
+        if (isNew)
+            tasksDao?.deleteNewTasks()
+        else
+        tasksDao?.deleteTasks()
         for (task in tasks) {
             if (task.task_statuses_id != null && task.task_statuses_id!! >= 8){
                 continue
@@ -295,6 +298,18 @@ class TasksDBRepository(context: Context) {
 
     fun getTaskTypes(): LiveData<MutableList<TaskTypesEntity>> {
         return taskTypesDao?.get()!!
+    }
+    fun getAllTasks(): LiveData<MutableList<TasksEntity>> {
+        return tasksDao?.getAllTasks()!!
+    }
+    fun getNewTasks(): LiveData<MutableList<TasksEntity>> {
+        return tasksDao?.getNewTasks()!!
+    }
+    fun getprocessTasks(): LiveData<MutableList<TasksEntity>> {
+        return tasksDao?.getProcessTasks()!!
+    }
+    fun getreviewTasks(): LiveData<MutableList<TasksEntity>> {
+        return tasksDao?.getreviewTasks()!!
     }
 
 

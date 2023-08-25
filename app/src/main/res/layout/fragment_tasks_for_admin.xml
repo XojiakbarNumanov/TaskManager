@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/color_primary"
+tools:context=".fragments.tasks_for_admin.TasksForAdminFragment">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:backgroundTint="@color/color_primary"
+        app:tabBackground="@android:color/transparent"
+        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorColor="@color/white"
+        app:tabMode="scrollable"
+        android:layout_marginHorizontal="@dimen/margin_4"
+        app:tabPaddingEnd="16dp"
+        app:tabPaddingStart="16dp"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/CustomTabTextAppearance"
+        app:tabTextColor="#AEABAB">
+
+    </com.google.android.material.tabs.TabLayout>
+
+</LinearLayout>
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.tasks_for_admin.TasksForAdminFragment">
+    android:layout_marginTop="8dp"
+    android:background="@drawable/top_redius">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_marginTop="10dp"
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent" />
+</LinearLayout>
 
-</FrameLayout>
+
+</LinearLayout>

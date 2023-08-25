@@ -34,13 +34,13 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
             override fun onSuccess(response: ReportTasksBean) {
                 repositoryDB?.insertReportTasks(response.rows)
                 router!!.onSuccess(response)
-                var userId:Int?
-                if (Preferences.getUserTypesId()==4)
+                var userId: Int?
+                if (Preferences.getUserTypesId() == 4)
                     userId = null
                 else
                     userId = Preferences.getUserId()
 
-                getNewTasks(userId)
+                getTasks(userId)
                 getInfoDoneTasksDayly(toDate)
                 getInfoDoneTasksMonthly(toDate)
                 getProjectGr(toDate)
@@ -51,6 +51,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
                     getProjects()
                     getTaskTypes()
                     getProjectGr()
+                    getNewTasks(userId)
                 }
             }
 
@@ -63,12 +64,11 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
         })
     }
 
-
-    fun getNewTasks(userId: Int?) {
-        repository?.getNewTasks(userId, object : ApiCallback<TasksBean> {
+    fun getTasks(userId: Int?) {
+        repository?.getTasks(userId, object : ApiCallback<TasksBean> {
             override fun onSuccess(response: TasksBean) {
                 val tasks: List<Task> = response.tasks.rows
-                repositoryDB!!.insetTasks(tasks )
+                repositoryDB!!.insetTasks(tasks,false)
             }
 
             override fun onError(throwable: Throwable) {
@@ -79,8 +79,21 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
             }
         })
     }
+    fun getNewTasks(userId: Int?) {
+        repository?.getNewTasks(userId, object : ApiCallback<TasksBean> {
+            override fun onSuccess(response: TasksBean) {
+                val tasks: List<Task> = response.tasks.rows
+                repositoryDB!!.insetTasks(tasks,true)
+            }
 
+            override fun onError(throwable: Throwable) {
+            }
 
+            override fun onErrorMsg(errorMsg: ErrorResult) {
+                router?.onError(errorMsg)
+            }
+        })
+    }
 
     fun getInfoDoneTasksDayly(date: String) {
         repository?.getInfoForLineChart(date, 1, object : ApiCallback<LineChartBean> {
@@ -171,6 +184,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
             }
         })
     }
+
     fun getProjectGr() {
         repository?.getProjectGR(object : ApiCallback<ProjectGroupsBean> {
             override fun onSuccess(response: ProjectGroupsBean) {
@@ -185,6 +199,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
             }
         })
     }
+
     fun getTaskTypes() {
         repository?.getTaskTypes(object : ApiCallback<TaskTypesBean> {
             override fun onSuccess(response: TaskTypesBean) {

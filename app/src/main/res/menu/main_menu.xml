@@ -14,12 +14,20 @@
         android:enabled="false"
         android:title="">
     </item>
+
+
     <item
-        android:id="@+id/statisticsFragment"
-        android:icon="@drawable/ic_statistics"
-        android:title="@string/statistics" />
+        android:id="@+id/tasksForAdminFragment"
+        android:title="test"
+        android:icon="@drawable/ic_statistics">
+    </item>
+<!--    <item-->
+<!--        android:id="@+id/statisticsFragment"-->
+<!--        android:icon="@drawable/ic_statistics"-->
+<!--        android:title="@string/statistics" />-->
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_setting"
+        android:visible="false"
         android:title="@string/menu_settings" />
 </menu>

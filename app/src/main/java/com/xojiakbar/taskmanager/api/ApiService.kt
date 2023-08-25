@@ -34,8 +34,6 @@ interface ApiService {
         @Field("remember") remember: Boolean?,
     ): Call<UserBean>
 
-
-
     @GET("/api/fp/tasks/executors")
     fun getExecutors(@Query("isTeamMembers") isTeamMembers: Int): Call<List<User>>
 
@@ -54,14 +52,18 @@ interface ApiService {
     @POST("/api/admin/auth/logout")
     fun logOut(): Call<ResponseBody>
 
-
     @GET("/api/fp/tasks/new")
-    fun getNewTasks(
+    fun getTasks(
         @Query("curr_executor_id") userId: Int?,
         @Query("is_now") isNow: Int,
         @Query("is_my_team") isMyTeam: Int
     ): Call<TasksBean>
-
+    @GET("/api/fp/tasks/new")
+    fun getNewTasks(
+        @Query("curr_executor_id") userId: Int?,
+        @Query("is_new_version")newVersion:Int,
+        @Query("is_now") isNow: Int
+    ): Call<TasksBean>
 
     @POST("/api/admin/auth/forgot-password")
     fun forgotUserPassword(@Body map: Map<String, String>): Call<ResponseBody>
@@ -95,6 +97,6 @@ interface ApiService {
     ): Call<Int>
 
     @POST("/api/fp/tasks")
-    fun createTask(@Body task: Task) : Call<ResponseBody>
+    fun createTask(@Body task: Task): Call<ResponseBody>
 
 }

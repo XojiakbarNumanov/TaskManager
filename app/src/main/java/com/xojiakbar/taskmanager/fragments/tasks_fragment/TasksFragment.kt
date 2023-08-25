@@ -28,7 +28,6 @@ class TasksFragment : Fragment() {
         initParam()
         binding.viewPager.adapter = viewPagerAdapter
         changePosition()
-
         return binding.root
     }
 
@@ -36,7 +35,7 @@ class TasksFragment : Fragment() {
         TabLayoutMediator(
             binding.tabLayout, binding.viewPager
         ) { tab: TabLayout.Tab, position: Int ->
-            tab.text = resources.getStringArray(R.array.spinnerArray)[position]
+            tab.text = resources.getStringArray(R.array.tablayout_array)[position]
         }.attach()
     }
 
@@ -44,20 +43,17 @@ class TasksFragment : Fragment() {
         loadFragments()
         viewPagerAdapter = ViewPagerAdapter(this,listOfFragment)
     }
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
     fun loadFragments() {
         listOfFragment.add(Tasks.newInstance(-1))
+        listOfFragment.add(Tasks.newInstance(2))
         listOfFragment.add(Tasks.newInstance(3))
         listOfFragment.add(Tasks.newInstance(5))
         listOfFragment.add(Tasks.newInstance(4))
         listOfFragment.add(Tasks.newInstance(7))
+        listOfFragment.add(Tasks.newInstance(6))
     }
-
-
 }

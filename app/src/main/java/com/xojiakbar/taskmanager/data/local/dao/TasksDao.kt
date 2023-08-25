@@ -10,12 +10,19 @@ import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 
 @Dao
 interface TasksDao {
-    @Query("SELECT * FROM tasks WHERE curr_executor_id = :userId  ")
+    @Query("SELECT * FROM tasks WHERE curr_executor_id = :userId ORDER BY created_date desc")
     fun getTasks(userId:Int?): LiveData<MutableList<TasksEntity>>
-
-    @Query("SELECT * FROM tasks WHERE tasks.task_statuses_id = :status_id AND curr_executor_id = :userId")
+    @Query("SELECT * FROM tasks ORDER BY created_date desc")
+    fun getAllTasks(): LiveData<MutableList<TasksEntity>>
+    @Query("SELECT * FROM tasks where task_statuses_id = 1 ORDER BY created_date desc")
+    fun    getNewTasks(): LiveData<MutableList<TasksEntity>>
+    @Query("SELECT * FROM tasks WHERE task_statuses_id in (2,3,4,5,7) ORDER BY created_date desc")
+    fun getProcessTasks(): LiveData<MutableList<TasksEntity>>
+    @Query("SELECT * FROM tasks WHERE task_statuses_id = 6 ORDER BY created_date desc")
+    fun getreviewTasks(): LiveData<MutableList<TasksEntity>>
+    @Query("SELECT * FROM tasks WHERE tasks.task_statuses_id = :status_id AND curr_executor_id = :userId ORDER BY created_date desc")
     fun getTasksById(status_id : Int,userId: Int?): LiveData<MutableList<TasksEntity>>
-    @Query("SELECT * FROM tasks WHERE tasks.id = :id ")
+    @Query("SELECT * FROM tasks WHERE tasks.id = :id ORDER BY created_date desc")
     fun getById(id : Int) : LiveData<TasksEntity>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(tasks: TasksEntity) : Long
@@ -26,8 +33,10 @@ interface TasksDao {
     @Query( "UPDATE tasks SET task_statuses_id  = :status_id  WHERE id = :id" )
     fun updateStatus(status_id: Int, id: Int)
 
-    @Query("DELETE FROM tasks  where tasks.new_version_code = :new_version_code")
-    fun delete(new_version_code:Int)
+    @Query("DELETE FROM tasks  where tasks.task_statuses_id = 1 or task_statuses_id = 0 ")
+    fun deleteNewTasks()
+    @Query("DELETE FROM tasks  where tasks.task_statuses_id > 1 ")
+    fun deleteTasks()
     @Query("DELETE FROM tasks")
     fun deleteAll()
 }

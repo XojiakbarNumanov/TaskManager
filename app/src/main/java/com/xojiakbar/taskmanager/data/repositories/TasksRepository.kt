@@ -30,12 +30,21 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
         request(getApi(ApiService::class.java).updateTaskStatus(row), callback)
     }
 
+    fun getTasks(userID: Int?, callback: ApiCallback<TasksBean>) {
+        request(
+            getApi(ApiService::class.java).getTasks(
+                userID,
+                2,
+                Preferences.getIsManager()
+            ), callback
+        )
+    }
     fun getNewTasks(userID: Int?, callback: ApiCallback<TasksBean>) {
         request(
             getApi(ApiService::class.java).getNewTasks(
                 userID,
-                2,
-                Preferences.getIsManager()
+                1,
+                2
             ), callback
         )
     }

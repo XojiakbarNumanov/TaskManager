@@ -7,12 +7,13 @@ import androidx.databinding.Bindable
 import com.xojiakbar.taskmanager.BR
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
+import com.xojiakbar.taskmanager.fragments.tasks_for_admin.TaskRouter
 import com.xojiakbar.taskmanager.fragments.tasks_fragment.TasksRouter
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class ItemUiController (val context: Context) : BaseObservable() {
-    var router: TasksRouter? = null
+    var router: TaskRouter? = null
     var entity: TasksEntity? = null
     var dropDown = false
 
@@ -52,9 +53,10 @@ class ItemUiController (val context: Context) : BaseObservable() {
     fun getIsDone(): Boolean {
         return entity?.task_statuses_id == 6
     }
+
     @Bindable
     fun getIsNew(): Boolean {
-        return entity?.task_statuses_id == 1
+        return entity?.task_statuses_id == 1 || entity?.task_statuses_id == 0
     }
 
 
@@ -107,13 +109,26 @@ class ItemUiController (val context: Context) : BaseObservable() {
     fun getLevelColor(): Int {
         return when {
             entity?.task_priorities_id == 1 ->
+                context.resources.getColor(R.color.light_red)
+
+            entity?.task_priorities_id == 2 ->
+                context.resources.getColor(R.color.light_orange)
+
+            else ->
+                context.resources.getColor(R.color.color_light_primary)
+        }
+    }
+    @Bindable
+    fun getTextColor(): Int {
+        return when {
+            entity?.task_priorities_id == 1 ->
                 context.resources.getColor(R.color.red)
 
             entity?.task_priorities_id == 2 ->
-                context.resources.getColor(R.color.sunglow)
+                context.resources.getColor(R.color.orange)
 
             else ->
-                context.resources.getColor(R.color.green)
+                context.resources.getColor(R.color.color_primary)
         }
     }
 
@@ -156,12 +171,6 @@ class ItemUiController (val context: Context) : BaseObservable() {
         notifyPropertyChanged(BR._all)
     }
 
-    fun btnClick() {
-        router?.changeStatus(entity!!)
-    }
 
-    fun btnUpload() {
-        router?.showDialog(entity!!)
-    }
 
 }

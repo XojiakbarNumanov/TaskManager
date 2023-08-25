@@ -47,4 +47,9 @@
         android:name="com.xojiakbar.taskmanager.fragments.tasks_fragment.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/tasksForAdminFragment"
+        android:name="com.xojiakbar.taskmanager.fragments.tasks_for_admin.TasksForAdminFragment"
+        android:label="fragment_tasks_for_admin"
+        tools:layout="@layout/fragment_tasks_for_admin" />
 </navigation>

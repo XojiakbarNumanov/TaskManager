@@ -9,11 +9,20 @@
         <item>gallery_image</item>
         <item>camera_image</item>
     </string-array>
-    <string-array name="spinnerArray">
+    <string-array name="tablayout_array">
         <item>@string/all</item>
+        <item>@string/performer_appointed</item>
         <item>@string/accepted_tasks</item>
         <item>@string/pause</item>
         <item>@string/loading</item>
         <item>@string/returned</item>
+        <item>@string/done_tasks</item>
     </string-array>
+    <string-array name="tablayout_array_admin">
+        <item>@string/all</item>
+        <item>@string/new_task</item>
+        <item>@string/loading</item>
+        <item>@string/done_tasks</item>
+    </string-array>
+
 </resources>
