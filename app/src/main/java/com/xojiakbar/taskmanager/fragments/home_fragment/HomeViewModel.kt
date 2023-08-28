@@ -7,6 +7,7 @@ import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.data.local.entity.LineChartEntity
 import com.xojiakbar.taskmanager.data.local.entity.DashboardProjectGroupEntity
 import com.xojiakbar.taskmanager.data.local.entity.ReportTasksEntity
+import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 import com.xojiakbar.taskmanager.data.repositories.TasksDBRepository
 
 class HomeViewModel(application: Application) : BaseViewModel<HomeRouter>(application) {
@@ -26,5 +27,9 @@ class HomeViewModel(application: Application) : BaseViewModel<HomeRouter>(applic
     fun getProjectGr(): LiveData<MutableList<DashboardProjectGroupEntity>>? {
         return repository?.getPGDB()
     }
+    fun getTaskCnt(): LiveData<TasksCountEntity>? {
+        return repository?.getTaskCnt()
+    }
+
 
 }

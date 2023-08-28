@@ -7,6 +7,7 @@ import com.xojiakbar.taskmanager.data.beans.ChartBean.Rows
 import com.xojiakbar.taskmanager.data.beans.projects_bean.ProjectGroup
 import com.xojiakbar.taskmanager.data.beans.projects_bean.Projects
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
+import com.xojiakbar.taskmanager.data.beans.task_bean.TaskCnt
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TaskGroup
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TaskType
 import com.xojiakbar.taskmanager.data.beans.user_bean.User
@@ -20,6 +21,7 @@ import com.xojiakbar.taskmanager.data.local.dao.TaskGrDao
 import com.xojiakbar.taskmanager.data.local.dao.TaskTypesDao
 import com.xojiakbar.taskmanager.data.local.dao.TasksDao
 import com.xojiakbar.taskmanager.data.local.dao.TaskscntDao
+import com.xojiakbar.taskmanager.data.local.dao.UsersDao
 import com.xojiakbar.taskmanager.data.local.database.AppDatabase
 import com.xojiakbar.taskmanager.data.local.entity.ExecutorsEntity
 import com.xojiakbar.taskmanager.data.local.entity.LineChartEntity
@@ -43,6 +45,8 @@ class TasksDBRepository(context: Context) {
     var projectsDao: AllProjectsDao? = null
     var projectgroupsDao: ProjectGrDao? = null
     var taskTypesDao: TaskTypesDao? = null
+    var usersDao : UsersDao? =null
+
 
     init {
         val appDatabase: AppDatabase = AppDatabase.getInstance(context)
@@ -56,6 +60,7 @@ class TasksDBRepository(context: Context) {
         projectsDao = appDatabase.projectsDao()
         projectgroupsDao = appDatabase.projectGrDao()
         taskTypesDao = appDatabase.taskTypesDoa()
+        usersDao = appDatabase.userDao()
     }
 
     fun getTaskCnt(): LiveData<TasksCountEntity>? {
@@ -108,6 +113,9 @@ class TasksDBRepository(context: Context) {
             tasksEntity.hard_index = task.hard_index
             tasksEntity.time_leave = task.time_leave
             tasksEntity.curr_executor_id = task.curr_executor_id
+            tasksEntity.parent_id = task.parent_id
+            tasksEntity.parent_name = task.parent_name
+            tasksEntity.parent_task_name = task.parent_task_name
             tasksDao?.insert(tasksEntity)
         }
     }
@@ -283,9 +291,29 @@ class TasksDBRepository(context: Context) {
         }
         return 0
     }
+    fun insertTaskCnt(taskCnt: TaskCnt): Long {
+        tasksCntDao?.deleteAll()
+        val task = TasksCountEntity()
+        task.monthly_accepted_cnt = taskCnt.monthly_accepted_cnt
+        task.monthly_all_cnt = taskCnt.monthly_all_cnt
+        task.monthly_done_cnt = taskCnt.monthly_done_cnt
+        task.monthly_failed_cnt = taskCnt.monthly_failed_cnt
+        task.monthly_new_cnt = taskCnt.monthly_new_cnt
+        task.monthly_pause_cnt = taskCnt.monthly_pause_cnt
+        task.monthly_process_cnt = taskCnt.monthly_process_cnt
+        task.monthly_ranked_cnt = taskCnt.monthly_ranked_cnt
+        task.monthly_returned_cnt = taskCnt.monthly_returned_cnt
+        task.monthly_review_cnt = taskCnt.monthly_review_cnt
+        task.monthly_setted_cnt = taskCnt.monthly_setted_cnt
+        return tasksCntDao?.insert(task)!!
+    }
+
 
     fun getProjectGroups(): LiveData<MutableList<ProjectGroupsEntity>> {
         return projectgroupsDao?.getProjectGr()!!
+    }
+    fun getExecutors(): LiveData<MutableList<ExecutorsEntity>> {
+        return executorsDao?.getExecutors()!!
     }
 
     fun getProject(projectGroupID: Int): LiveData<MutableList<ProjectsEntity>> {
@@ -313,4 +341,18 @@ class TasksDBRepository(context: Context) {
     }
 
 
+    fun clearAllDb(){
+        tasksCntDao?.deleteAll()
+        tasksDao?.deleteAll()
+        reportDao?.deleteAll()
+        lineChartDao?.deleteAll()
+        projectGrDao?.deleteAll()
+        taskGrDao?.deleteAll()
+        executorsDao?.deleteAll()
+        projectsDao?.deleteAll()
+        projectgroupsDao?.deleteAll()
+        taskTypesDao?.deleteAll()
+        usersDao?.deleteAll()
+
+    }
 }

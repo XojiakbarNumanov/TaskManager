@@ -8,22 +8,25 @@
     <item
         android:id="@+id/nav_language"
         android:title="@string/change_language"
-
+        android:icon="@drawable/ic_language"
         />
-    <group
-        android:id="@+id/changeLanguageGroup"
-        android:checkableBehavior="single"
-        android:visible="true">
-        <item
-            android:id="@+id/languageEng"
-            android:title="@string/uzb"/>
-        <item
-            android:id="@+id/languageUz"
-            android:title="@string/uzb_cyrillic"/>
-        <item
-            android:id="@+id/languageRus"
-            android:title="@string/russian"/>
-    </group>
+    <item
+    android:id="@+id/nav_change_pin"
+    android:title="@string/change_pin_code"
+    android:icon="@drawable/icon_lock"
+    />
+    <item
+        android:id="@+id/nav_change_pass"
+        android:title="@string/change_password"
+        android:icon="@drawable/ic_fingerprint"
+        />
+    <item
+        android:id="@+id/nav_log_out"
+        android:title="@string/log_out"
+        android:icon="@drawable/ic_log_out"
+        />
+
+
 
 
 

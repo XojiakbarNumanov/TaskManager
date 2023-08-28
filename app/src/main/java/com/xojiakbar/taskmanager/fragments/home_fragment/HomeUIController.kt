@@ -3,7 +3,6 @@ package com.xojiakbar.taskmanager.fragments.home_fragment
 import android.content.Context
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 
 class HomeUIController(context: Context) :BaseObservable() {

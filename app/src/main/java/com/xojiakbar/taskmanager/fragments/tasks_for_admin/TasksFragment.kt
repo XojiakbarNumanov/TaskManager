@@ -17,7 +17,7 @@ import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 import com.xojiakbar.taskmanager.databinding.FragmentTasks2Binding
 import com.xojiakbar.taskmanager.databinding.ItemTaskForAdminBinding
-import com.xojiakbar.taskmanager.databinding.ItemTasksInfoBinding
+import com.xojiakbar.taskmanager.fragments.tasks_for_admin.dialog.SetExecutorDialog
 import com.xojiakbar.taskmanager.fragments.tasks_for_admin.item.ItemUiController
 
 private const val ARG_PARAM1 = "param1"
@@ -92,6 +92,12 @@ class TasksFragment : Fragment() ,TaskRouter{
                     putInt(ARG_PARAM1, param)
                 }
             }
+    }
+
+    override fun showDialog(entity: TasksEntity) {
+     val dialog = SetExecutorDialog(entity)
+        dialog.isCancelable = false
+        dialog.show(requireFragmentManager(), "")
     }
 
     override fun setLoading(title: String?) {

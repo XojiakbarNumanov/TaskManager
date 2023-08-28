@@ -28,8 +28,7 @@ import kotlin.collections.set
 import kotlin.collections.toMutableList
 
 
-class CreateTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener,
-    TimePickerDialog.OnTimeSetListener, BaseRouter<Any> {
+class CreateTaskFragment : Fragment(), BaseRouter<Any> {
 
     private var _binding: FragmentCreateTaskBinding? = null
     private val binding get() = _binding!!
@@ -81,7 +80,7 @@ class CreateTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         }
 
         binding.layoutRL.setOnClickListener {
-            DatePickerDialog(requireContext(), this, year, month - 1, day).show()
+            showDate()
         }
 
         binding.btnSend.setOnClickListener {
@@ -285,7 +284,6 @@ class CreateTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener,
                         }
                     }
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
@@ -297,19 +295,37 @@ class CreateTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener,
         _binding = null
     }
 
-    override fun onDateSet(view: DatePicker?, year: Int, m: Int, dayOfMonth: Int) {
-        var month = m + 1
-        startingDate =
-            (if (dayOfMonth < 10) "0$dayOfMonth." else "$dayOfMonth.") + (if (month < 10) "0$month." else "$month.") + "$year "
-        TimePickerDialog(requireContext(), this, hour, 0, true).show()
+    fun showDate() {
+        DatePickerDialog(
+            requireContext(),
+            R.style.MyDatePickerDialogTheme,
+            DatePickerDialog.OnDateSetListener { view, year, m, dayOfMonth ->
+                var month = m + 1
+                startingDate =
+                    (if (dayOfMonth < 10) "0$dayOfMonth." else "$dayOfMonth.") + (if (month < 10) "0$month." else "$month.") + "$year "
+                showTime()
+            },
+            year,
+            month - 1,
+            day
+        ).show()
+    }
+    fun showTime() {
+        TimePickerDialog(
+            requireContext(),
+            R.style.MyDatePickerDialogTheme,
+            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                if (startingDate.length == 11) {
+                    startingDate += "$hourOfDay:00:00"
+                    binding.startingDate.text = startingDate
+                }
+            },
+            hour,
+            0,
+            true
+        ).show()
     }
 
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        if (startingDate.length == 11) {
-            startingDate += "$hourOfDay:00:00"
-            binding.startingDate.text = startingDate
-        }
-    }
 
     override fun setLoading(title: String?) {
         loadingDialog.show(requireActivity().supportFragmentManager, title)
@@ -345,9 +361,10 @@ class CreateTaskFragment : Fragment(), DatePickerDialog.OnDateSetListener,
             loadingDialog.dismiss()
         } catch (_: Exception) {
         }
-        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
-        val navController= navHostFragment.navController
-            navController.navigate(R.id.dashboardFragment)
+        val navHostFragment =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.dashboardFragment)
 
     }
 }

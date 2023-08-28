@@ -2,6 +2,9 @@ package com.xojiakbar.taskmanager.fragments.tasks_fragment.item
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.xojiakbar.taskmanager.R
@@ -26,6 +29,28 @@ class ItemUiController (val context: Context) : BaseObservable(){
     @Bindable
     fun getProjectName() :String{
         return if (entity!=null && entity?.projects_name!=null) entity?.projects_name.toString() else "---"
+    }
+    fun test(){
+
+    }
+
+    @Bindable
+    fun getProgress():Int{
+        if (entity?.time_leave!=null && entity?.time_leave!=0.0)
+        {
+            var time = entity?.time_leave!!*3600
+            return (entity?.process_time!!*100 / time).toInt()
+        }
+        else return 0
+    }
+    @Bindable
+    fun getProgressPersent():String{
+        return getProgress().toString() + "%"
+    }
+    @Bindable
+    fun getBackProgress():Drawable{
+
+       return if (getProgress() >= 100) context.resources.getDrawable(R.drawable.back_progress_bar_full) else context.resources.getDrawable(R.drawable.back_progress_bar)
     }
     @Bindable
     fun getLevel() :String{
@@ -69,10 +94,12 @@ class ItemUiController (val context: Context) : BaseObservable(){
     @Bindable
     fun getProcessTime() :String{
         if (entity!=null && entity?.process_time!=null){
-            val dateFormat = SimpleDateFormat("HH:mm:ss")
-            val date = Date(entity?.process_time!!)
-            val formattedDate = dateFormat.format(date)
-            return formattedDate
+            var time = entity?.process_time!! /60 //415
+            val min = time % 60
+            time /= 60
+            val hour = time%24
+            val day = time /24
+            return (if (day > 0) "${day} kun " else "" ) + "${hour}:" + (if (min>=10) "$min" else "0${min}")
         }
         else return "---"
     }
@@ -99,13 +126,26 @@ class ItemUiController (val context: Context) : BaseObservable(){
     fun getLevelColor() :Int {
         return when{
             entity?.task_priorities_id == 1 ->
+                context.resources.getColor(R.color.light_red)
+
+            entity?.task_priorities_id == 2 ->
+                context.resources.getColor(R.color.light_orange)
+
+            else  ->
+                context.resources.getColor(R.color.color_light_primary)
+        }
+    }
+    @Bindable
+    fun getTextColor() :Int {
+        return when{
+            entity?.task_priorities_id == 1 ->
                 context.resources.getColor(R.color.red)
 
             entity?.task_priorities_id == 2 ->
-                context.resources.getColor(R.color.sunglow)
+                context.resources.getColor(R.color.orange)
 
             else  ->
-                context.resources.getColor(R.color.green)
+                context.resources.getColor(R.color.color_primary)
         }
     }
     @Bindable

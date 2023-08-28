@@ -6,6 +6,7 @@ import com.xojiakbar.taskmanager.data.beans.projects_bean.ProjectGroupsBean
 import com.xojiakbar.taskmanager.data.beans.projects_bean.ProjectsBean
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
+import com.xojiakbar.taskmanager.data.beans.task_bean.TaskCnt
 import com.xojiakbar.taskmanager.data.beans.task_bean.Tasks
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TaskTypesBean
@@ -65,6 +66,9 @@ interface ApiService {
         @Query("is_now") isNow: Int
     ): Call<TasksBean>
 
+    @PUT("/api/fp/tasks/set-executor")
+    fun attachExecutor(@Body row: Task) :Call<ResponseBody>
+
     @POST("/api/admin/auth/forgot-password")
     fun forgotUserPassword(@Body map: Map<String, String>): Call<ResponseBody>
 
@@ -99,4 +103,6 @@ interface ApiService {
     @POST("/api/fp/tasks")
     fun createTask(@Body task: Task): Call<ResponseBody>
 
+    @GET("/api/fp/dashboard/headers")
+    fun getTasksCnt(@Query("for_date") data: String,@Query("is_new_version") is_new_version :Int) :Call<TaskCnt>
 }

@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.xojiakbar.taskmanager.data.local.entity.ReportTasksEntity
-import com.xojiakbar.taskmanager.data.local.entity.TasksCountEntity
 
 @Dao
 interface ReportTasksDao {

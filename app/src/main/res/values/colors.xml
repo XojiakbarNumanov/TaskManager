@@ -18,8 +18,9 @@
     <color name="light_orange">#FCF1E0</color>
     <color name="green">#4AC806</color>
     <color name="gray">#DFDFDF</color>
+    <color name="light_gray">#F3F4F5</color>
 
-    <color name="_light_blue">#0D499DFF</color>
+    <color name="_light_blue">#1A499DFF</color>
     <color name="_light_green">#0D4AC806</color>
     <color name="_light_violet">#0D726DE3</color>
     <color name="light_sunglow">#0DFFCC3A</color>

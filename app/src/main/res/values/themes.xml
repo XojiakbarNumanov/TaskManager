@@ -8,6 +8,12 @@
 
     <style name="Theme.TaskManager" parent="Base.Theme.TaskManager" />
 
+    <style name="MyDatePickerDialogTheme" parent="ThemeOverlay.AppCompat.Dialog">
+        <!-- DatePickerDialog'a özgü temayı burada özelleştirin -->
+        <item name="colorAccent">@color/color_primary</item>
+        <!-- Daha fazla özellik eklenebilir -->
+    </style>
+
     <style name="CustomTabTextAppearance" >
         <item name="android:textSize">10sp</item>
     </style>

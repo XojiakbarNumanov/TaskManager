@@ -12,6 +12,7 @@ import com.xojiakbar.taskmanager.data.beans.projects_bean.ProjectGroupsBean
 import com.xojiakbar.taskmanager.data.beans.projects_bean.ProjectsBean
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
+import com.xojiakbar.taskmanager.data.beans.task_bean.TaskCnt
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TaskTypesBean
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TasksGrBean
@@ -44,6 +45,7 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
                 getInfoDoneTasksDayly(toDate)
                 getInfoDoneTasksMonthly(toDate)
                 getProjectGr(toDate)
+                getTaskCnt(toDate)
 
                 if (Preferences.getUserTypesId() == 4) {
                     getExecutors()
@@ -213,5 +215,22 @@ class DashboardViewModel(application: Application) : BaseViewModel<DashboardRout
                 Toast.makeText(application, errorMsg.toString(), Toast.LENGTH_SHORT).show()
             }
         })
+    }
+    fun getTaskCnt(date: String) {
+        repository?.getTaskCnt(date,object : ApiCallback<TaskCnt> {
+            override fun onSuccess(response: TaskCnt) {
+                repositoryDB?.insertTaskCnt(response)
+            }
+
+            override fun onError(throwable: Throwable) {
+            }
+
+            override fun onErrorMsg(errorMsg: ErrorResult) {
+                Toast.makeText(application, errorMsg.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    fun clearAllDb(){
+        repositoryDB?.clearAllDb()
     }
 }

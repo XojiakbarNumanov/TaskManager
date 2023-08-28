@@ -168,14 +168,13 @@ class HomeFragment : Fragment(), HomeRouter {
 
     @SuppressLint("SetTextI18n")
     private fun initPieChart() {
-        viewModel?.getInfoForPieChart()?.observe(viewLifecycleOwner) {
+        viewModel?.getTaskCnt()?.observe(viewLifecycleOwner) {
             if (it != null) {
 
-                val allTasks =
-                    (it.done_tasks_cnt!! + it.accepted_tasks_cnt!! + it.in_progress_tasks_cnt!! + it.not_accepted_tasks_cnt!! + it.pause_tasks_cnt!! + it.returned_tasks_cnt!!).toFloat()
-                val doneTaskCnt = it.done_tasks_cnt!!
-                val processTaskCnt = it.pause_tasks_cnt!! + it.in_progress_tasks_cnt!!
-                val newTaskCnt =it.returned_tasks_cnt!! + it.not_accepted_tasks_cnt!! + it.accepted_tasks_cnt!!
+                val allTasks =it.monthly_all_cnt!!
+                val doneTaskCnt = it.monthly_done_cnt!! + it.monthly_review_cnt!! + it.monthly_ranked_cnt!!
+                val processTaskCnt = it.monthly_pause_cnt!! + it.monthly_returned_cnt!! + it.monthly_process_cnt!! + it.monthly_accepted_cnt!!
+                val newTaskCnt =it.monthly_new_cnt!! + it.monthly_setted_cnt!!
                 val doneTasksPersent: Float =
                     doneTaskCnt.toFloat() * 100 / allTasks
                 val processTasksPersent: Float =

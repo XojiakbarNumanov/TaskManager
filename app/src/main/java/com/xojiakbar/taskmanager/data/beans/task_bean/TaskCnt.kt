@@ -1,12 +1,6 @@
-package com.xojiakbar.taskmanager.data.local.entity
+package com.xojiakbar.taskmanager.data.beans.task_bean
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity("tasksCount")
-class TasksCountEntity() {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? =null
+class TaskCnt {
     var monthly_accepted_cnt: Int? = null
     var monthly_all_cnt: Int? = null
     var monthly_done_cnt: Int? = null

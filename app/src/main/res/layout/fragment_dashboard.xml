@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
         <import type="android.view.View" />
@@ -8,133 +10,160 @@
             name="controller"
             type="com.xojiakbar.taskmanager.fragments.dashboard_fragment.DashboardUIController" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_primary">
-
-        <RelativeLayout
-            android:id="@+id/toolbar"
+        android:id="@+id/drawerLayout"
+        tools:openDrawer="right">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/color_primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/color_primary">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/user_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/margin_12"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_furor"
-                app:civ_border_color="@color/black"
-                app:civ_border_width="1dp"
-                app:civ_circle_background_color="@color/white" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/margin_12"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_furor"
+                        app:civ_border_color="@color/black"
+                        app:civ_border_width="1dp"
+                        app:civ_circle_background_color="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_toEndOf="@id/user_image"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{controller.userName}"
+                            android:textColor="@color/white"
+                            tools:text = "User Name"
+                            android:textSize="@dimen/text_14" />
+
+                        <TextView
+                            android:id="@+id/user_job"
+                            android:textColor="@color/color_light_primary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{controller.jobs}"
+                            tools:text="Developer"
+                            android:textSize="@dimen/text_10" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/btn_refresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/margin_8"
+                        android:onClick="@{()->controller.refresh()}"
+                        android:src="@drawable/ic_refresh"
+                        />
+                </RelativeLayout>
+
+
+
+
+            </androidx.appcompat.widget.Toolbar>
+
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_toEndOf="@id/user_image"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/top_redius"
+                android:paddingBottom="?attr/actionBarSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{controller.userName}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_14" />
-
-                <TextView
-                    android:id="@+id/user_job"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{controller.jobs}"
-                    android:textSize="@dimen/text_10" />
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/nav_host_fragment_dashboard"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:defaultNavHost="true"
+                    app:navGraph="@navigation/dashboard_nav_graph" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/btn_refresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/margin_8"
-                android:onClick="@{()->controller.refresh()}"
-                android:src="@drawable/ic_refresh"
-                app:tint="@color/black" />
 
-
-        </RelativeLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/top_redius"
-            android:paddingBottom="?attr/actionBarSize"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/nav_host_fragment_dashboard"
-                android:name="androidx.navigation.fragment.NavHostFragment"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:defaultNavHost="true"
-                app:navGraph="@navigation/dashboard_nav_graph" />
-        </LinearLayout>
+                android:layout_height="match_parent">
 
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/bottom_app_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:backgroundTint="@color/white"
-                app:fabCradleMargin="6dp"
-                app:fabCradleRoundedCornerRadius="8dp"
-                app:fabCradleVerticalOffset="8dp">
-
-                <com.google.android.material.bottomnavigation.BottomNavigationView
-                    android:id="@+id/bottom_navigation_view"
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottom_app_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:background="#00000000"
-                    android:elevation="0dp"
-                    android:outlineAmbientShadowColor="@android:color/transparent"
-                    android:outlineSpotShadowColor="@android:color/transparent"
-                    app:itemIconTint="@color/bottom_navigation_item_colors"
-                    app:itemTextColor="@color/bottom_navigation_item_colors"
-                    app:labelVisibilityMode="labeled"
-                    app:menu="@menu/main_menu" />
-            </com.google.android.material.bottomappbar.BottomAppBar>
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@color/white"
+                    app:fabCradleMargin="6dp"
+                    app:fabCradleRoundedCornerRadius="8dp"
+                    app:fabCradleVerticalOffset="8dp">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:backgroundTint="@color/white"
-                android:src="@drawable/ic_add"
-                android:visibility="@{controller.isManager ? View.VISIBLE : View.GONE}"
-                app:layout_anchor="@id/bottom_app_bar" />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottom_navigation_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:background="#00000000"
+                        android:elevation="0dp"
+                        android:outlineAmbientShadowColor="@android:color/transparent"
+                        android:outlineSpotShadowColor="@android:color/transparent"
+                        app:itemIconTint="@color/bottom_navigation_item_colors"
+                        app:itemTextColor="@color/bottom_navigation_item_colors"
+                        app:labelVisibilityMode="labeled"
+                        app:menu="@menu/main_menu" />
+                </com.google.android.material.bottomappbar.BottomAppBar>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_add"
+                    android:visibility="@{controller.isManager ? View.VISIBLE : View.GONE}"
+                    app:layout_anchor="@id/bottom_app_bar" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:drawerLayoutCornerSize="20dp"
+            app:headerLayout="@layout/nav_header"
+            app:itemIconSize="30dp"
+            app:itemIconTint="@color/black"
+            app:itemTextAppearance="@style/TextAppearance.AppCompat.Small.Inverse"
+            app:menu="@menu/nav_menu" >
+
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </layout>

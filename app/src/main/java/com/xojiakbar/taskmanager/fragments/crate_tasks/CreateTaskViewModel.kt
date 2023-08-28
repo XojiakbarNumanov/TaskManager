@@ -1,6 +1,7 @@
 package com.xojiakbar.taskmanager.fragments.crate_tasks
 
 import android.app.Application
+import android.widget.TableRow
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.xojiakbar.taskmanager.Utils.BaseRouter
@@ -8,6 +9,7 @@ import com.xojiakbar.taskmanager.Utils.BaseViewModel
 import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.api.ApiCallback
 import com.xojiakbar.taskmanager.api.result.ErrorResult
+import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TaskTypesBean
 import com.xojiakbar.taskmanager.data.local.entity.DashboardProjectGroupEntity
@@ -60,4 +62,5 @@ class CreateTaskViewModel (application: Application) : BaseViewModel<BaseRouter<
             }
         })
     }
+
 }

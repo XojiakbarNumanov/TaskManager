@@ -10,6 +10,7 @@ import com.xojiakbar.taskmanager.data.beans.projects_bean.ProjectGroupsBean
 import com.xojiakbar.taskmanager.data.beans.projects_bean.ProjectsBean
 import com.xojiakbar.taskmanager.data.beans.report_tasks_bean.ReportTasksBean
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
+import com.xojiakbar.taskmanager.data.beans.task_bean.TaskCnt
 import com.xojiakbar.taskmanager.data.beans.task_bean.TasksBean
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TaskTypesBean
 import com.xojiakbar.taskmanager.data.beans.tasks_group.TasksGrBean
@@ -48,13 +49,12 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
             ), callback
         )
     }
-
-
-
+    fun attachExecutor(row:Task,callback: ApiCallback<ResponseBody>){
+        request(getApi(ApiService::class.java).attachExecutor(row),callback)
+    }
     fun getReportTasks(fromDate: String, toDate: String, callback: ApiCallback<ReportTasksBean>) {
         request(getApi(ApiService::class.java).getReportTasks(fromDate, toDate), callback)
     }
-
 
     fun uploadFileResource(file: File, callback: ApiCallback<Int>) {
         val requestFile: RequestBody = RequestBody.create(
@@ -93,5 +93,8 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     }
     fun createTask(task: Task,callback: ApiCallback<ResponseBody>) {
         request(getApi(ApiService::class.java).createTask(task), callback)
+    }
+    fun getTaskCnt(data :String ,callback: ApiCallback<TaskCnt>) {
+        request(getApi(ApiService::class.java).getTasksCnt(data,1), callback)
     }
 }

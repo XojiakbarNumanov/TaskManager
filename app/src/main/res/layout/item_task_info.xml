@@ -11,7 +11,7 @@
 
         <variable
             name="controller"
-            type="com.xojiakbar.taskmanager.fragments.tasks_for_admin.item.ItemUiController" />
+            type="com.xojiakbar.taskmanager.fragments.tasks_fragment.item.ItemUiController" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
             android:paddingVertical="8dp"
-            tools:background="@color/_light_blue">
+            tools:background="@color/white">
 
             <TextView
                 android:id="@+id/project_name"
@@ -38,66 +38,6 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 tools:text="Project name" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/card_level"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/urbanistregular"
-                android:text="@{controller.name}"
-                tools:text="Ma'muriy huquqbuzarlik kartasida\n1. Jarima to'lovlari xaqida malumot yoq \n2. Ijrochi inspektor haqida malumotlarni to'liq to'ldirish\n3. Xaritani tekshirib qo'yish\n4.Ma'muriy bayonnomada fayllar ko'rinmayapti shuni ko'rib chiqish" />
-
-            <RelativeLayout
-                android:id="@+id/relative"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/description"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:id="@+id/calendar"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:foregroundGravity="center"
-                    android:src="@drawable/ic_calendar" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_8"
-                    android:layout_toEndOf="@id/calendar"
-                    android:gravity="center"
-                    android:text="@{controller.createdDate}"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    tools:text="21.21.2021" />
-
-                <ImageView
-                    android:id="@+id/clock"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:layout_toStartOf="@id/hour"
-                    android:foregroundGravity="center"
-                    android:padding="@dimen/margin_2"
-                    android:src="@drawable/ic_clock" />
-
-                <TextView
-                    android:id="@+id/hour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="@{controller.processTime}"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    tools:text="6:00" />
-
-            </RelativeLayout>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_level"
                 android:layout_width="wrap_content"
@@ -106,8 +46,7 @@
                 android:layout_marginTop="2dp"
                 android:backgroundTint="@{controller.levelColor}"
                 app:cardCornerRadius="8dp"
-                tools:backgroundTint="@color/light_red"
-                >
+                tools:backgroundTint="@color/color_light_primary">
 
                 <TextView
                     android:id="@+id/level"
@@ -117,140 +56,89 @@
                     android:layout_marginVertical="2dp"
                     android:fontFamily="@font/urbanistregular"
                     android:text="@{controller.level}"
-                    tools:textColor="@color/red"
                     android:textColor="@{controller.textColor}"
-                    android:textSize="12sp"
+                    tools:textColor="@color/color_primary"
+                    android:textSize="10sp"
                     tools:text="Yuqori" />
             </androidx.cardview.widget.CardView>
 
+
+
+
             <ImageView
-                android:id="@+id/menu"
+                android:id="@+id/btn_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/project_name"
                 android:layout_alignParentEnd="true"
                 android:background="@color/light_sunglow"
+                android:onClick="@{()->controller.btnClick()}"
                 android:padding="2dp"
-                android:src="@drawable/ic_more"
-                />
+                android:src="@drawable/ic_play"
+                android:visibility="@{controller.isPause ? View.VISIBLE : View.GONE}"
+                tools:visibility="invisible" />
 
             <ImageView
-                android:id="@+id/btn_show_file"
+                android:id="@+id/btn_pause"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/project_name"
+                android:layout_alignParentEnd="true"
                 android:background="@color/light_sunglow"
-                android:layout_marginEnd="4dp"
-                android:src="@drawable/ic_file"
-                android:layout_toStartOf="@id/menu"
-                android:visibility="@{controller.isDone ? View.VISIBLE : View.GONE}"
-                tools:visibility="visible"
-
-                />
+                android:onClick="@{()->controller.btnClick()}"
+                android:padding="2dp"
+                android:src="@drawable/ic_pause"
+                android:visibility="@{controller.isPlay ? View.VISIBLE : View.GONE}"
+                tools:visibility="invisible" />
 
             <ImageView
-                android:id="@+id/btn_return"
+                android:id="@+id/btn_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/project_name"
+                android:layout_alignParentEnd="true"
                 android:background="@color/light_sunglow"
-                android:layout_toStartOf="@id/btn_show_file"
-                android:layout_marginEnd="4dp"
-                android:src="@drawable/ic_returned"
-                android:visibility="@{controller.isDone ? View.VISIBLE : View.GONE}"
+                android:onClick="@{()->controller.btnClick()}"
+                android:padding="2dp"
+                android:src="@drawable/ic_download"
+                android:visibility="@{controller.isNotDownload ? View.VISIBLE : View.GONE}"
                 tools:visibility="visible" />
 
             <ImageView
-                android:id="@+id/btn_check"
+                android:id="@+id/btn_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/project_name"
                 android:layout_marginEnd="4dp"
-                android:layout_toStartOf="@id/btn_return"
+                android:layout_toStartOf="@id/btn_pause"
                 android:background="@color/light_sunglow"
-                android:src="@drawable/ic_check"
-                android:visibility="@{controller.isDone ? View.VISIBLE : View.GONE}"
-                tools:visibility="visible" />
+                android:onClick="@{()->controller.btnUpload()}"
+                android:padding="2dp"
+                android:src="@drawable/ic_upload"
+                android:visibility="@{controller.isPlay ? View.VISIBLE : View.GONE}"
+                tools:visibility="invisible" />
 
-            <ImageView
-                android:id="@+id/btn_add_user"
+            <TextView
+                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/project_name"
-                android:background="@color/light_sunglow"
-                android:layout_marginEnd="4dp"
-                android:src="@drawable/ic_add_user"
-                android:layout_toStartOf="@id/menu"
-                android:visibility="@{controller.isNew ? View.VISIBLE : View.GONE}"
-                android:onClick="@{()->controller.btnAttachTask()}"
-                tools:visibility="invisible"
-
-                />
+                android:layout_below="@id/card_level"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/urbanistregular"
+                android:text="@{controller.name}"
+                tools:text="Ma'muriy huquqbuzarlik kartasidan..." />
 
 
-            <LinearLayout
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/relative"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/corner_radius"
-                android:backgroundTint="@color/light_violet"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="2dp">
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_pause2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{controller.status}"
-                    tools:text="to'xtatilgan" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/status"
-                android:layout_marginTop="@dimen/margin_4"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/user_image"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/image_person"
-                    app:civ_border_color="@color/black"
-                    app:civ_border_width="1dp"
-                    app:civ_circle_background_color="@color/white" />
-
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="@{controller.userName}"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    tools:text="Saidahmedov Muhammadqobil" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout"
+                android:layout_below="@id/description"
                 android:orientation="vertical"
                 android:visibility="@{controller.isDropDown ? View.VISIBLE : View.GONE}"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -273,7 +161,7 @@
                         android:paddingHorizontal="4dp"
                         android:paddingVertical="2dp"
                         android:text="@{controller.createdDate}"
-                        tools:text="12.12.2021" />
+                        tools:text="12.12.2021 00:00:00" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -418,12 +306,61 @@
 
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/info"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height = "24dp"
+                    android:src="@drawable/ic_clock"
+                    />
+
+                <TextView
+                    android:layout_marginStart="8dp"
+                    android:id="@+id/processTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{controller.processTime}"
+                    tools:text = "6:00"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    />
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="0dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:progress="@{controller.progress}"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    tools:progressDrawable="@drawable/back_progress_bar"
+                    android:progressDrawable="@{controller.backProgress}"
+
+                    />
+                <TextView
+                    android:id="@+id/process_persent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{controller.progressPersent}"
+                    tools:text = "80%"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/dropdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/info"
+                android:layout_below="@id/layout"
                 android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:onClick="@{()->controller.clickDropDown()}"
@@ -431,11 +368,10 @@
                 tools:src="@drawable/ic_down" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/info"
-                android:layout_marginTop="4dp"
-                android:layout_toStartOf="@id/dropdown"
+                android:layout_below="@id/layout"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -443,7 +379,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/corner_radius"
-                    android:backgroundTint="@color/gray"
+                    android:backgroundTint="@color/light_gray"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingHorizontal="6dp"
@@ -468,7 +404,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner_radius"
-                    android:backgroundTint="@color/gray"
+                    android:backgroundTint="@color/light_gray"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingHorizontal="6dp"
@@ -493,7 +429,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
                     android:background="@drawable/corner_radius"
-                    android:backgroundTint="@color/gray"
+                    android:backgroundTint="@color/light_gray"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingHorizontal="6dp"

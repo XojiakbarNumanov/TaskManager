@@ -27,6 +27,12 @@ class TasksEntity() {
     var created_users_name: String? = null
     var hard_index: Int? = null
     var time_leave: Double? = null
+    var parent_name: String? =null
+    var parent_id: Int? = null
+    var parent_task_name: String? = null
+
+
+
 
 }
 

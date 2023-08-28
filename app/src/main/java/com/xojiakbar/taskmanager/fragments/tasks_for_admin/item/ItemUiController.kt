@@ -59,10 +59,6 @@ class ItemUiController (val context: Context) : BaseObservable() {
         return entity?.task_statuses_id == 1 || entity?.task_statuses_id == 0
     }
 
-
-
-
-
             @SuppressLint("SuspiciousIndentation", "SimpleDateFormat")
     @Bindable
     fun getCreatedDate(): String {
@@ -169,6 +165,9 @@ class ItemUiController (val context: Context) : BaseObservable() {
     fun clickDropDown() {
         dropDown = !dropDown
         notifyPropertyChanged(BR._all)
+    }
+    fun btnAttachTask(){
+        router?.showDialog(entity!!)
     }
 
 

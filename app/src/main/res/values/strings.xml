@@ -88,6 +88,8 @@
     <string name="hard">Yuqori</string>
     <string name="medium">O\'rta</string>
     <string name="easy">Past</string>
+    <string name="open">Open</string>
+    <string name="close">Cloce</string>
 
 
 </resources>
