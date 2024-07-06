@@ -15,15 +15,33 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_8"
-        app:cardCornerRadius="@dimen/margin_8">
+        app:cardBackgroundColor="@color/light_gray"
+        app:cardCornerRadius="@dimen/margin_8"
+        >
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent" >
+         <com.xojiakbar.taskmanager.customView.VerticalTextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             tools:text="sdafsasadfdd"
+             android:text="asdfasf"
+             android:layout_gravity="center"/>
+     </LinearLayout>
+
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="4dp"
+            android:layout_marginStart="16dp"
             android:paddingVertical="8dp"
             tools:background="@color/white">
 
@@ -38,6 +56,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 tools:text="Project name" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_level"
                 android:layout_width="wrap_content"
@@ -57,13 +76,10 @@
                     android:fontFamily="@font/urbanistregular"
                     android:text="@{controller.level}"
                     android:textColor="@{controller.textColor}"
-                    tools:textColor="@color/color_primary"
                     android:textSize="10sp"
-                    tools:text="Yuqori" />
+                    tools:text="Yuqori"
+                    tools:textColor="@color/color_primary" />
             </androidx.cardview.widget.CardView>
-
-
-
 
             <ImageView
                 android:id="@+id/btn_play"
@@ -118,18 +134,15 @@
                 android:visibility="@{controller.isPlay ? View.VISIBLE : View.GONE}"
                 tools:visibility="invisible" />
 
+
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/card_level"
-                android:textColor="@color/black"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/urbanistregular"
                 android:text="@{controller.name}"
                 tools:text="Ma'muriy huquqbuzarlik kartasidan..." />
-
-
 
             <LinearLayout
                 android:id="@+id/info"
@@ -138,7 +151,7 @@
                 android:layout_below="@id/description"
                 android:orientation="vertical"
                 android:visibility="@{controller.isDropDown ? View.VISIBLE : View.GONE}"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -150,7 +163,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Yaratilgan sana:"
+                        android:text="@string/created_date"
                         android:textSize="12sp" />
 
                     <TextView
@@ -174,7 +187,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Yaratilgan sanaga nisbatan:"
+                        android:text="@string/to_created_date"
                         android:textSize="12sp" />
 
                     <TextView
@@ -184,7 +197,7 @@
                         android:backgroundTint="@color/light_green"
                         android:paddingHorizontal="4dp"
                         android:paddingVertical="2dp"
-                        android:text="@{controller.createdDate}"
+                        android:text="@{controller.toCreatedDate}"
                         tools:text="12.12.2021" />
                 </LinearLayout>
 
@@ -198,30 +211,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Joriy holatga o'tish sanasi:"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/corner_radius"
-                        android:backgroundTint="@color/light_green"
-                        android:paddingHorizontal="4dp"
-                        android:paddingVertical="2dp"
-                        android:text="12.12.2021" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Boshlanish vaqti:"
+                        android:text="@string/started_date"
                         android:textSize="12sp" />
 
                     <TextView
@@ -245,7 +235,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Bajarish muddati :"
+                        android:text="@string/end_date"
                         android:textSize="12sp" />
 
                     <TextView
@@ -269,7 +259,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Topshiriq turi:"
+                        android:text="@string/task_type"
                         android:textSize="12sp" />
 
                     <TextView
@@ -279,7 +269,8 @@
                         android:backgroundTint="@color/light_green"
                         android:paddingHorizontal="4dp"
                         android:paddingVertical="2dp"
-                        android:text="Binnasa" />
+                        android:text="@{controller.taskType}"
+                        tools:text="12.12.2021" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -292,68 +283,67 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Task yaratuvchi:"
+                        android:text="@string/creator_task"
                         android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/corner_radius"
+                        android:backgroundTint="@color/light_green"
                         android:paddingHorizontal="4dp"
                         android:paddingVertical="2dp"
-                        android:textColor="@color/black"
-                        tools:text="Polinchiyev Pismadonchi" />
+                        android:text="@{controller.creatorName}"
+                        tools:text="12.12.2021" />
                 </LinearLayout>
-
-
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/info"
-                android:gravity="center_vertical"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                >
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="18dp"
-                    android:layout_height = "24dp"
-                    android:src="@drawable/ic_clock"
-                    />
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_clock" />
 
                 <TextView
-                    android:layout_marginStart="8dp"
                     android:id="@+id/processTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:text="@{controller.processTime}"
-                    tools:text = "6:00"
-                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="16sp"
+                    tools:text="6:00" />
+
                 <ProgressBar
                     android:id="@+id/progress"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="0dp"
                     android:layout_height="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:progress="@{controller.progress}"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    tools:progressDrawable="@drawable/back_progress_bar"
                     android:progressDrawable="@{controller.backProgress}"
+                    tools:progressDrawable="@drawable/back_progress_bar"
 
                     />
+
                 <TextView
                     android:id="@+id/process_persent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{controller.progressPersent}"
-                    tools:text = "80%"
-                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    />
-
+                    android:textSize="16sp"
+                    tools:text="80%" />
             </LinearLayout>
 
             <ImageView
@@ -447,10 +437,7 @@
                         android:text="@{controller.grade}"
                         tools:text="6 soat" />
                 </LinearLayout>
-
             </LinearLayout>
         </RelativeLayout>
-
     </androidx.cardview.widget.CardView>
-
 </layout>

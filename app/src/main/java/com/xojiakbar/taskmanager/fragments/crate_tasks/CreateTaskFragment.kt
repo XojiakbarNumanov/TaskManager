@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +25,10 @@ import kotlin.collections.arrayListOf
 import kotlin.collections.set
 import kotlin.collections.toMutableList
 
+private const val PARENT_ID = "param1"
+private const val PARENT_NAME = "param2"
+private const val PROJECT_ID = "param3"
+private const val PROJECT_GR_ID = "param4"
 
 class CreateTaskFragment : Fragment(), BaseRouter<Any> {
 
@@ -45,6 +47,8 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
     private var time: Double = 0.0
     private var projectName: String = ""
     private var description: String = ""
+    private var parentId :Int? = null
+    private var parentName :String? = null
 
     private var day = 0
     private var month = 0
@@ -52,11 +56,23 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
     private var hour = 0
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val arg = CreateTaskFragmentArgs.fromBundle(requireArguments())
+        parentId = arg.parentId
+        parentName = arg.parentName
+        projectGrId = arg.projectGrId
+        projectId = arg.projectId
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreateTaskBinding.inflate(inflater, container, false)
-
+        if (parentName!=null) {
+            binding.projectsGR.isEnabled = false
+            binding.projects.isEnabled = false
+        }
         return binding.root
     }
 
@@ -70,11 +86,9 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
                 R.id.hard -> {
                     1
                 }
-
                 R.id.easy -> {
                     2
                 }
-
                 else -> 3
             }
         }
@@ -142,6 +156,10 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
         task.hard_index = levelOfComplexity
         task.description = description
         task.file_ids = arrayListOf()
+        if (parentId!=-1&&parentName!=null){
+            task.parent_id = parentId
+            task.parent_name = parentName
+        }
         viewModel?.createTask(task)
     }
 
@@ -159,32 +177,44 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
                 projectGrMap.values.toMutableList()
             )
             binding.projectsGR.adapter = adapterAuto
+            if (parentName!=null) {
+                for (i in 0 until binding.projectsGR.count) {
+                    if (binding.projectsGR.getItemAtPosition(i)
+                            .toString() == projectGrMap[projectGrId]
+                    ) {
+                        binding.projectsGR.setSelection(i)
+                        initProject(projectGrId)
 
+                        break
+                    }
+                }
+            }
         }
         binding.projectsGR.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long
             ) {
-                val selectedValue = parent.getItemAtPosition(position).toString()
-                for (i in projectGrMap) {
-                    if (i.value == selectedValue) {
-                        projectGrId = i.key
-                    }
-                }
-                binding.taskGrName.setSelection(-1)
-                binding.projects.setSelection(-1)
-                binding.taskType.setSelection(-1)
-                projectId = -1
-                tasksGrId = -1
-                tasksTypeId = -1
-                initProject(projectGrId)
-            }
 
+                if(parentId == 1 && parentName==null){
+                    val selectedValue = parent.getItemAtPosition(position).toString()
+                    for (i in projectGrMap) {
+                        if (i.value == selectedValue) {
+                            projectGrId = i.key
+                        }
+                    }
+                    binding.taskGrName.setSelection(-1)
+                    binding.projects.setSelection(-1)
+                    binding.taskType.setSelection(-1)
+                    projectId = -1
+                    tasksGrId = -1
+                    tasksTypeId = -1
+                    initProject(projectGrId)
+                }
+            }
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Empty
             }
         }
-
     }
 
     private fun initProject(projectGroupId: Int) {
@@ -200,22 +230,35 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
                 projectGrMap.values.toMutableList()
             )
             binding.projects.adapter = adapterAuto
+            if (parentName!=null) {
+                for (i in 0 until binding.projects.count) {
+                    if (binding.projects.getItemAtPosition(i)
+                            .toString() == projectGrMap[projectId]
+                    ) {
+                        initTaskGrName(projectId)
+                        binding.projects.setSelection(i)
+                        break
+                    }
+                }
+            }
         }
         binding.projects.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View, position: Int, id: Long
             ) {
-                val selectedValue = parent.getItemAtPosition(position).toString()
-                for (i in projectGrMap) {
-                    if (i.value == selectedValue) {
-                        projectId = i.key
+                if (parentId == -1 && parentName == null) {
+                    val selectedValue = parent.getItemAtPosition(position).toString()
+                    for (i in projectGrMap) {
+                        if (i.value == selectedValue) {
+                            projectId = i.key
+                        }
                     }
+                    binding.taskType.setSelection(-1)
+                    binding.taskGrName.setSelection(-1)
+                    tasksGrId = -1
+                    tasksTypeId = -1
+                    initTaskGrName(projectId)
                 }
-                binding.taskType.setSelection(-1)
-                binding.taskGrName.setSelection(-1)
-                tasksGrId = -1
-                tasksTypeId = -1
-                initTaskGrName(projectId)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -227,8 +270,9 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
 
     private fun initTaskGrName(projectId: Int) {
         val projectGrMap = HashMap<Int, String>()
+        projectGrMap[-1] = "Tanlang"
         viewModel?.getTaskGrName(projectId)?.observe(viewLifecycleOwner) {
-            projectGrMap[-1] = "Tanlang"
+
             for (i in it) {
                 projectGrMap[i.id!!] = i.name!!
             }
@@ -365,6 +409,20 @@ class CreateTaskFragment : Fragment(), BaseRouter<Any> {
             requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(R.id.dashboardFragment)
+
+    }
+    companion object
+    {
+            @JvmStatic
+            fun newInstance(parentid: Int,parentName: String,projectId: Int,projectGrId: Int) =
+                CreateTaskFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt(PARENT_ID, parentid)
+                        putString(PARENT_NAME, parentName)
+                        putInt(PROJECT_ID, projectId)
+                        putInt(PROJECT_GR_ID, projectGrId)
+                    }
+                }
 
     }
 }

@@ -90,6 +90,13 @@
     <string name="easy">Past</string>
     <string name="open">Open</string>
     <string name="close">Cloce</string>
+    <string name="to_created_date">Yaratilgan sanaga nisbatan:</string>
+    <string name="current_status_date">Joriy holatga o\'tish sanasi:</string>
+    <string name="started_date">Boshlanish sanasi</string>
+    <string name="end_date">Bajarish sanasi</string>
+    <string name="task_type">Topshiriq turi</string>
+    <string name="creator_task">Task yaratuvchi</string>
+    <string name="created_date">Yaratilgan sana</string>
 
 
 </resources>

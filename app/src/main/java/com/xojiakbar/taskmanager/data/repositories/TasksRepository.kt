@@ -97,4 +97,7 @@ class TasksRepository(context: Context) : BaseRepository<ApiService>(context) {
     fun getTaskCnt(data :String ,callback: ApiCallback<TaskCnt>) {
         request(getApi(ApiService::class.java).getTasksCnt(data,1), callback)
     }
+    fun deleteTask(taskId :Int ,callback: ApiCallback<ResponseBody>) {
+        request(getApi(ApiService::class.java).deleteTasks(taskId), callback)
+    }
 }

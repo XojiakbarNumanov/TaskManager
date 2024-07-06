@@ -20,7 +20,8 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingHorizontal="4dp"
-                android:paddingVertical="4dp">
+                android:paddingTop="4dp"
+                android:paddingBottom="28dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                         app:pieStrokeWidth="30dp"
                         app:shadowAlpha="0.2"
                         app:shadowDx="0dp"
-                        app:shadowDy="10dp"
+                        app:shadowDy="5dp"
                         app:shadowRadius="10dp" />
 
                     <LinearLayout
@@ -255,14 +256,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
                             android:layout_marginTop="4dp" />
-
                     </LinearLayout>
-
                 </androidx.cardview.widget.CardView>
-
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

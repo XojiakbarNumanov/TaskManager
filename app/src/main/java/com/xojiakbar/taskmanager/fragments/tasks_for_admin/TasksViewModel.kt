@@ -35,4 +35,19 @@ class TasksViewModel(application: Application) : BaseViewModel<TaskRouter>(appli
             else -> repositoryDB?.getAllTasks()!!
         }
     }
+    fun deleteTask(taskId:Int){
+        repository?.deleteTask(taskId,object :ApiCallback<ResponseBody>{
+            override fun onSuccess(response: ResponseBody) {
+                repositoryDB?.deleteTaskById(taskId)
+            }
+
+            override fun onError(throwable: Throwable) {
+            }
+
+            override fun onErrorMsg(errorMsg: ErrorResult) {
+                Toast.makeText(application,errorMsg.message.toString(), Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
 }

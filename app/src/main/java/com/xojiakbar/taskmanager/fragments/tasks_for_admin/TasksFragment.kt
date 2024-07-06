@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
 import com.xojiakbar.taskmanager.BuildConfig
@@ -17,6 +19,7 @@ import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 import com.xojiakbar.taskmanager.databinding.FragmentTasks2Binding
 import com.xojiakbar.taskmanager.databinding.ItemTaskForAdminBinding
+import com.xojiakbar.taskmanager.fragments.dashboard_fragment.DashboardFragmentDirections
 import com.xojiakbar.taskmanager.fragments.tasks_for_admin.dialog.SetExecutorDialog
 import com.xojiakbar.taskmanager.fragments.tasks_for_admin.item.ItemUiController
 
@@ -77,10 +80,34 @@ class TasksFragment : Fragment() ,TaskRouter{
                     BuildConfig.SERVER_URL +"api/resources/" + Preferences.getImageResource()
                         .toString() + "/view"
                 ).into(dataBinding.userImage)
-
+                dataBinding.menu.setOnClickListener {
+                    item?.id?.let { it1 -> showPopupMenu(dataBinding.menu, it1,item) }
+                }
                 dataBinding.executePendingBindings()
+
             }
         }
+
+    }
+    fun showPopupMenu(view :View,id : Int,task:TasksEntity) {
+        var popupMenu =  PopupMenu(view.context, view)
+        popupMenu.inflate(R.menu.tasks_menu)
+        popupMenu.setOnMenuItemClickListener {
+            when(it.itemId)
+            {
+                R.id.delete->{
+                    viewModel.deleteTask(id)
+                }
+                R.id.add_task -> {
+                    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
+                    val navController = navHostFragment.navController
+                    val directions = DashboardFragmentDirections.actionDashboardFragmentToCreateTaskFragment(task.name,task.id!!,task.projects_id!!,task.project_groups_id!!)
+                    navController.navigate(directions)
+                }
+            }
+            false
+        }
+        popupMenu.show()
     }
 
 
@@ -101,14 +128,11 @@ class TasksFragment : Fragment() ,TaskRouter{
     }
 
     override fun setLoading(title: String?) {
-        TODO("Not yet implemented")
     }
 
     override fun onSuccess(response: Any?) {
-        TODO("Not yet implemented")
     }
 
     override fun onError(errorMsg: ErrorResult?) {
-        TODO("Not yet implemented")
     }
 }

@@ -5,23 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.squareup.picasso.Picasso
-import com.xojiakbar.taskmanager.BuildConfig
 import com.xojiakbar.taskmanager.R
 import com.xojiakbar.taskmanager.Utils.LoadingDialog
-import com.xojiakbar.taskmanager.Utils.Preferences
 import com.xojiakbar.taskmanager.adapter.RecyclerAdapter
 import com.xojiakbar.taskmanager.api.result.ErrorResult
 import com.xojiakbar.taskmanager.data.beans.task_bean.Task
 import com.xojiakbar.taskmanager.data.local.entity.TasksEntity
 import com.xojiakbar.taskmanager.databinding.ItemTaskInfoBinding
-import com.xojiakbar.taskmanager.databinding.ItemTasksInfoBinding
 import com.xojiakbar.taskmanager.databinding.RecyclerTasksBinding
+import com.xojiakbar.taskmanager.databinding.TestBinding
 import com.xojiakbar.taskmanager.fragments.home_fragment.dialog.SendInspectionDialog
 import com.xojiakbar.taskmanager.fragments.tasks_fragment.item.ItemUiController
 
@@ -52,7 +50,7 @@ class Tasks : Fragment(), TasksRouter {
         savedInstanceState: Bundle?
     ): View {
         _binding = RecyclerTasksBinding.inflate(inflater, container, false)
-        adapter = RecyclerAdapter(R.layout.item_task_info, getAdapterListener())
+        adapter = RecyclerAdapter(R.layout.test, getAdapterListener())
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         initrRvList()
         binding.recyclerView.adapter = adapter
@@ -96,7 +94,7 @@ class Tasks : Fragment(), TasksRouter {
             override fun setController(dataBinding: ViewDataBinding?) {
                 val controller = ItemUiController(requireContext())
                 controller.router = this@Tasks
-                (dataBinding as ItemTaskInfoBinding).controller = controller
+                (dataBinding as TestBinding).controller = controller
             }
 
             override fun bindItem(
@@ -104,12 +102,17 @@ class Tasks : Fragment(), TasksRouter {
                 item: TasksEntity?,
                 position: Int?
             ) {
-                (dataBinding as ItemTaskInfoBinding).controller!!.setEntityInfo(item)
+                (dataBinding as TestBinding).controller!!.setEntityInfo(item)
 //                Picasso.get().load(
 //                    BuildConfig.SERVER_URL +"api/resources/" + Preferences.getImageResource()
 //                        .toString() + "/view"
 //                ).into(dataBinding.userImage)
-
+                dataBinding.cardView.setOnClickListener {
+                    // SwipeLayout ni o'ng tomondan yechib o'tqazish uchun kodni yozing
+                    val settleDestX = -dataBinding.swipeLayout.dragDistance
+                    dataBinding.swipeLayout.viewDragHelper.smoothSlideViewTo(dataBinding.swipeLayout.contentView!!, settleDestX, 0)
+                    ViewCompat.postInvalidateOnAnimation(dataBinding.swipeLayout)
+                }
                 dataBinding.executePendingBindings()
             }
         }

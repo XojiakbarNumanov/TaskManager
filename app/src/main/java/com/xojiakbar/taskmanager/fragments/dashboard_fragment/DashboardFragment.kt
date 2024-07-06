@@ -29,6 +29,7 @@ import com.xojiakbar.taskmanager.data.local.dao.TaskscntDao
 import com.xojiakbar.taskmanager.data.local.dao.UsersDao
 import com.xojiakbar.taskmanager.data.local.database.AppDatabase
 import com.xojiakbar.taskmanager.databinding.FragmentDashboardBinding
+import com.xojiakbar.taskmanager.fragments.crate_tasks.CreateTaskFragment
 import com.xojiakbar.taskmanager.fragments.login_fragment.LoginUIController
 import com.xojiakbar.taskmanager.fragments.login_fragment.LoginViewModel
 import de.hdodenhof.circleimageview.CircleImageView
@@ -131,8 +132,9 @@ class DashboardFragment : Fragment(), DashboardRouter {
 
         val navHostFragment2 = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
         val navController2 = navHostFragment2.navController
+        val directions = DashboardFragmentDirections.actionDashboardFragmentToCreateTaskFragment(null,-1,-1,-1)
         binding.add.setOnClickListener {
-                navController2.navigate(R.id.createTaskFragment)
+                navController2.navigate(directions)
              }
         if (Preferences.getUserTypesId()==6){
             binding.bottomNavigationView.menu.findItem(R.id.default_item).isVisible = false
@@ -180,5 +182,6 @@ class DashboardFragment : Fragment(), DashboardRouter {
         } catch (_: Exception) {
         }
     }
+
 
 }

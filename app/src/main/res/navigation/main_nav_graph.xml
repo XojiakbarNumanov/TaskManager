@@ -9,7 +9,13 @@
         android:id="@+id/dashboardFragment"
         android:name="com.xojiakbar.taskmanager.fragments.dashboard_fragment.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_createTaskFragment"
+            app:destination="@id/createTaskFragment" >
+        </action>
+
+    </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.xojiakbar.taskmanager.fragments.change_password_fragment.ChangePasswordFragment"
@@ -25,5 +31,28 @@
     <fragment
         android:id="@+id/createTaskFragment"
         android:name="com.xojiakbar.taskmanager.fragments.crate_tasks.CreateTaskFragment"
-        android:label="CreateTaskFragment" />
+        android:label="CreateTaskFragment" >
+
+        <argument
+            android:name="parentId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="parentName"
+            app:nullable="true"
+            app:argType="string" />
+        <argument
+            android:name="projectId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="projectGrId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_createTaskFragment_to_dashboardFragment2"
+            app:destination="@id/dashboardFragment" />
+
+    </fragment>
+
 </navigation>

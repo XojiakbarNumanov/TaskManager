@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/top_redius"
+                android:backgroundTint="@color/light_gray"
                 android:orientation="vertical"
                 android:paddingHorizontal="12dp">
 

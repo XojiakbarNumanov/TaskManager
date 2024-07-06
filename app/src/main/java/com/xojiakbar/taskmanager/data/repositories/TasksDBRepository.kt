@@ -66,6 +66,9 @@ class TasksDBRepository(context: Context) {
     fun getTaskCnt(): LiveData<TasksCountEntity>? {
         return tasksCntDao?.getTasks()
     }
+    fun deleteTaskById(id:Int) {
+        tasksDao?.deleteTaskById(id)
+    }
 
     fun getTasksDB(userId: Int?): LiveData<MutableList<TasksEntity>>? {
         return tasksDao?.getTasks(userId)
@@ -116,6 +119,8 @@ class TasksDBRepository(context: Context) {
             tasksEntity.parent_id = task.parent_id
             tasksEntity.parent_name = task.parent_name
             tasksEntity.parent_task_name = task.parent_task_name
+            tasksEntity.projects_id = task.projects_id
+            tasksEntity.project_groups_id = task.project_groups_id
             tasksDao?.insert(tasksEntity)
         }
     }

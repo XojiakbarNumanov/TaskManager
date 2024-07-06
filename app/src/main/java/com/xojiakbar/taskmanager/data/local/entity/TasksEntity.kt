@@ -30,6 +30,10 @@ class TasksEntity() {
     var parent_name: String? =null
     var parent_id: Int? = null
     var parent_task_name: String? = null
+    var projects_id: Int? = null
+    var project_groups_id: Int? = null
+
+
 
 
 
